@@ -13,6 +13,7 @@ import {
   SetOutline,
   EditSOutline,
 } from "antd-mobile-icons";
+import { Badge } from "antd-mobile";
 export const tabs = [
   {
     key: "/home",
@@ -102,5 +103,36 @@ export const recommendUtils = [
     key: "/home",
     title: "意见反馈",
     icon: <EditSOutline />,
+  },
+];
+
+export const foodTabs = [
+  {
+    key: "key1",
+    title: "店铺招牌",
+  },
+  {
+    key: "key2",
+    title: "川菜",
+  },
+  {
+    key: "key3",
+    title: "海鲜",
+  },
+  {
+    key: "key4",
+    title: "凉菜",
+  },
+  {
+    key: "key5",
+    title: "烧烤",
+  },
+  {
+    key: "key6",
+    title: "酒水",
+  },
+  {
+    key: "key7",
+    title: "甜点",
   },
 ];

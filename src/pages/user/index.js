@@ -5,6 +5,7 @@ import { Button } from "antd-mobile";
 import FDOperationBox from "../../components/operation-box";
 import { recommendUtils, myAssets } from "@/common/local-data";
 import { FDUserWraper } from "./style";
+import { changeBottomStateAction } from "@/components/app-bottom/store/actionCreators";
 
 // 默认头像
 const DEFAULT_AVATAR =
@@ -25,7 +26,7 @@ const FDUser = memo(() => {
 
   // hooks
   useEffect(() => {
-    console.log("进入user界面")
+    dispatch(changeBottomStateAction(true));
   }, []);
   // 其他hooks
 

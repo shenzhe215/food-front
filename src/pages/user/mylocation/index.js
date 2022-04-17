@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FDLocationWraper } from "./style";
 import FDLocationBox from "@/components/location-box";
 import { getLocationAction } from "../store/actionCreators";
+import { changeBottomStateAction } from "@/components/app-bottom/store/actionCreators";
 
 const FDUserLocation = memo(() => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const FDUserLocation = memo(() => {
     shallowEqual
   );
 
+  
   const right = (
     <div style={{ fontSize: 15 }}>
       <Link to={"info"} style={{ color: "black" }}>
@@ -28,6 +30,7 @@ const FDUserLocation = memo(() => {
   // hooks
   useEffect(() => {
     dispatch(getLocationAction());
+    dispatch(changeBottomStateAction(false))
   }, []);
 
   const back = () => {

@@ -1,0 +1,3 @@
+export const CHANGE_FOOD_LIST = 'food/CHANGE_FOOD_LIST'
+export const CHANGE_TYPE_LIST = 'food/CHANGE_TYPE_LIST'
+export const CHANGE_CURRENT_TYPE = 'food/CHANGE_CURRENT_TYPE'
