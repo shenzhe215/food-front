@@ -1,12 +1,10 @@
 import React, { memo, useState, useEffect } from "react";
 import { FDFoodHeaderWraper, FDFoodContentWraper, FDFoodWraper } from "./style";
-import { SideBar, Badge } from "antd-mobile";
-import classNames from "classnames";
+import { SideBar } from "antd-mobile";
 import FDFoodItem from "@/components/food-item";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { changeBottomStateAction } from "@/components/app-bottom/store/actionCreators";
-import { getTypeList } from "./store/actionCreators";
-
+import { getTypeList, getFoodList } from "./store/actionCreators";
 const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
@@ -25,7 +23,9 @@ const FDFood = memo(() => {
   }, []);
 
   // other hooks
-  const handleChange = (key) => {};
+  const handleChange = (key) => {
+    dispatch(getFoodList(key));
+  };
 
   return (
     <FDFoodWraper className="FDFood">
@@ -47,7 +47,9 @@ const FDFood = memo(() => {
             </SideBar>
           </div>
           <div className="main">
-
+              {foodList.map((food) => (
+                  <FDFoodItem foodInfo = {food} key={food.id}></FDFoodItem>
+              ))}
           </div>
         </div>
       </FDFoodContentWraper>

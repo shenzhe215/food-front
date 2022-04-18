@@ -50,7 +50,8 @@ export const FDFoodContentWraper = styled.div`
 
   .main {
     flex: auto;
-    background-color: green;
+    background-color: #f5f5f5;
+    overflow: scroll;
   }
 
   .content {

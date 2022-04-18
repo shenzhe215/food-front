@@ -5,7 +5,7 @@ import { Toast } from "antd-mobile";
 // 更改菜品列表
 export const changeFoodListAction = (foodList) => ({
   type: actionTypes.CHANGE_FOOD_LIST,
-  foodList: foodList,
+  foodList,
 });
 
 // 更改菜品类型列表
