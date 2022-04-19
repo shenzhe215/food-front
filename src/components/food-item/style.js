@@ -5,9 +5,11 @@ export const FDFoodItemWraper = styled.div`
   height: 10%;
   display: flex;
   flex-direction: row;
+  min-height: 5em;
 
   .foodImg {
     flex: 3;
+    flex-shrink: 0;
     vertical-align: bottom;
     margin-bottom: 0em;
   }

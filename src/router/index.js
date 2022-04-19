@@ -9,6 +9,11 @@ const FDUserLocation = React.lazy((_) => import("../pages/user/mylocation"));
 const FDLocationInfo = React.lazy((_) =>
   import("../pages/user/mylocation/info")
 );
+const FDFoodInfo = React.lazy((_) => import("../pages/food/info"));
+const FDFoodSubmitOrder = React.lazy((_) =>
+  import("../pages/order/submit-order")
+);
+
 const routes = [
   {
     path: "/",
@@ -32,11 +37,18 @@ const routes = [
   },
   {
     path: "/food",
-    element: <FDFood />,
+    children: [
+      { index: true, element: <FDFood /> },
+      { path: "info/:id", element: <FDFoodInfo /> },
+    ],
   },
   {
     path: "/order",
     element: <FDOrder />,
+  },
+  {
+    path: "/submitorder",
+    element: <FDFoodSubmitOrder />,
   },
   {
     path: "/location",

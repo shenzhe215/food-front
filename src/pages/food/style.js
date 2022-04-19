@@ -5,6 +5,13 @@ export const FDFoodWraper = styled.div`
   /* background-color: blue; */
   height: 100%;
   width: 100%;
+
+  .popUp {
+    position: absolute;
+    z-index: 2;
+    opacity: 0.2;
+    background-color: blue;
+  }
 `;
 
 export const FDFoodHeaderWraper = styled.div`
@@ -38,7 +45,7 @@ export const FDFoodContentWraper = styled.div`
   // 改变侧栏宽度
   .side {
     flex: none;
-    width: 30%;
+    width: 25%;
     background-color: #f5f5f5;
   }
 
@@ -46,7 +53,6 @@ export const FDFoodContentWraper = styled.div`
     flex: auto;
     height: 100%;
   }
-
 
   .main {
     flex: auto;
