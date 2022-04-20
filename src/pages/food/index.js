@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
-import { SideBar, Popup } from "antd-mobile";
+import { SideBar, Popup, NavBar } from "antd-mobile";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { changeBottomStateAction } from "@/components/app-bottom/store/actionCreators";
 import {
   getTypeList,
@@ -14,6 +15,7 @@ import { FDFoodHeaderWraper, FDFoodContentWraper, FDFoodWraper } from "./style";
 const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { typeList, foodList, popupVisiable, orderList } = useSelector(
     (state) => ({
       typeList: state.getIn(["foodState", "typeList"]),
@@ -23,6 +25,9 @@ const FDFood = memo(() => {
     }),
     shallowEqual
   );
+  //   const { orderList } = useSelector((state) => ({
+  //     orderList: state.getIn(["foodState", "orderList"]),
+  //   }));
 
   // other state
 
@@ -38,12 +43,16 @@ const FDFood = memo(() => {
     dispatch(getFoodList(key));
   };
 
+  const handleBack = () => {
+    navigate("/");
+  };
+
   return (
     <FDFoodWraper className="FDFood">
       <FDFoodHeaderWraper>
-        <h1>FDHeader</h1>
-        <div>title</div>
-        <div>menu</div>
+        <NavBar onBack={handleBack} className="foodNavBar">
+          点餐界面
+        </NavBar>
       </FDFoodHeaderWraper>
       <FDFoodContentWraper>
         <div className={"container"}>
@@ -74,7 +83,6 @@ const FDFood = memo(() => {
         //   dispatch(changePopupVisableAction(false));
         // }}
         mask={false}
-        className={"popUp"}
         stopPropagation={["click", "wheel"]}
         bodyStyle={{
           borderTopLeftRadius: "8px",
@@ -85,12 +93,11 @@ const FDFood = memo(() => {
           "--z-index": "1",
         }}
       >
-        {/* {orderList.map((food) => (
-          <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
-        ))} */}
-        {orderList.map((food) => (
-          <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
-        ))}
+        <div className="popUp">
+          {orderList.map((food) => (
+            <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
+          ))}
+        </div>
       </Popup>
     </FDFoodWraper>
   );

@@ -2,36 +2,41 @@ import styled from "styled-components";
 
 export const FDFoodWraper = styled.div`
   position: relative;
-  /* background-color: blue; */
   height: 100%;
   width: 100%;
 
   .popUp {
-    position: absolute;
-    z-index: 2;
-    opacity: 0.2;
-    background-color: blue;
+    background-color: red;
   }
 `;
 
 export const FDFoodHeaderWraper = styled.div`
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   right: 0;
   // 调配上下部分比例
-  height: 20%;
-  background-color: pink;
+  height: 30%;
+
+  background-image: url(${require("@/assets/img/food_bg_chuan.jpg")});
+  background-size: cover;
+
   min-height: 100px;
+
+  .foodNavBar {
+    background-color: #ffffff;
+    opacity: 0.5;
+  }
 `;
 
 export const FDFoodContentWraper = styled.div`
   position: relative;
-  top: 20%;
+  /* top: 20%; */
+  top: 0.5%;
   left: 0;
   right: 0;
   // 调配上下部分比例
-  height: 80%;
+  height: 69.5%;
   min-height: 400px;
 
   // 调配容器布局

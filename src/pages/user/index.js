@@ -26,7 +26,7 @@ const FDUser = memo(() => {
 
   // hooks
   useEffect(() => {
-    dispatch(changeBottomStateAction(true));
+    // dispatch(changeBottomStateAction(true));
   }, []);
   // 其他hooks
 

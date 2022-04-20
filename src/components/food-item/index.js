@@ -6,7 +6,6 @@ import { AddCircleOutline, MinusCircleOutline } from "antd-mobile-icons";
 
 import { changeCurrentFoodAction } from "@/pages/food/store";
 import { changeOrderMoney } from "@/pages/food/store";
-import { changeOrderList } from "@/pages/food/store";
 
 import { FDFoodItemWraper } from "./style";
 const FDFoodItem = memo((props) => {
@@ -24,7 +23,6 @@ const FDFoodItem = memo((props) => {
   const navigate = useNavigate();
 
   // other state
-  const [count, setCount] = useState(foodOrderCount[id] || 0);
 
   // other hooks
   const handleClick = () => {
@@ -34,20 +32,12 @@ const FDFoodItem = memo((props) => {
 
   const handleMinus = (e) => {
     e.stopPropagation();
-    setCount(count - 1);
-    dispatch(changeOrderMoney(id, price, false));
-    // TODO: 将订单列表处理
-    foodInfo.count = count - 1;
-    dispatch(changeOrderList(foodInfo, false));
+    dispatch(changeOrderMoney(foodInfo, price, false));
   };
 
   const handleAdd = (e) => {
     e.stopPropagation();
-    setCount(count + 1);
-    dispatch(changeOrderMoney(id, price, true));
-    // TODO: 将订单列表处理
-    foodInfo.count = count + 1;
-    dispatch(changeOrderList(foodInfo, true));
+    dispatch(changeOrderMoney(foodInfo, price, true));
   };
 
   return (
@@ -82,7 +72,7 @@ const FDFoodItem = memo((props) => {
           {/* {(count !== 0 && ( */}
           {(foodOrderCount[id] && (
             <MinusCircleOutline
-              color="#2fb06a"
+              color="#2d81ff"
               className="minusOperationIcon"
               onClick={handleMinus}
             />
@@ -96,7 +86,7 @@ const FDFoodItem = memo((props) => {
             <span className="setSpace">{foodOrderCount[id]}</span>
           )) || <span className="setSpace"></span>}
           <AddCircleOutline
-            color="#2fb06a"
+            color="#2d81ff"
             className="addOperationIcon"
             onClick={handleAdd}
           />

@@ -92,9 +92,10 @@ export const getFoodList = (typeId) => {
 };
 
 // -------------修改订单钱数信息-------------
-export const changeOrderMoney = (id, money, isAdd) => {
+export const changeOrderMoney = (foodInfo, money, isAdd) => {
   return (dispatch, getState) => {
     const curMoney = getState().getIn(["foodState", "orderMoney"]);
+    const { id } = foodInfo;
     if (isAdd) {
       const orderMoney = curMoney + money;
       dispatch(changeOrderMoneyAction(orderMoney));
@@ -103,21 +104,25 @@ export const changeOrderMoney = (id, money, isAdd) => {
       dispatch(changeOrderMoneyAction(orderMoney));
     }
     // 修改订单数量
-    dispatch(changeOrderCount(id, isAdd));
+    dispatch(changeOrderCount(foodInfo, isAdd));
   };
 };
 
 // -------------修改订单数量信息-------------
-export const changeOrderCount = (id, isAdd) => {
+export const changeOrderCount = (foodInfo, isAdd) => {
   return (dispatch, getState) => {
+    const { id } = foodInfo;
     const curCount = getState().getIn(["foodState", "foodCount"]);
-    const foodOrderCount = getState().getIn(["foodState", "foodOrderCount"]);
+    const newFoodOrderCount = getState().getIn(["foodState", "foodOrderCount"]);
+    const foodOrderCount = JSON.parse(JSON.stringify(newFoodOrderCount));
     if (isAdd) {
       const orderCount = curCount + 1;
       if (id in foodOrderCount) {
         foodOrderCount[id] += 1;
       } else {
         foodOrderCount[id] = 1;
+        // 改变现有orderlist     食品信息   添加
+        dispatch(changeOrderList(foodInfo, true));
       }
       dispatch(changeFoodOrderCoutnAction(foodOrderCount));
       dispatch(changeOrderCoutnAction(orderCount));
@@ -125,6 +130,8 @@ export const changeOrderCount = (id, isAdd) => {
       const orderCount = curCount - 1;
       if (foodOrderCount[id] === 1) {
         delete foodOrderCount[id];
+        // 改变现有orderlist     食品信息   删除
+        dispatch(changeOrderList(foodInfo, false));
       } else {
         foodOrderCount[id] -= 1;
       }
@@ -135,34 +142,17 @@ export const changeOrderCount = (id, isAdd) => {
 };
 
 // -------------修改订单列表信息-------------
-export const changeOrderList = (foodInfo, isAdd) => {
+export const changeOrderList = (foodInfo, addOrDelete) => {
   return (dispatch, getState) => {
-    const newOrderList = getState().getIn(["foodState", "orderList"]);
-
-    if (isAdd) {
-      let foodInList = false;
-      newOrderList.forEach(function (item, index, array) {
-        // 菜品在里边，修改数量
-        if (foodInfo.id === item.id) {
-          item.count = foodInfo.count;
-          foodInList = true;
-        }
-      });
-      // 该菜品不在list内，插入
-      if (!foodInList) {
-        newOrderList.push(foodInfo);
-      }
+    const orderList = getState().getIn(["foodState", "orderList"]);
+    const newOrderList = JSON.parse(JSON.stringify(orderList));
+    if (addOrDelete) {
+      newOrderList.push(foodInfo);
     } else {
-      // 减法行为
+      // 删除行为
       newOrderList.forEach(function (item, index, array) {
-        // 菜品在里边，修改数量
         if (foodInfo.id === item.id) {
-          if (item.count === 0) {
-            // 删除
-            newOrderList.splice(index, 1);
-          } else {
-            item.count = foodInfo.count;
-          }
+          newOrderList.splice(index, 1);
         }
       });
     }
@@ -170,3 +160,40 @@ export const changeOrderList = (foodInfo, isAdd) => {
   };
 };
 
+// -------------修改订单列表信息-------------
+// export const changeOrderList = (foodInfo, isAdd) => {
+//   return (dispatch, getState) => {
+//     const orderList = getState().getIn(["foodState", "orderList"]);
+//     const newOrderList = JSON.parse(JSON.stringify(orderList));
+//     console.log(newOrderList);
+
+//     if (isAdd) {
+//       let foodInList = false;
+//       newOrderList.forEach(function (item, index, array) {
+//         // 菜品在里边，修改数量
+//         if (foodInfo.id === item.id) {
+//           item.count = foodInfo.count;
+//           foodInList = true;
+//         }
+//       });
+//       // 该菜品不在list内，插入
+//       if (!foodInList) {
+//         newOrderList.push(foodInfo);
+//       }
+//     } else {
+//       // 减法行为
+//       newOrderList.forEach(function (item, index, array) {
+//         // 菜品在里边，修改数量
+//         if (foodInfo.id === item.id) {
+//           if (item.count === 0) {
+//             // 删除
+//             newOrderList.splice(index, 1);
+//           } else {
+//             item.count = foodInfo.count;
+//           }
+//         }
+//       });
+//     }
+//     dispatch(changeOrderListAction(newOrderList));
+//   };
+// };
