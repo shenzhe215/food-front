@@ -1,1 +1,0 @@
-export const CHANGE_BOTTOM_CONTENT = 'bottom/CHANGE_BOTTOM_CONTENT'

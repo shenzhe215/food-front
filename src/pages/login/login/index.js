@@ -1,6 +1,5 @@
 import React, { memo, useState, useEffect } from "react";
-import { Form, Input, Button, Radio, Space, Toast } from "antd-mobile";
-import { UserOutline } from "antd-mobile-icons";
+import { Form, Input, Button, Radio, message } from "antd";
 
 import { getMatchReg } from "@/utils/format-utils";
 import { FDLoginWraper, FDInputWraper, FDBtnWraper } from "./style";
@@ -8,7 +7,6 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendRegisterCode, sendRegister } from "@/service/login";
 import { getLoginProfileInfo } from "../store/actionCreators";
-import { is } from "immutable";
 
 const FDLogin = memo(() => {
   const [loginMethod, setLoginMethod] = useState("password");
@@ -39,6 +37,17 @@ const FDLogin = memo(() => {
 
   // component handle
 
+  // hooks
+  useEffect(() => {
+    console.log("login");
+  });
+  // useEffect(() => {
+  //   if (isLogin) {
+  //     navigate("/");
+  //   } else {
+  //     navigate("/login");
+  //   }
+  // }, [isLogin]);
   // 验证码处理
   // handle function
   const handleSendCode = () => {
@@ -57,18 +66,8 @@ const FDLogin = memo(() => {
       // 发送验证码
       !isSendSatte &&
         sendRegisterCode(phone).then((res) => {
-          if (res.code === 20000)
-            Toast.show({
-              icon: "success",
-              content: "发送成功",
-              duration: 2000,
-            });
-          else
-            Toast.show({
-              icon: "fail",
-              content: "发送失败, 请60秒后发送验证码",
-              duration: 2000,
-            });
+          if (res.code === 20000) message.success("发送成功");
+          else message.error("发送失败, 请60秒后发送验证码");
         });
     }
     setIsSendSatte(true);
@@ -78,14 +77,6 @@ const FDLogin = memo(() => {
   const onFinish = (values) => {
     dispatch(getLoginProfileInfo(values));
   };
-
-  useEffect(() => {
-    if (isLogin) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  }, [isLogin]);
 
   const loginForm = () => {
     switch (loginMethod) {
@@ -133,83 +124,7 @@ const FDLogin = memo(() => {
   };
   return (
     <FDLoginWraper>
-      <div className="loginTitle">
-        <span className="loginSpan">登录</span>
-        <span className="welcomeSpan">欢迎再次回来~</span>
-      </div>
-      <FDInputWraper>
-        <Form layout="horizontal" mode="card" onFinish={onFinish}>
-          {/* <Form.Header>请登录</Form.Header> */}
-          <Form.Item
-            // label="手机号"
-            name="mobile"
-            rules={[
-              {
-                pattern: mathchPhoneReg,
-                message: `请输入正确的手机号`,
-              },
-              { required: true, message: "请输入你的手机号" },
-            ]}
-          >
-            <Input
-              clearable
-              placeholder="请输入手机号"
-              onChange={(value) => {
-                setPhone(value);
-              }}
-              style={{ "--font-size": "1.5em" }}
-            />
-          </Form.Item>
-          {loginForm()}
-          <Form.Item>
-            <Button
-              block
-              type="submit"
-              color="primary"
-              size="middle"
-              className="submitBtn"
-            >
-              登录
-            </Button>
-          </Form.Item>
-          <Form.Item>
-            <div className="registerRow">
-              <span>找回密码</span>
-              <span onClick={handleRegister}>快速注册</span>
-            </div>
-          </Form.Item>
-        </Form>
-      </FDInputWraper>
-
-      {/* <Form.Item
-        name="loginMethod"
-        label="请选择登录方式："
-        className="loginWay"
-      >
-        <br />
-        <div className="radioGroup">
-          <Radio.Group onChange={(value) => setLoginMethod(value)}>
-            <Space>
-              <Radio value="mobile">验证码登录</Radio>
-              <Radio value="password">密码登录</Radio>
-            </Space>
-          </Radio.Group>
-        </div>
-      </Form.Item> */}
-      {/* <FDBtnWraper>
-        <span className="space">
-          <h4>没有账户：去注册 </h4>
-        </span>
-        <Button
-          block
-          color="default"
-          size="middle"
-          className="submitBtn"
-          onClick={handleRegister}
-        >
-          注册
-        </Button>
-      </FDBtnWraper> */}
+      <h1>登录界面</h1>
     </FDLoginWraper>
   );
 });

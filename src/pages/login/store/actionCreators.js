@@ -6,8 +6,7 @@ import {
   setLoginInfo,
   clearLoginState,
 } from "@/utils/secret-key";
-// import md5 from 'js-md5'
-import { Toast } from "antd-mobile";
+import { message } from "antd";
 import cookie from "js-cookie";
 
 // 更改登录用户信息
@@ -39,17 +38,9 @@ export const getLoginProfileInfo = (values) => {
   return (dispatch, getState) => {
     submitLoginUser(values).then((res) => {
       if (res.code !== 20000) {
-        Toast.show({
-          icon: "fail",
-          content: "账号或密码错误",
-          duration: 2000,
-        });
+        message.error("账号或密码错误");
       } else {
-        Toast.show({
-          icon: "success",
-          content: "登录成功",
-          duration: 2000,
-        });
+        message.error("登录成功");
         // 登录成功
         cookie.set("food_token", res.data.token, { domain: "localhost" });
         // console.log(cookie.get("food_token"));
@@ -67,7 +58,6 @@ export const getLoginProfileInfo = (values) => {
           // console.log(res);
           dispatch(changeUserProfileAction(userInfo));
         });
-       
 
         // 更改登录状态
         dispatch(changeUserLoginStateAction(true));

@@ -1,6 +1,6 @@
 import CryptoJS from "crypto-js";
 import { secretKey } from "@/config/token.js";
-import { Toast } from "antd-mobile";
+import { message } from "antd";
 
 /**
  * 加密信息,本地存储
@@ -17,11 +17,7 @@ export async function setLoginInfo(key, info) {
     localStorage.setItem(key, cipherText); //本地存储
     return true;
   } else {
-    Toast.show({
-      icon: "fail",
-      content: "网络异常, 请稍后重试",
-      duration: 2000,
-    });
+    message.error("网络异常, 请稍后重试");
     return false;
   }
 }

@@ -1,11 +1,12 @@
 import React, { memo, useState, useEffect } from "react";
-import { Form, Input, Button, Radio, Space, Toast } from "antd-mobile";
+import { Form, Input, Button, Radio, message } from "antd";
+
 import { getMatchReg } from "@/utils/format-utils";
-import { FDLoginWraper, FDInputWraper, FDBtnWraper } from "../style";
+import { FDLoginWraper, FDInputWraper, FDBtnWraper } from "./style";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendRegisterCode, sendRegister } from "@/service/login";
-import { getLoginProfileInfo } from "../../store/actionCreators";
+import { getLoginProfileInfo } from "../store/actionCreators";
 import { is } from "immutable";
 
 const FDLogin = memo(() => {
@@ -55,18 +56,8 @@ const FDLogin = memo(() => {
       // 发送验证码
       !isSendSatte &&
         sendRegisterCode(phone).then((res) => {
-          if (res.code === 20000)
-            Toast.show({
-              icon: "success",
-              content: "发送成功",
-              duration: 2000,
-            });
-          else
-            Toast.show({
-              icon: "fail",
-              content: "发送失败, 请60秒后发送验证码",
-              duration: 2000,
-            });
+          if (res.code === 20000) message.success("发送成功");
+          else message.error("发送失败, 请60秒后发送验证码");
         });
     }
     setIsSendSatte(true);
@@ -110,29 +101,20 @@ const FDLogin = memo(() => {
       case "password":
         return (
           <>
-            {/* <Form.Item
-              label="用户名"
-              name="nickname"
-              rules={[
-                {
-                  pattern: mathchUsername,
-                  message: `请输入正确的用户名`,
-                },
-                { required: true, message: "请输入你的账户" },
-              ]}
-            >
-              <Input clearable placeholder="请输入用户名" />
-            </Form.Item> */}
-
             <Form.Item
-              label="密码"
+              //   label="密码"
               name="password"
               rules={[
                 { pattern: pwdReg, message: "密码最短6位" },
                 { required: true, message: "请输入密码!" },
               ]}
             >
-              <Input clearable type="password" placeholder="请输入密码" />
+              <Input
+                clearable
+                type="password"
+                placeholder="请输入密码"
+                style={{ "--font-size": "1.5em" }}
+              />
             </Form.Item>
           </>
         );
@@ -141,14 +123,14 @@ const FDLogin = memo(() => {
   return (
     <FDLoginWraper>
       <div className="loginTitle">
-        <span>登录</span>
-        <span>欢迎再次回来</span>
+        <span className="loginSpan">登录</span>
+        <span className="welcomeSpan">欢迎再次回来~</span>
       </div>
       <FDInputWraper>
         <Form layout="horizontal" mode="card" onFinish={onFinish}>
-          <Form.Header>请登录</Form.Header>
+          {/* <Form.Header>请登录</Form.Header> */}
           <Form.Item
-            label="手机号"
+            // label="手机号"
             name="mobile"
             rules={[
               {
@@ -164,6 +146,7 @@ const FDLogin = memo(() => {
               onChange={(value) => {
                 setPhone(value);
               }}
+              style={{ "--font-size": "1.5em" }}
             />
           </Form.Item>
           {loginForm()}
@@ -178,10 +161,16 @@ const FDLogin = memo(() => {
               登录
             </Button>
           </Form.Item>
+          <Form.Item>
+            <div className="registerRow">
+              <span>找回密码</span>
+              <span onClick={handleRegister}>快速注册</span>
+            </div>
+          </Form.Item>
         </Form>
       </FDInputWraper>
 
-      <Form.Item
+      {/* <Form.Item
         name="loginMethod"
         label="请选择登录方式："
         className="loginWay"
@@ -195,8 +184,8 @@ const FDLogin = memo(() => {
             </Space>
           </Radio.Group>
         </div>
-      </Form.Item>
-      <FDBtnWraper>
+      </Form.Item> */}
+      {/* <FDBtnWraper>
         <span className="space">
           <h4>没有账户：去注册 </h4>
         </span>
@@ -209,7 +198,7 @@ const FDLogin = memo(() => {
         >
           注册
         </Button>
-      </FDBtnWraper>
+      </FDBtnWraper> */}
     </FDLoginWraper>
   );
 });

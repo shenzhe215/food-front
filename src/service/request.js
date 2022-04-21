@@ -1,6 +1,6 @@
 import axios from "axios";
 import { BASE_URL, TIMEOUT } from "./config";
-import { Toast, Modal } from "antd-mobile";
+import { message } from "antd";
 import cookie from "js-cookie";
 
 const instance = axios.create({
@@ -39,11 +39,7 @@ instance.interceptors.response.use(
     } else if (res.code !== 20000) {
       //25000：订单支付中，不做任何提示
       if (response.data.code !== 25000) {
-        Toast.show({
-          icon: "fail",
-          content: res.message || "Error",
-          duration: 3000,
-        });
+        message.error(res.message || "Error");
       }
       // 50008: Illegal token; 50012: Other clients logged in; 50014: Token expired;
       // if (res.code === 50008 || res.code === 50012 || res.code === 50014) {
@@ -69,11 +65,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     console.log("err" + error); // for debug
-    Toast.show({
-      icon: "fail",
-      content: error.message,
-      duration: 3000,
-    });
+    message.error(error.message);
     return Promise.reject(error);
   }
 );
