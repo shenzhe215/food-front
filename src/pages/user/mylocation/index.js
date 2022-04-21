@@ -11,14 +11,14 @@ const FDUserLocation = memo(() => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { locationList } = useSelector(
+  const { isLogin, locationList } = useSelector(
     (state) => ({
       locationList: state.getIn(["userState", "locationList"]),
+      isLogin: state.getIn(["loginState", "isLogin"]),
     }),
     shallowEqual
   );
 
-  
   const right = (
     <div style={{ fontSize: 15 }}>
       <Link to={"info"} style={{ color: "black" }}>
@@ -29,8 +29,11 @@ const FDUserLocation = memo(() => {
 
   // hooks
   useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
     dispatch(getLocationAction());
-    dispatch(changeBottomStateAction(false))
+    dispatch(changeBottomStateAction(false));
   }, []);
 
   const back = () => {

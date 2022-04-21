@@ -28,7 +28,7 @@ const FDDock = memo(() => {
 
   // other hooks
   const handleOrder = () => {
-      navigate("/submitorder")
+    navigate("/submitorder");
   };
   return (
     <FDDockWraper>
@@ -42,7 +42,8 @@ const FDDock = memo(() => {
         <div className="sendMoney">预估另需配送费￥{0.3}</div>
       </div>
       <div className="dockRight" onClick={handleOrder}>
-        差￥{5}起送
+        {/* 差￥{5}起送 */}
+        去结算
       </div>
     </FDDockWraper>
   );

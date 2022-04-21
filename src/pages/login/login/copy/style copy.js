@@ -6,26 +6,12 @@ export const FDLoginWraper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ffffff;
+  background-color: pink;
   /* background-image: url(${require("@/assets/img/bg.jpg")});
   background-repeat: no-repeat;
   background-position: center; */
 
-  .loginTitle {
-    margin-top: 20%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 8%;
-
-    .loginSpan {
-      font-size: 2em;
-      font-weight: bold;
-    }
-
-    .welcomeSpan {
-      font-size: 1.3em;
-      color: #999999;
-    }
+  .loginWay {
   }
 
   .radioGroup {
@@ -35,14 +21,7 @@ export const FDLoginWraper = styled.div`
 `;
 
 export const FDInputWraper = styled.div`
-  /* margin-top: 30%; */
   margin-top: 30%;
-  padding: 0 4%;
-  .registerRow {
-    display: flex;
-    justify-content: space-between;
-    color: #999999;
-  }
 `;
 
 export const FDBtnWraper = styled.div`
@@ -58,6 +37,9 @@ export const FDBtnWraper = styled.div`
     margin-top: 9px;
   }
 
+  .submitBtn {
+    width: 40%;
+  }
   .space {
     margin-left: 10px;
     margin-right: 20px;

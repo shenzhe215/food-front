@@ -54,6 +54,11 @@ export const FDDockWraper = styled.div`
     display: flex;
     align-items: center;
     justify-content: right;
-    margin-right: 1em;
+    padding-right: 1em;
+
+    background-color: #fecf4b;
+    border-radius:0 5em 5em 0;
+    color: #000000;
+    font-size: 1.5em;
   }
 `;

@@ -1,7 +1,7 @@
 import React, { memo, useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Form, Input, Button, NavBar, Toast } from "antd-mobile";
+import { Form, Input, Button, NavBar, Toast, Space } from "antd-mobile";
 import { getMatchReg } from "@/utils/format-utils";
 import {
   addLocation,
@@ -87,6 +87,27 @@ const FDLocationInfo = memo(() => {
     navigate("/location");
   };
 
+  // 删除地址操作
+  const handleDelete = () => {
+    console.log(id);
+    removeLocation(id).then((res) => {
+      if (res.code === 20000) {
+        Toast.show({
+          icon: "success",
+          content: "删除成功",
+          duration: 2000,
+        });
+      } else {
+        Toast.show({
+          icon: "fail",
+          content: res.data.message,
+          duration: 2000,
+        });
+      }
+    });
+    dispatch(getLocationAction());
+    navigate("/location");
+  };
   return (
     <FDLocationInfoWraper>
       <NavBar
@@ -138,15 +159,17 @@ const FDLocationInfo = memo(() => {
           <Input clearable placeholder="请输入手机号" />
         </Form.Item>
         <Form.Item>
-          <Button
-            block
-            type="submit"
-            color="primary"
-            size="middle"
-            className="submitBtn"
-          >
-            {(update && "更新") || "保存"}
-          </Button>
+          <div className="operationBox">
+            {update && (
+              <Button block color="danger" size="middle" onClick={handleDelete}>
+                删除
+              </Button>
+            )}
+            {update && <span />}
+            <Button block type="submit" color="primary" size="middle">
+              {(update && "更新") || "保存"}
+            </Button>
+          </div>
         </Form.Item>
       </Form>
     </FDLocationInfoWraper>

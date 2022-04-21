@@ -6,5 +6,15 @@ export const FDLocationInfoWraper = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: pink;
+  background-color: #f5f5f5;
+  
+  span {
+    padding-left: 0.1em;
+    padding-right: 0.1em;
+  }
+
+  .operationBox {
+    display: flex;
+    justify-content: space-between;
+  }
 `;

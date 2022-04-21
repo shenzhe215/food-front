@@ -16,23 +16,25 @@ const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { typeList, foodList, popupVisiable, orderList } = useSelector(
+  const { isLogin, typeList, foodList, popupVisiable, orderList } = useSelector(
     (state) => ({
       typeList: state.getIn(["foodState", "typeList"]),
       foodList: state.getIn(["foodState", "foodList"]),
       popupVisiable: state.getIn(["foodState", "popupVisiable"]),
       orderList: state.getIn(["foodState", "orderList"]),
+      isLogin: state.getIn(["loginState", "isLogin"]),
     }),
     shallowEqual
   );
-  //   const { orderList } = useSelector((state) => ({
-  //     orderList: state.getIn(["foodState", "orderList"]),
-  //   }));
 
   // other state
 
   // hooks
   useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+
     dispatch(changeBottomStateAction(false));
     dispatch(changePopupVisableAction(false));
     dispatch(getTypeList());
@@ -79,25 +81,25 @@ const FDFood = memo(() => {
       <FDDock />
       <Popup
         visible={popupVisiable}
-        // onMaskClick={() => {
-        //   dispatch(changePopupVisableAction(false));
-        // }}
         mask={false}
         stopPropagation={["click", "wheel"]}
         bodyStyle={{
           borderTopLeftRadius: "8px",
           borderTopRightRadius: "8px",
+          bottom: "7em",
           minHeight: "40vh",
+          maxHeight: "40vh",
+          padding: "1em 1em 1em 1em",
+          backgroundColor: "#f1f1f1",
+          overflow: "scroll",
         }}
         style={{
           "--z-index": "1",
         }}
       >
-        <div className="popUp">
-          {orderList.map((food) => (
-            <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
-          ))}
-        </div>
+        {orderList.map((food) => (
+          <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
+        ))}
       </Popup>
     </FDFoodWraper>
   );

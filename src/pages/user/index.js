@@ -6,7 +6,7 @@ import FDOperationBox from "../../components/operation-box";
 import { recommendUtils, myAssets } from "@/common/local-data";
 import { FDUserWraper } from "./style";
 import { changeBottomStateAction } from "@/components/app-bottom/store/actionCreators";
-
+import { logOutAction } from "../login/store";
 // 默认头像
 const DEFAULT_AVATAR =
   "https://guli-file-190513.oss-cn-beijing.aliyuncs.com/avatar/default.jpg";
@@ -26,9 +26,13 @@ const FDUser = memo(() => {
 
   // hooks
   useEffect(() => {
-    // dispatch(changeBottomStateAction(true));
+    dispatch(changeBottomStateAction(true));
   }, []);
   // 其他hooks
+  const handleLogOut = () => {
+    console.log("logout");
+    dispatch(logOutAction());
+  };
 
   return (
     <FDUserWraper>
@@ -56,7 +60,7 @@ const FDUser = memo(() => {
             {isLogin ? (
               <>
                 <div className="auth">
-                  <span>退出</span>
+                  <span onClick={handleLogOut}>退出</span>
                 </div>
                 <div className="edit">
                   编辑个人资料

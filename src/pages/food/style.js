@@ -4,10 +4,7 @@ export const FDFoodWraper = styled.div`
   position: relative;
   height: 100%;
   width: 100%;
-
-  .popUp {
-    background-color: red;
-  }
+  background-color: #f5f5f5;
 `;
 
 export const FDFoodHeaderWraper = styled.div`

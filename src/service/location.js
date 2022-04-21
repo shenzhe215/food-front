@@ -29,7 +29,7 @@ export function updateLocation(locationInfo) {
 // 删除地址信息
 export function removeLocation(id) {
   return request({
-    url: `/fooducenter/location/addLocation${id}`,
+    url: `/fooducenter/location/${id}`,
     method: "delete",
   });
 }

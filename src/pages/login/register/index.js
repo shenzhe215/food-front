@@ -10,7 +10,7 @@ import {
   Divider,
 } from "antd-mobile";
 import { getMatchReg } from "@/utils/format-utils";
-import { FDLoginWraper, FDInputWraper, FDBtnWraper } from "./style";
+import { FDRegisterWraper, FDInputWraper } from "./style";
 import { useNavigate } from "react-router-dom";
 import { sendRegisterCode, sendRegister } from "@/service/login";
 import { calculateNewValue } from "@testing-library/user-event/dist/utils";
@@ -38,7 +38,7 @@ const FDRegister = memo(() => {
           content: "注册成功",
           duration: 2000,
         });
-        navigate("/login")
+        navigate("/login");
       } else
         Toast.show({
           icon: "fail",
@@ -92,7 +92,11 @@ const FDRegister = memo(() => {
   };
 
   return (
-    <FDLoginWraper>
+    <FDRegisterWraper>
+      <div className="registerTitle">
+        <span className="registerSpan">注册</span>
+        <span className="welcomeSpan">欢迎注册~</span>
+      </div>
       <FDInputWraper>
         <Form
           layout="horizontal"
@@ -100,7 +104,7 @@ const FDRegister = memo(() => {
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
         >
-          <Form.Header>欢迎注册</Form.Header>
+          {/* <Form.Header>欢迎注册</Form.Header> */}
           <Form.Item
             label="用户名"
             name="nickname"
@@ -112,7 +116,11 @@ const FDRegister = memo(() => {
               { required: true, message: "请输入你的账户" },
             ]}
           >
-            <Input clearable placeholder="请输入用户名" />
+            <Input
+              clearable
+              placeholder="请输入用户名"
+              style={{ "--font-size": "1.2em" }}
+            />
           </Form.Item>
           <Form.Item
             label="密码"
@@ -122,7 +130,12 @@ const FDRegister = memo(() => {
               { required: true, message: "请输入密码!" },
             ]}
           >
-            <Input clearable type="password" placeholder="请输入密码" />
+            <Input
+              clearable
+              type="password"
+              placeholder="请输入密码"
+              style={{ "--font-size": "1.2em" }}
+            />
           </Form.Item>
           <Form.Item
             label="手机号"
@@ -141,6 +154,7 @@ const FDRegister = memo(() => {
               onChange={(value) => {
                 setPhone(value);
               }}
+              style={{ "--font-size": "1.2em" }}
             />
           </Form.Item>
           <Form.Item
@@ -156,7 +170,11 @@ const FDRegister = memo(() => {
               { required: true, message: "请输入验证码" },
             ]}
           >
-            <Input clearable placeholder="请输入验证码" />
+            <Input
+              clearable
+              placeholder="请输入验证码"
+              style={{ "--font-size": "1.2em" }}
+            />
           </Form.Item>
           <Form.Item>
             <Button
@@ -169,25 +187,15 @@ const FDRegister = memo(() => {
               注册
             </Button>
           </Form.Item>
+          <Form.Item>
+            <div className="loginRow">
+              <span></span>
+              <span onClick={handleLogin}>去登录</span>
+            </div>
+          </Form.Item>
         </Form>
       </FDInputWraper>
-
-      <FDBtnWraper>
-        <span className="space">
-          <h4>已存在账户：请登录</h4>
-        </span>
-        <Button
-          block
-          type="submit"
-          color="default"
-          size="middle"
-          className="submitBtn"
-          onClick={handleLogin}
-        >
-          登录
-        </Button>
-      </FDBtnWraper>
-    </FDLoginWraper>
+    </FDRegisterWraper>
   );
 });
 

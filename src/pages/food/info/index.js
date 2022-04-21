@@ -74,8 +74,8 @@ const FDFoodInfo = memo(() => {
           <Tabs.Tab title="详情" key="description">
             <div className="description">{description}</div>
           </Tabs.Tab>
-          <Tabs.Tab title="评价" key="vegetables">
-            评价
+          <Tabs.Tab title="" key="vegetables">
+            {/* 评价 */}
           </Tabs.Tab>
         </Tabs>
       </div>

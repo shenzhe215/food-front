@@ -1,7 +1,11 @@
 import { submitLoginUser, getLoginUserInfo } from "@/service/login";
 import * as actionTypes from "./constants";
 import loginInfo from "@/config/token";
-import { getLoginInfo, setLoginInfo } from "@/utils/secret-key";
+import {
+  getLoginInfo,
+  setLoginInfo,
+  clearLoginState,
+} from "@/utils/secret-key";
 // import md5 from 'js-md5'
 import { Toast } from "antd-mobile";
 import cookie from "js-cookie";
@@ -46,10 +50,11 @@ export const getLoginProfileInfo = (values) => {
           content: "登录成功",
           duration: 2000,
         });
-        // console.log(res)
         // 登录成功
         cookie.set("food_token", res.data.token, { domain: "localhost" });
+        // console.log(cookie.get("food_token"));
 
+        document.cookie = res.data.token;
         // 获取用户信息
         getLoginUserInfo().then((res) => {
           const userInfo = res.data.userInfo;
@@ -58,26 +63,40 @@ export const getLoginProfileInfo = (values) => {
           });
 
           // 更改登录状态
-          loginInfo.nickname = userInfo.nickname;
-          loginInfo.password = userInfo.password;
-          loginInfo.state = true;
-          let newLoginInfo = Object.assign(
-            getLoginInfo("loginInfo"),
-            loginInfo
-          );
-          setLoginInfo("loginInfo", newLoginInfo);
+          // console.log(cookie.get("food_ucenter"));
+          // console.log(res);
+          dispatch(changeUserProfileAction(userInfo));
         });
-        // document.cookie = res.cookie;
-        // 保存登录信息
-        // console.log(cookie.get("food_ucenter"));
+       
 
         // 更改登录状态
         dispatch(changeUserLoginStateAction(true));
         dispatch(changeUserLoginTokenAction(cookie.get("food_token")));
-        // dispatch(changeUserLoginCookie(cookie.get("food_token")));
-        // 保存用户信息
-        dispatch(changeUserProfileAction(JSON.parse(cookie.get("food_ucenter"))));
       }
     });
+  };
+};
+
+// -------------退出信息-------------
+export const logOutAction = (values) => {
+  return (dispatch, getState) => {
+    // 清除
+    // cookie.set("food_token", "", { domain: "localhost" });
+    // cookie.set("food_ucenter", "", { domain: "localhost" });
+    cookie.remove("food_token");
+    cookie.remove("food_ucenter");
+    // 清除用户信息
+    // 更改登录状态
+    // clearLoginState();
+
+    // let newLoginInfo = Object.assign(getLoginInfo("loginInfo"), loginInfo);
+    // setLoginInfo("loginInfo", newLoginInfo);
+    // debugger
+    // 更改登录状态
+    dispatch(changeUserLoginStateAction(false));
+    dispatch(changeUserLoginTokenAction(""));
+    // 保存用户信息
+    const newUserProfile = {};
+    dispatch(changeUserProfileAction(newUserProfile));
   };
 };
