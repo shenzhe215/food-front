@@ -8,6 +8,7 @@ import { changeCurrentFoodAction } from "@/pages/food/store";
 import { changeOrderMoney } from "@/pages/food/store";
 
 import { FDFoodItemWraper } from "./style";
+import FDOperationBox from "../FD-Food-Operation";
 const FDFoodItem = memo((props) => {
   // state
   const { foodOrderCount } = useSelector(
@@ -62,8 +63,8 @@ const FDFoodItem = memo((props) => {
       </div>
       <div className="foodOperationBox">
         <h2 className="foodContentPrice">{price}￥</h2>
-        <span className="operationBox">
-          <div className={!foodOrderCount[id] && "hasBorder"}>
+        {/* <span className="operationBox"> */}
+          {/* <div className={!foodOrderCount[id] && "hasBorder"}>
             {foodOrderCount[id] && (
               <MinusOutlined className="operationIcon" onClick={handleMinus} />
             )}
@@ -75,8 +76,9 @@ const FDFoodItem = memo((props) => {
           </div>
           <div>
             <PlusOutlined className="operationIcon" onClick={handleAdd} />
-          </div>
-        </span>
+          </div> */}
+          <FDOperationBox foodInfo={foodInfo} />
+        {/* </span> */}
       </div>
     </FDFoodItemWraper>
   );

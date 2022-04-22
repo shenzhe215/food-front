@@ -35,6 +35,15 @@ const FDAppHeader = memo(() => {
               <Link to="/food">新增菜品</Link>
             </Menu.Item>
           </SubMenu>
+          <Link to={"/location"}>
+            <SubMenu title="地址"></SubMenu>
+          </Link>
+          <Link to={"/login"}>
+            <SubMenu title="登录"></SubMenu>
+          </Link>
+          <Link to={"/submitorder"}>
+            <SubMenu title="订单"></SubMenu>
+          </Link>
         </Menu>
       </Header>
     </FDHeadWraper>

@@ -39,16 +39,17 @@ const FDLogin = memo(() => {
 
   // hooks
   useEffect(() => {
-    navigate("/food");
+    // navigate("/food");
   }, []);
-  // useEffect(() => {
-  //   if (isLogin) {
-  //     navigate("/food");
-  //   } else {
-  //     // navigate("/login");
-  //     navigate("/food");
-  //   }
-  // }, [isLogin]);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/food");
+    } else {
+      navigate("/login");
+      // navigate("/food");
+    }
+  }, [isLogin]);
 
   // 验证码处理
   // handle function

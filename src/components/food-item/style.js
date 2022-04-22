@@ -6,11 +6,12 @@ export const FDFoodItemWraper = styled.div`
   min-height: 150px;
   max-width: 150px;
   background-color: #f5f5f5;
-  margin-right: 40px;
+  /* margin-right: 40px; */
   margin-bottom: 20px;
 
   .foodImg {
     vertical-align: bottom;
+    user-select: none;
     :hover {
       cursor: pointer;
     }
@@ -39,30 +40,32 @@ export const FDFoodItemWraper = styled.div`
     padding-bottom: 5px;
 
     .operationIcon {
-      color: #2d81ff;
+      /* color: #2d81ff; */
       font-size: 15px;
+      background-color: #ededed;
     }
 
     .operationBox {
-      display: flex;
+      /* display: flex;
       flex-direction: row;
-      padding-right: 5px;
-
+      padding-right: 5px; */
+/* 
       .hasBorder {
         border: none;
       }
 
       div {
-        border: 1px solid #000;
+        border: 1px solid #dfdfdf;
         margin: 0px 0px 0px -1px;
         width: 19px;
         height: 19px;
         text-align: center;
+        user-select: none;
       }
 
       div:nth-child(2) {
         border-right: none;
-      }
+      } */
     }
   }
 `;

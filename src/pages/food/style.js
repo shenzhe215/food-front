@@ -41,13 +41,13 @@ export const FDFoodContentWraper = styled.div`
 
   .main {
     width: 90%;
-    display: flex;
-    flex-basis: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
 
-    div:nth-child(5n + 0) {
+    > div {
+      display: inline-block;
+      margin-right: calc((20% - 150px) * 1.25);
+    }
+
+    > div:nth-child(5n + 0) {
       margin-right: 0px;
     }
   }

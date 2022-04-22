@@ -10,9 +10,7 @@ const FDLogin = React.lazy((_) => import("../pages/login/login"));
 // import("../pages/user/mylocation/info")
 // );
 // const FDFoodInfo = React.lazy((_) => import("../pages/food/info"));
-// const FDFoodSubmitOrder = React.lazy((_) =>
-  // import("../pages/order/submit-order")
-// );
+// 
 
 const routes = [
   {
