@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const FDAppWraper = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
+  background-color: skyblue;
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 64px);
 `;

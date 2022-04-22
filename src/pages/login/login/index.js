@@ -1,5 +1,5 @@
 import React, { memo, useState, useEffect } from "react";
-import { Form, Input, Button, Radio, message } from "antd";
+import { Form, Input, Button, Radio, message, InputNumber } from "antd";
 
 import { getMatchReg } from "@/utils/format-utils";
 import { FDLoginWraper, FDInputWraper, FDBtnWraper } from "./style";
@@ -39,15 +39,17 @@ const FDLogin = memo(() => {
 
   // hooks
   useEffect(() => {
-    console.log("login");
-  });
+    navigate("/food");
+  }, []);
   // useEffect(() => {
   //   if (isLogin) {
-  //     navigate("/");
+  //     navigate("/food");
   //   } else {
-  //     navigate("/login");
+  //     // navigate("/login");
+  //     navigate("/food");
   //   }
   // }, [isLogin]);
+
   // 验证码处理
   // handle function
   const handleSendCode = () => {
@@ -95,36 +97,91 @@ const FDLogin = memo(() => {
                 { pattern: codeReg, message: "验证码最短4位" },
                 { required: true, message: "请输入验证码" },
               ]}
-            >
-              <Input clearable placeholder="请输入验证码" />
-            </Form.Item>
+            ></Form.Item>
           </>
         );
       case "password":
         return (
           <>
             <Form.Item
-              //   label="密码"
+              // name={["user", "password"]}
               name="password"
+              label="密码"
               rules={[
                 { pattern: pwdReg, message: "密码最短6位" },
                 { required: true, message: "请输入密码!" },
               ]}
             >
-              <Input
-                clearable
-                type="password"
-                placeholder="请输入密码"
-                style={{ "--font-size": "1.5em" }}
-              />
+              <Input type="password" placeholder="请输入密码" />
             </Form.Item>
           </>
         );
     }
   };
+
+  const layout = {
+    labelCol: { span: 1 },
+    wrapperCol: { span: 4 },
+  };
+
+  const validateMessages = {
+    required: "${label} is required!",
+    types: {
+      email: "${label} is not a valid email!",
+      number: "${label} is not a valid number!",
+    },
+    number: {
+      range: "${label} must be between ${min} and ${max}",
+    },
+  };
+
   return (
     <FDLoginWraper>
-      <h1>登录界面</h1>
+      <div className="loginTitle">
+        <span className="loginSpan">登录</span>
+        <span className="welcomeSpan">欢迎再次回来~</span>
+      </div>
+      <FDInputWraper>
+        <Form
+          {...layout}
+          layout="horizontal"
+          onFinish={onFinish}
+          // validateMessages={validateMessages}
+          labelAlign="right"
+          size="large"
+        >
+          <Form.Item
+            label="手机号"
+            name="mobile"
+            rules={[
+              {
+                pattern: mathchPhoneReg,
+                message: `请输入正确的手机号`,
+              },
+              { required: true, message: "请输入你的手机号" },
+            ]}
+          >
+            <Input
+              placeholder="请输入手机号"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+            />
+          </Form.Item>
+          {loginForm()}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="submitBtn">
+              登录
+            </Button>
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 1 }}>
+            <div className="registerRow">
+              <span>找回密码</span>
+              <a onClick={handleRegister}>快速注册</a>
+            </div>
+          </Form.Item>
+        </Form>
+      </FDInputWraper>
     </FDLoginWraper>
   );
 });

@@ -40,7 +40,7 @@ export const getLoginProfileInfo = (values) => {
       if (res.code !== 20000) {
         message.error("账号或密码错误");
       } else {
-        message.error("登录成功");
+        message.success("登录成功");
         // 登录成功
         cookie.set("food_token", res.data.token, { domain: "localhost" });
         // console.log(cookie.get("food_token"));

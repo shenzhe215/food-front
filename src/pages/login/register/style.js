@@ -2,52 +2,44 @@ import styled from "styled-components";
 
 export const FDRegisterWraper = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  /* background-color: #ffffff; */
-  /* background-color: blue; */
-  /* linear-gradient(to right, red 0%,red 50%,white 51%,white 100%); */
-  /* background-image: url(${require("@/assets/img/bg.jpg")});*/
-  .registerTitle::before {
-    /* content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20%; */
-    /* border-radius: 0em 0em 80em 80em; */
-    /* background: #2196f3; */
-    /* opacity: 0.5; */
-    /* z-index: -1; */
-  }
+  width: 100%;
+  height: 100%;
+
+  background-color: #f5f5f5;
 
   .registerTitle {
-    margin-top: 20%;
-    display: flex;
-    flex-direction: column;
-    padding-left: 8%;
-
-    .registerSpan {
-      font-size: 2em;
-      font-weight: bold;
-    }
-
-    .welcomeSpan {
-      font-size: 1.3em;
-      color: #999999;
-    }
+    position: relative;
+    top: 15%;
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
   }
 `;
 
 export const FDInputWraper = styled.div`
-  margin-top: 30%;
-  padding: 0 4%;
+  position: relative;
+  top: 20%;
+  left: 33%;
+
+  .ant-form-item-extra {
+    text-align: right;
+    padding-top: 6px;
+  }
+
+  
+  .submitBtn {
+    width: 100%;
+    margin-top: -15px;
+    margin-left: 127.99px;
+  }
 
   .loginRow {
+    width: 100%;
+    margin-left: 127.99px;
+    margin-top: -30px;
+
     display: flex;
     justify-content: space-between;
-    color: #999999;
+    padding-right: 3px;
   }
 `;
