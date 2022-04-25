@@ -48,7 +48,6 @@ const FDFood = memo(() => {
     dispatch(getAllFoodList());
   };
 
-  console.log(typeList);
   return (
     <FDFoodWraper className="FDFood">
       <FDFoodHeaderWraper>

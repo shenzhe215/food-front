@@ -2,11 +2,11 @@ import React, { memo, useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { Image, Button } from "antd";
+import { Image, Button, message, Comment, Tooltip, List } from "antd";
 import { LeftOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 
-import { getFoodById } from "@/service/food";
-import { FDFoodInfoWraper } from "./style";
+import { getFoodById, getCommentListById } from "@/service/food";
+import { FDFoodInfoWraper, CommentArea } from "./style";
 import { FDOperationBox } from "@/components";
 const FDFoodInfo = memo(() => {
   // states
@@ -24,8 +24,10 @@ const FDFoodInfo = memo(() => {
   // 自定义state
   const [id, setId] = useState(null);
   const [description, setDescription] = useState("");
-  const { cover, price, buyCount, title } = curFood;
+  const [commentList, setCommentList] = useState([]);
+  const [isDesc, setIsDesc] = useState(true);
 
+  const { cover, price, buyCount, title } = curFood;
   // hooks
   useEffect(() => {
     setId(params.id);
@@ -36,7 +38,38 @@ const FDFoodInfo = memo(() => {
       const newDescription = res.data.item.description;
       setDescription(newDescription);
     });
+    getCommentListById(curFood.id).then((res) => {
+      if (res.code === 20000) {
+        setCommentList(res.data.list);
+      }
+    });
   }, []);
+
+  const descriptionOrComment = () => {
+    return isDesc ? (
+      <div className="description">{description}</div>
+    ) : (
+      <CommentArea>
+        <List
+          className="comment-list"
+          header={`${commentList.length} 条回复`}
+          itemLayout="horizontal"
+          dataSource={commentList}
+          renderItem={(item) => (
+            <li>
+              <Comment
+                // actions={item.actions}
+                author={item.nickname}
+                avatar={item.avatar}
+                content={item.content}
+                datetime={item.gmtCreate}
+              />
+            </li>
+          )}
+        />
+      </CommentArea>
+    );
+  };
 
   return (
     <FDFoodInfoWraper className="foodinfowraper">
@@ -88,16 +121,20 @@ const FDFoodInfo = memo(() => {
       <div className="foodInfoDown">
         <span
           onClick={() => {
-            console.log("click");
+            setIsDesc(true);
           }}
         >
           详情
         </span>
-        <span>评价</span>
+        <span
+          onClick={() => {
+            setIsDesc(false);
+          }}
+        >
+          评价
+        </span>
       </div>
-      <div>
-        <div className="description">{description}</div>
-      </div>
+      <div>{descriptionOrComment()}</div>
     </FDFoodInfoWraper>
   );
 });

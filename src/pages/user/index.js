@@ -1,19 +1,27 @@
 import React, { memo, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Button } from "antd";
-import { recommendUtils, myAssets } from "@/common/local-data";
-import { FDUserWraper } from "./style";
+import { Button, Avatar, Space } from "antd";
+import { FDUserWraper, ContentArea, InfoBottom, Footer } from "./style";
 import { logOutAction } from "../login/store";
+import { FDTitle } from "@/components";
+import EditItem from "./edit-item";
+import PasswordItem from "./password-item";
+import {
+  changeUpdateVisiableAction,
+  changePasswordAction,
+} from "./store/actionCreators";
 // 默认头像
 const DEFAULT_AVATAR =
   "https://guli-file-190513.oss-cn-beijing.aliyuncs.com/avatar/default.jpg";
 
 const FDUser = memo(() => {
-  const { isLogin, userInfo } = useSelector(
+  const { isLogin, userInfo, updateVisiable, passwordVisiable } = useSelector(
     (state) => ({
       isLogin: state.getIn(["loginState", "isLogin"]),
       userInfo: state.getIn(["loginState", "profile"]),
+      updateVisiable: state.getIn(["userState", "updateVisiable"]),
+      passwordVisiable: state.getIn(["userState", "passwordVisiable"]),
     }),
     shallowEqual
   );
@@ -23,67 +31,55 @@ const FDUser = memo(() => {
   // 自定义state
 
   // hooks
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   // 其他hooks
-  const handleLogOut = () => {
-    console.log("logout");
-    dispatch(logOutAction());
+  const handlePassword = () => {
+    dispatch(changePasswordAction(true));
+    dispatch(changeUpdateVisiableAction(false));
+  };
+
+  const handleUpdate = () => {
+    dispatch(changePasswordAction(false));
+    dispatch(changeUpdateVisiableAction(true));
   };
 
   return (
     <FDUserWraper>
-      {/* <div>个人中心</div>
-      <div>个人中心</div>
-      <div>优惠</div> */}
-      {/* 个人信息 */}
-      <div className="titlePane">
-        <img
-          className="bg"
-          //   src={BASE_URL + "/img/profile/bg.png"}
-          alt="背景图"
-        />
-        <div className="info">
-          <div className="myIcon">
-            <img
-              className="avatar"
-              src={userInfo.avatar || DEFAULT_AVATAR}
-              alt="icon"
-            />
-          </div>
-          <div className="user">
-            <div className="name">{userInfo.nickname || "游客"}</div>
-            {/* 登录后展示： */}
-            {isLogin ? (
-              <>
-                <div className="auth">
-                  <span onClick={handleLogOut}>退出</span>
-                </div>
-                <div className="edit">
-                  编辑个人资料
-                  <span className="arrow">
-                    <i className="iconfont icon-arrow" />
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div className="edit">
-                <Button
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  去登录
-                </Button>
-              </div>
-            )}
-          </div>
+      <FDTitle title="个人信息" />
+      <ContentArea>
+        <div className="row">
+          <label>头像：</label>
+          <p>
+            <Avatar src={userInfo.avatar} size={48} />
+          </p>
         </div>
-      </div>
-
-      <div className="ad">
-        <h2>加入我们</h2>
-      </div>
+        <div className="row">
+          <label>用户名：</label>
+          <p>{userInfo.nickname}</p>
+        </div>
+        <div className="row">
+          <label>手机号：</label>
+          <p>{userInfo.mobile}</p>
+        </div>
+        <div className="row">
+          <label>用户积分：</label>
+          <p>{userInfo.credit}</p>
+        </div>
+      </ContentArea>
+      <InfoBottom>
+        <Space>
+          <Button type="primary" onClick={handlePassword}>
+            修改登录密码
+          </Button>
+          <Button type="primary" onClick={handleUpdate}>
+            修改个人信息
+          </Button>
+        </Space>
+      </InfoBottom>
+      <Footer>
+        {updateVisiable || <EditItem userInfo={userInfo} />}
+        {passwordVisiable && <PasswordItem password={userInfo.password} />}
+      </Footer>
     </FDUserWraper>
   );
 });

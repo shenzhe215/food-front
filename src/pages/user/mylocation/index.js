@@ -4,8 +4,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { FDLocationWraper } from "./style";
 import { getLocationAction } from "../store/actionCreators";
 
-import { Table, Space, Button, Modal, Cascader } from "antd";
+import { removeLocation, updateLocation } from "@/service/location";
+
+import { Table, Space, Button, message } from "antd";
 import { FDTitle } from "@/components";
+import { changeCurrentLocationAction } from "@/pages/user/store/actionCreators";
+
 const FDUserLocation = memo(() => {
   // state
   const navigate = useNavigate();
@@ -35,7 +39,36 @@ const FDUserLocation = memo(() => {
     navigate("info");
   };
 
+  const handleEdit = (locationInfo) => {
+    dispatch(changeCurrentLocationAction(locationInfo));
+    navigate(`info/${locationInfo.id}`);
+  };
 
+  // 删除
+  const handleRemove = (locationInfo) => {
+    removeLocation(locationInfo.id).then((res) => {
+      if (res.code === 20000) {
+        message.success("删除成功");
+        dispatch(getLocationAction());
+        navigate("/location");
+      } else {
+        message.error(res.data.message);
+      }
+    });
+  };
+
+  // 设为默认
+  const handleDefault = (record) => {
+    record.isDefault = 1;
+    updateLocation(record).then((res) => {
+      if (res.code === 20000) {
+        message.success("更新成功");
+        dispatch(getLocationAction());
+      } else {
+        message.error(res.data.message);
+      }
+    });
+  };
   const columns = [
     {
       title: "收货人",
@@ -62,22 +95,21 @@ const FDUserLocation = memo(() => {
       key: "operation",
       render: (text, record) => (
         <Space size="middle">
-          <a>修改</a>
-          <a>删除</a>
+          <a onClick={handleEdit.bind(null, record)}>修改</a>
+          <a onClick={handleRemove.bind(null, record)}>删除</a>
         </Space>
       ),
     },
     {
-      title: "设为默认",
+      title: "",
       key: "isDefault",
       dataIndex: "isDefault",
       render: (text, record) => (
-        console.log(record.isDefault),
         (
           <Space size="middle">
             {(record.isDefault && (
               <div className="defaultLoc">默认地址</div>
-            )) || <a>设为默认</a>}
+            )) || <a onClick={handleDefault.bind(null, record)}>设为默认</a>}
           </Space>
         )
       ),

@@ -11,7 +11,9 @@ const FDLocationInfo = React.lazy((_) =>
   import("../pages/user/mylocation/info")
 );
 const FDUserLocation = React.lazy((_) => import("../pages/user/mylocation"));
-
+const FDPay = React.lazy((_) => import("../pages/order/pay/style"));
+const FDOrder = React.lazy((_) => import("../pages/order"));
+const FDUser = React.lazy((_) => import("../pages/user"));
 const routes = [
   {
     path: "/",
@@ -40,13 +42,22 @@ const routes = [
       { path: "info/:id", element: <FDLocationInfo /> },
     ],
   },
-  // {
-  //   path: "/order",
-  //   element: <FDOrder />,
-  // },
   {
-    path: "/submitorder",
-    element: <FDFoodSubmitOrder />,
+    path: "/order",
+    children: [
+      { index: true, element: <FDOrder /> },
+      { path: "submitorder", element: <FDFoodSubmitOrder /> },
+      { path: "pay", element: <FDPay /> },
+      // { path: "info/:id", element: <FDLocationInfo /> },
+    ],
+  },
+  {
+    path: "/user",
+    children: [
+      { index: true, element: <FDUser /> },
+      // { path: "submitorder", element: <FDFoodSubmitOrder /> },
+      // { path: "pay", element: <FDPay /> },
+    ],
   },
 ];
 

@@ -12,7 +12,7 @@ import { getLocationAction } from "../../store/actionCreators";
 
 import { FDLocationInfoWraper } from "./style";
 import { message } from "antd";
-import { FDTitle } from "../../../../components";
+import { FDTitle } from "@/components";
 import { cities } from "@/assets/cityData";
 
 const FDLocationInfo = memo(() => {
@@ -47,7 +47,7 @@ const FDLocationInfo = memo(() => {
         mobile: mobile,
         area: area.split(" "),
       });
-      setChecked(isDefault && 1);
+      setChecked(isDefault == 1);
     } else {
       setUpdate(false);
     }
@@ -57,7 +57,7 @@ const FDLocationInfo = memo(() => {
   const onFinish = (values) => {
     const { area } = values;
     let newArea;
-    newArea = area.toString().replace(",", " ");
+    newArea = area.toString().replaceAll(",", " ");
     values.area = newArea;
     values.isDefault = checked ^ 0;
     if (!update) {
@@ -84,7 +84,6 @@ const FDLocationInfo = memo(() => {
 
   // 删除地址操作
   const handleDelete = () => {
-    console.log(id);
     removeLocation(id).then((res) => {
       if (res.code === 20000) {
         message.success("删除成功");
@@ -124,10 +123,6 @@ const FDLocationInfo = memo(() => {
           >
             <Cascader
               options={cities}
-              onChange={(e) => {
-                console.log(e);
-                console.log(e.toString().replace(",", " "));
-              }}
               placeholder={"请选择当前地区"}
             ></Cascader>
           </Form.Item>
@@ -177,26 +172,14 @@ const FDLocationInfo = memo(() => {
               value={checked}
               onChange={(e) => {
                 setChecked(!e.target.value);
-                console.log("change");
-                console.log(e.target.value);
               }}
+              checked={checked}
             >
               设为默认信息
             </Checkbox>
           </Form.Item>
           <Form.Item {...formTailLayout}>
             <div className="operationBox">
-              {update && (
-                <Button
-                  block
-                  color="danger"
-                  size="middle"
-                  onClick={handleDelete}
-                >
-                  删除
-                </Button>
-              )}
-              {update && <span />}
               <Button block type="primary" size="middle" htmlType="submit">
                 {(update && "更新") || "保存"}
               </Button>

@@ -13,12 +13,24 @@ export const changeCurrentLocationAction = (location) => ({
   curLocation: location,
 });
 
+// 更改更新可见性
+export const changeUpdateVisiableAction = (updateVisiable) => ({
+  type: actionTypes.CHANGE_UPDATE_VISIABLE,
+  updateVisiable,
+});
+
+// 更改密码可见性
+export const changePasswordAction = (passwordVisiable) => ({
+  type: actionTypes.CHANGE_PASSWORD_VISIABLE,
+  passwordVisiable,
+});
 
 export const getLocationAction = () => {
   return (dispatch, getState) => {
     getAllLocs().then((res) => {
       const locations = res.data.list;
-      dispatch(changeLocationAction(locations));
+      const newLocation = JSON.parse(JSON.stringify(locations));
+      dispatch(changeLocationAction(newLocation));
     });
   };
 };

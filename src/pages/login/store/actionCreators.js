@@ -47,22 +47,40 @@ export const getLoginProfileInfo = (values) => {
 
         document.cookie = res.data.token;
         // 获取用户信息
-        getLoginUserInfo().then((res) => {
-          const userInfo = res.data.userInfo;
-          cookie.set("food_ucenter", JSON.stringify(userInfo), {
-            domain: "localhost",
-          });
+        // getLoginUserInfo().then((res) => {
+        //   const userInfo = res.data.userInfo;
+        //   cookie.set("food_ucenter", JSON.stringify(userInfo), {
+        //     domain: "localhost",
+        //   });
 
-          // 更改登录状态
-          // console.log(cookie.get("food_ucenter"));
-          // console.log(res);
-          dispatch(changeUserProfileAction(userInfo));
-        });
+        //   // 更改登录状态
+        //   // console.log(cookie.get("food_ucenter"));
+        //   // console.log(res);
+        //   dispatch(changeUserProfileAction(userInfo));
+        // });
+        dispatch(getLatestInfoAction());
 
         // 更改登录状态
         dispatch(changeUserLoginStateAction(true));
         dispatch(changeUserLoginTokenAction(cookie.get("food_token")));
       }
+    });
+  };
+};
+
+// 获取用户最新信息
+export const getLatestInfoAction = () => {
+  return (dispatch) => {
+    getLoginUserInfo().then((res) => {
+      const userInfo = res.data.userInfo;
+      cookie.set("food_ucenter", JSON.stringify(userInfo), {
+        domain: "localhost",
+      });
+
+      // 更改登录状态
+      // console.log(cookie.get("food_ucenter"));
+      // console.log(res);
+      dispatch(changeUserProfileAction(userInfo));
     });
   };
 };

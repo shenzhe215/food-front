@@ -46,3 +46,21 @@ export function sendRegister(formItem) {
     data: formItem,
   });
 }
+
+/* 更新 */
+export function updateUserInfo(updateInfo) {
+  return request({
+    url: `/fooducenter/member/update`,
+    method: "post",
+    data: updateInfo,
+  });
+}
+
+/* 修改密码 */
+export function updatePassword(updateInfo) {
+  return request({
+    url: `/fooducenter/member/password`,
+    method: "post",
+    data: updateInfo,
+  });
+}

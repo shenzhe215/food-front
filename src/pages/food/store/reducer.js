@@ -6,7 +6,6 @@ const defaultState = Map({
   currentType: "",
   orderInfo: [],
   curFood: {},
-  popupVisiable: false,
   orderMoney: 0,
   foodCount: 0,
   orderList: [],
@@ -31,8 +30,6 @@ function reducer(state = defaultState, action) {
       return state.set("foodOrderCount", action.foodOrderCount);
     case actionTypes.CHANGE_ORDER_LIST:
       return state.set("orderList", action.orderList);
-    case actionTypes.CHANGE_POPUP_VISIABLE:
-      return state.set("popupVisiable", action.popupVisiable);
     default:
       return state;
   }

@@ -4,7 +4,6 @@ import {
   changeOrderMoney,
   changeOrderList,
   changeOrderCount,
-  changePopupVisableAction
 } from "./actionCreators";
 export {
   reducer,
@@ -12,5 +11,4 @@ export {
   changeOrderMoney,
   changeOrderList,
   changeOrderCount,
-  changePopupVisableAction
 };

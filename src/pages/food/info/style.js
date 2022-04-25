@@ -86,6 +86,16 @@ export const FDFoodInfoWraper = styled.div`
           cursor: pointer;
           color: #3399ff;
         }
+
+        :active {
+          color: blue;
+        }
+      }
+
+      span.active {
+        color: #fff;
+        background: #000;
+        text-decoration: none;
       }
     }
   }
@@ -112,4 +122,9 @@ export const FDFoodInfoWraper = styled.div`
     font-size: 15px;
     width: 720px;
   }
+`;
+
+export const CommentArea = styled.div`
+  margin-left: 20%;
+  margin-right: 20%;
 `;

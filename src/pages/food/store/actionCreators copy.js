@@ -51,11 +51,6 @@ export const changeOrderListAction = (orderList) => ({
   orderList: orderList,
 });
 
-// 更改弹出框可见性
-export const changePopupVisableAction = (popupVisiable) => ({
-  type: actionTypes.CHANGE_POPUP_VISIABLE,
-  popupVisiable,
-});
 
 // 获得菜品分类列表
 export const getTypeList = () => {
@@ -134,7 +129,7 @@ export const changeOrderList = (foodInfo, isAdd) => {
   return (dispatch, getState) => {
     const orderList = getState().getIn(["foodState", "orderList"]);
     const newOrderList = JSON.parse(JSON.stringify(orderList));
-    console.log(newOrderList);
+    // console.log(newOrderList);
 
     if (isAdd) {
       let foodInList = false;

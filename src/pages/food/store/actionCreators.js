@@ -51,11 +51,6 @@ export const changeOrderListAction = (orderList) => ({
   orderList: orderList,
 });
 
-// 更改弹出框可见性
-export const changePopupVisableAction = (popupVisiable) => ({
-  type: actionTypes.CHANGE_POPUP_VISIABLE,
-  popupVisiable,
-});
 
 // 获得菜品分类列表
 export const getTypeList = () => {

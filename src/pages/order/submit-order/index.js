@@ -1,38 +1,122 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Steps } from "antd";
+import { Steps, Select, Table, Image, Button, message } from "antd";
 
+import { getLatestLocation } from "@/service/location";
 import { FDSubmitOrderWraper } from "./style";
-import FDFoodItem from "@/components/food-item";
-
+import { locationToString } from "@/utils/location";
+import { FDTitle, FDOperationBox } from "@/components";
+import { createOrder } from "@/service/order";
+import FDPay from "../pay/style";
+import { changeOrderNoAction } from "../store/actionCreators";
 const { Step } = Steps;
+const { Option } = Select;
 
 const FDFoodSubmitOrder = memo(() => {
   // states
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { foodList, popupVisiable, orderList, orderMoney, locationList } =
+  const { foodList, orderList, orderMoney, locationList, foodOrderCount } =
     useSelector(
       (state) => ({
         foodList: state.getIn(["foodState", "foodList"]),
-        popupVisiable: state.getIn(["foodState", "popupVisiable"]),
         orderList: state.getIn(["foodState", "orderList"]),
         orderMoney: state.getIn(["foodState", "orderMoney"]),
         locationList: state.getIn(["userState", "locationList"]),
+        foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
       }),
       shallowEqual
     );
 
   // other states
-  //   const [location, username, mobile] = locationList[0] || {
-  //     location: "",
-  //     username: "",
-  //     mobile: "",
-  //   };
+  const [latestLocs, setLatestLocs] = useState([]);
+  const [location, setLocation] = useState(null);
+  // hooks
+  useEffect(() => {
+    getLatestLocation().then((res) => {
+      if (res.code === 20000) {
+        setLatestLocs(res.data.list);
+      } else {
+        setLatestLocs(null);
+      }
+    });
+  }, []);
+
+  // other hooks
+  const handleLocation = () => {
+    navigate("/location");
+  };
+
+  const handleProvinceChange = (value) => {
+    setLocation(value);
+  };
+
+  const handleSubmit = () => {
+    if (location == null) {
+      message.info("请选择地址");
+      return;
+    } else if (orderList.length == 0) {
+      message.info("请先选择菜品");
+      return;
+    } else {
+      var orderInfo = {};
+      var foods = "";
+      for (var i in foodOrderCount) {
+        foods = foods + i + ":" + foodOrderCount[i] + "-";
+      }
+      orderInfo.foods = foods.substring(0, foods.length - 1);
+      orderInfo.total = orderMoney;
+      createOrder(location, orderInfo).then((res) => {
+        if (res.code === 20000) {
+          // 改变订单编号
+          dispatch(changeOrderNoAction(res.data.orderId));
+          navigate("/pay");
+        }
+      });
+    }
+  };
+
+  const columns = [
+    {
+      title: "菜品名称",
+      dataIndex: "title",
+      key: "title",
+    },
+    {
+      title: "菜品分类",
+      dataIndex: "type",
+      key: "type",
+    },
+    {
+      title: "菜品封面",
+      // dataIndex: "cover",
+      key: "cover",
+      render: (text, record) => <Image src={record.cover} width="50px" />,
+    },
+    {
+      title: "菜品单价",
+      dataIndex: "price",
+      key: "price",
+    },
+    {
+      title: "数量",
+      key: "count",
+      render: (text, record) => <FDOperationBox foodInfo={record} />,
+    },
+    {
+      title: "小计",
+      key: "operation",
+      render: (text, record) => (
+        <span style={{ color: "red" }}>
+          {foodOrderCount[record.id] * record.price}
+        </span>
+      ),
+    },
+  ];
   return (
     <FDSubmitOrderWraper>
-      <div className="title">提交订单</div>
+      <FDTitle title="提交订单" />
       <div className="step">
         <Steps current={0} labelPlacement="vertical">
           <Step title="1.确认订单信息" />
@@ -41,39 +125,48 @@ const FDFoodSubmitOrder = memo(() => {
         </Steps>
       </div>
       <div className="location">
-        <div className="title">
-          <span>确认收获信息</span>
-          <span>管理收获地址</span>
+        <div className="littleTitle">
+          <span>确认取餐信息</span>
+          <span onClick={handleLocation}>管理取餐地址</span>
         </div>
         <div className="orderLocation">
-          
-        </div>
-        <div className="orderInfo">
-          <span>{"username"} </span>
-          <span>{"mobile"}</span>
+          <Select
+            defaultActiveFirstOption
+            defaultValue={latestLocs[0]}
+            style={{ width: 600 }}
+            onChange={handleProvinceChange}
+            placeholder={"请选择送餐地址!"}
+            bordered={false}
+            // defaultOpen={true}
+            dropdownStyle={{ textAlign: "center" }}
+            showArrow={false}
+          >
+            {latestLocs.map((location) => (
+              <Option key={location.id}>{locationToString(location)}</Option>
+            ))}
+          </Select>
         </div>
       </div>
 
-      <div className="orderInfo">
-        {orderList.map((food) => (
-          <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
-        ))}
+      <div className="secondTitle">确认订单信息</div>
+      <div>
+        <Table
+          dataSource={orderList}
+          columns={columns}
+          bordered={true}
+          pagination={false}
+          rowKey={(record) => record.id}
+        />
+      </div>
+      <div className="prices">
+        <span className="title">菜品总价：</span>
+        <span className="money">￥{orderMoney}</span>
       </div>
 
-      <div className="submitOrderMiddle">
-        <div>支付方式</div>
-        <div>极速支付</div>
-      </div>
-
-      <div className="submitOrderPrice">
-        <div className="allMoney">
-          <span>总价格：</span>
-          <span>{orderMoney}￥</span>
-        </div>
-        <div className="disCount">
-          <span>优惠：</span>
-          <span>{orderMoney}￥</span>
-        </div>
+      <div className="submitBtn">
+        <Button type="primary" onClick={handleSubmit}>
+          提交订单
+        </Button>
       </div>
     </FDSubmitOrderWraper>
   );

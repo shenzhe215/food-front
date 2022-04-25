@@ -8,6 +8,22 @@ export function getAllLocs() {
   });
 }
 
+// 获取默认信息
+export function getDefaultLoc() {
+  return request({
+    url: "/fooducenter/location/defaultLocation",
+    method: "get",
+  });
+}
+
+// 获取最新三条信息
+export function getLatestLocation() {
+  return request({
+    url: "/fooducenter/location/getLatestLocation",
+    method: "get",
+  });
+}
+
 // 添加地址信息
 export function addLocation(locationInfo) {
   return request({

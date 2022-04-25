@@ -47,7 +47,6 @@ const FDLogin = memo(() => {
       navigate("/food");
     } else {
       navigate("/login");
-      // navigate("/food");
     }
   }, [isLogin]);
 

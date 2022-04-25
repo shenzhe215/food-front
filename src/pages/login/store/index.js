@@ -1,3 +1,4 @@
 import reducer from "./reducer";
 import { logOutAction } from "./actionCreators";
-export { reducer, logOutAction };
+import { getLatestInfoAction } from "./actionCreators";
+export { reducer, logOutAction, getLatestInfoAction };

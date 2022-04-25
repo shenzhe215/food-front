@@ -29,6 +29,25 @@ export const menus = [
   ]),
 ];
 
+export const headerLinks = [
+  {
+    title: "首页",
+    link: "/home",
+  },
+  {
+    title: "进行点餐",
+    link: "/food",
+  },
+  {
+    title: "订单管理",
+    link: "/order",
+  },
+  {
+    title: "个人中心",
+    link: "/location",
+  },
+];
+
 // export const tabs = [
 //   {
 //     key: "/home",
