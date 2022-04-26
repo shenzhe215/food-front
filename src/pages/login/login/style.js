@@ -6,8 +6,7 @@ export const FDLoginWraper = styled.div`
   height: 100%;
 
   background-color: #f5f5f5;
-  /* background-image: url(${require("@/assets/img/bg.jpg")});*/
-
+  /* background-color: red; */
   .loginTitle {
     position: relative;
     top: 20%;
@@ -17,12 +16,15 @@ export const FDLoginWraper = styled.div`
   }
 `;
 
+export const LoginPane = styled.div`
+  background-color: #fff;
+`;
+
 export const FDInputWraper = styled.div`
   position: relative;
   top: 30%;
   left: 37.5%;
 
-  /* width: 30%; */
 
   .submitBtn {
     width: 100%;

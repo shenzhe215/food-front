@@ -4,32 +4,36 @@ import { useNavigate } from "react-router-dom";
 import {
   getTypeList,
   getFoodList,
-  changePopupVisableAction,
   getAllFoodList,
 } from "./store/actionCreators";
-import { Col, Row } from "antd";
+import { Badge } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import FDFoodItem from "@/components/food-item";
-import { FDFoodHeaderWraper, FDFoodContentWraper, FDFoodWraper } from "./style";
+import {
+  FDFoodHeaderWraper,
+  FDFoodContentWraper,
+  FDFoodWraper,
+  FoodHeader,
+} from "./style";
 
 import { foodTabs } from "../../common/local-data";
 const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogin, typeList, foodList, popupVisiable, orderList } = useSelector(
+  const { isLogin, typeList, foodList, foodCount, orderList } = useSelector(
     (state) => ({
       typeList: state.getIn(["foodState", "typeList"]),
       foodList: state.getIn(["foodState", "foodList"]),
-      popupVisiable: state.getIn(["foodState", "popupVisiable"]),
       orderList: state.getIn(["foodState", "orderList"]),
       isLogin: state.getIn(["loginState", "isLogin"]),
+      foodCount: state.getIn(["foodState", "foodCount"]),
     }),
     shallowEqual
   );
 
   // other state
-
+  
   // hooks
   useEffect(() => {
     // if (!isLogin) {
@@ -53,6 +57,38 @@ const FDFood = memo(() => {
       <FDFoodHeaderWraper>
         <div>点餐界面</div>
       </FDFoodHeaderWraper>
+      <FoodHeader>
+        <div className="headItem">
+          <span className="nav-tab">
+            <span className="navTitle">所有菜品</span>
+            <span className="navCount"></span>
+          </span>
+        </div>
+        <div className="headItem">
+          <span className="nav-tab">
+            <span className="navTitle">所有菜品</span>
+            <span className="navCount"></span>
+          </span>
+        </div>{" "}
+        <div className="headItem">
+          <span className="nav-tab">
+            <span className="navTitle">所有菜品</span>
+            <span className="navCount"></span>
+          </span>
+        </div>{" "}
+        <div className="headItem">
+          <span className="nav-tab">
+            <span className="navTitle">所有菜品</span>
+            <span className="navCount"></span>
+          </span>
+        </div>{" "}
+        <div className="headItem">
+          <span className="nav-tab">
+            <span className="navTitle">所有菜品</span>
+            <span className="navCount"></span>
+          </span>
+        </div>
+      </FoodHeader>
       <FDFoodContentWraper>
         {/* <div className={"container"}> */}
         <div className={"side"}>
@@ -87,7 +123,14 @@ const FDFood = memo(() => {
         {/* </div> */}
       </FDFoodContentWraper>
       <div className="orderList">
-        <ShoppingCartOutlined />
+        <Badge count={foodCount}>
+          <ShoppingCartOutlined
+            className="shopCar"
+            onClick={() => {
+              navigate("/order/submitorder");
+            }}
+          />
+        </Badge>
       </div>
     </FDFoodWraper>
   );

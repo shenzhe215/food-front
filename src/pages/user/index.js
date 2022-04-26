@@ -1,27 +1,21 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Button, Avatar, Space } from "antd";
 import { FDUserWraper, ContentArea, InfoBottom, Footer } from "./style";
-import { logOutAction } from "../login/store";
 import { FDTitle } from "@/components";
 import EditItem from "./edit-item";
 import PasswordItem from "./password-item";
-import {
-  changeUpdateVisiableAction,
-  changePasswordAction,
-} from "./store/actionCreators";
+
 // 默认头像
 const DEFAULT_AVATAR =
   "https://guli-file-190513.oss-cn-beijing.aliyuncs.com/avatar/default.jpg";
 
 const FDUser = memo(() => {
-  const { isLogin, userInfo, updateVisiable, passwordVisiable } = useSelector(
+  const { isLogin, userInfo } = useSelector(
     (state) => ({
       isLogin: state.getIn(["loginState", "isLogin"]),
       userInfo: state.getIn(["loginState", "profile"]),
-      updateVisiable: state.getIn(["userState", "updateVisiable"]),
-      passwordVisiable: state.getIn(["userState", "passwordVisiable"]),
     }),
     shallowEqual
   );
@@ -29,18 +23,23 @@ const FDUser = memo(() => {
   const navigate = useNavigate();
 
   // 自定义state
-
+  const [isUpdate, setIsUpdate] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
   // hooks
   useEffect(() => {}, []);
   // 其他hooks
   const handlePassword = () => {
-    dispatch(changePasswordAction(true));
-    dispatch(changeUpdateVisiableAction(false));
+    if (isUpdate) {
+      setIsUpdate(false);
+    }
+    setIsPassword(!isPassword);
   };
 
   const handleUpdate = () => {
-    dispatch(changePasswordAction(false));
-    dispatch(changeUpdateVisiableAction(true));
+    if (isPassword) {
+      setIsPassword(false);
+    }
+    setIsUpdate(!isUpdate);
   };
 
   return (
@@ -77,8 +76,8 @@ const FDUser = memo(() => {
         </Space>
       </InfoBottom>
       <Footer>
-        {updateVisiable || <EditItem userInfo={userInfo} />}
-        {passwordVisiable && <PasswordItem password={userInfo.password} />}
+        {isUpdate && <EditItem userInfo={userInfo} />}
+        {isPassword && <PasswordItem password={userInfo.password} />}
       </Footer>
     </FDUserWraper>
   );

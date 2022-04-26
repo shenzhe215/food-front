@@ -96,7 +96,7 @@ const FDAppHeader = memo(() => {
             </div>
           )}
           {(isLogin && (
-            <Avatar src={userInfo.icon || DEFAULT_AVATAR}></Avatar>
+            <Avatar src={userInfo.avatar || DEFAULT_AVATAR}></Avatar>
           )) || (
             <div className="login" onClick={handleLogin}>
               登录

@@ -9,7 +9,50 @@ export const FDFoodWraper = styled.div`
     font-size: 30px;
     position: fixed;
     left: 90%;
-    top: 10%;
+    top: 80%;
+
+    .shopCar {
+      font-size: 30px;
+    }
+  }
+`;
+
+export const FoodHeader = styled.div`
+  position: relative;
+  bottom: -2px;
+  margin-top: 22px;
+  margin-bottom: 22px;
+  border-bottom: 2px solid #e8e8e8;
+
+  .headItem {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+
+    .nav-tab {
+      display: inline-block;
+      line-height: 1;
+      padding: 0 20px 12px;
+      font-size: 16px;
+
+      .navTitle {
+        font-weight: 700;
+        font-family: Microsoft YaHei;
+        :hover {
+          color: #ff6000;
+        }
+
+        :active {
+          color: red;
+        }
+      }
+
+      .navCount {
+        margin-left: 5px;
+        color: #ff6000;
+        font-weight: 400;
+      }
+    }
   }
 `;
 

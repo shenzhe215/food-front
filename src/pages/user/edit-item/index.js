@@ -35,31 +35,32 @@ const EditItem = memo((props) => {
   const codeReg = /[0-9a-zA-Z._-]{4,20}/;
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState("");
+ 
   // hooks
   useEffect(() => {
     const { avatar, nickname, mobile } = userInfo;
+    setAvatar(avatar);
     form.setFieldsValue({
       nickname: nickname,
       mobile: mobile,
     });
   }, []);
+
   // other hooks
   // 表单提交
   const onFinish = (values) => {
-    console.log(values);
-    console.log(avatar);
-    // updateUserInfo(values).then((res) => {
-    //   if (res.code === 20000) {
-    //     message.success("用户信息更新成功");
-    //     dispatch(getLatestInfoAction());
-    //   } else {
-    //     message.error(res.message);
-    //   }
-    // });
+    values.avatar = avatar;
+    updateUserInfo(values).then((res) => {
+      if (res.code === 20000) {
+        message.success("用户信息更新成功");
+        dispatch(getLatestInfoAction());
+      } else {
+        message.error(res.message);
+      }
+    });
   };
 
   // 验证码处理
-  // handle function
   const handleSendCode = () => {
     // 60秒延迟定时器
     if (!isSendSatte) {
@@ -101,14 +102,7 @@ const EditItem = memo((props) => {
       return;
     }
     if (info.file.status === "done") {
-      // Get this url from response in real world.
-      console.log(info.file.originFileObj);
-      //   info.file.originFileObj;
-      // (imageUrl) => {
-      //   setAvatar(imageUrl);
-      //   setLoading(false);
-      // };
-      setAvatar(info.file.originFileObj);
+      setAvatar(info.file.response.data.url);
       setLoading(false);
     }
   };
@@ -129,12 +123,12 @@ const EditItem = memo((props) => {
       >
         <Form.Item label="头像" name="avatar">
           <Upload
-            name="avatar"
             maxCount="1"
+            // name="avatar"
             listType="picture-card"
+            action="http://127.0.0.1:9001/foodoss/fileoss"
             className="avatar-uploader"
             showUploadList={false}
-            action="http://127.0.0.1:9001/foodoss/fileoss"
             beforeUpload={beforeUpload}
             onChange={handleChange}
           >

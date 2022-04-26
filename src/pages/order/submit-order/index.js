@@ -10,6 +10,11 @@ import { FDTitle, FDOperationBox } from "@/components";
 import { createOrder } from "@/service/order";
 import FDPay from "../pay/style";
 import { changeOrderNoAction } from "../store/actionCreators";
+import {
+  changeFoodOrderCoutnAction,
+  changeOrderList,
+  changeOrderMoney,
+} from "../../food/store/actionCreators";
 const { Step } = Steps;
 const { Option } = Select;
 
@@ -71,6 +76,10 @@ const FDFoodSubmitOrder = memo(() => {
         if (res.code === 20000) {
           // 改变订单编号
           dispatch(changeOrderNoAction(res.data.orderId));
+          dispatch(changeFoodOrderCoutnAction({}));
+    const newOrderList = JSON.parse(JSON.stringify([]));
+    dispatch(changeOrderList(newOrderList))
+          dispatch(changeOrderMoney(0))
           navigate("/pay");
         }
       });
@@ -95,7 +104,7 @@ const FDFoodSubmitOrder = memo(() => {
       render: (text, record) => <Image src={record.cover} width="50px" />,
     },
     {
-      title: "菜品单价",
+      title: "菜品单价(元)",
       dataIndex: "price",
       key: "price",
     },
@@ -105,7 +114,7 @@ const FDFoodSubmitOrder = memo(() => {
       render: (text, record) => <FDOperationBox foodInfo={record} />,
     },
     {
-      title: "小计",
+      title: "小计(元)",
       key: "operation",
       render: (text, record) => (
         <span style={{ color: "red" }}>

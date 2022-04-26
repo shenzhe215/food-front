@@ -4,8 +4,6 @@ import * as actionTypes from "./constants";
 const defaultState = Map({
   locationList: [],
   curLocation: {},
-  updateVisiable: false,
-  passwordVisiable: false,
 });
 
 function reducer(state = defaultState, action) {

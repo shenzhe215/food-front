@@ -2,6 +2,7 @@ import React from "react";
 const FDLogin = React.lazy((_) => import("../pages/login/login"));
 const FDRegister = React.lazy((_) => import("../pages/login/register"));
 const DefaultLayout = React.lazy(() => import("../layout"));
+const FDHome = React.lazy(() => import("../pages/home"));
 const FDFood = React.lazy((_) => import("../pages/food"));
 const FDFoodInfo = React.lazy((_) => import("../pages/food/info"));
 const FDFoodSubmitOrder = React.lazy((_) =>
@@ -11,13 +12,17 @@ const FDLocationInfo = React.lazy((_) =>
   import("../pages/user/mylocation/info")
 );
 const FDUserLocation = React.lazy((_) => import("../pages/user/mylocation"));
-const FDPay = React.lazy((_) => import("../pages/order/pay/style"));
+const FDPay = React.lazy((_) => import("../pages/order/pay/idnex"));
 const FDOrder = React.lazy((_) => import("../pages/order"));
 const FDUser = React.lazy((_) => import("../pages/user"));
 const routes = [
   {
     path: "/",
-    element: <DefaultLayout />,
+    element: <FDHome />,
+  },
+  {
+    path: "/home",
+    element: <FDHome />,
   },
   {
     path: "/login",
