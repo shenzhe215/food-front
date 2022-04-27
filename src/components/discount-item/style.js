@@ -16,7 +16,7 @@ export const CouponWraper = styled.div`
   :hover {
     cursor: pointer;
   }
-  
+
   &::before {
     position: absolute;
     width: 5px;

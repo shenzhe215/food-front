@@ -4,6 +4,7 @@ import FDAppFooter from "./FDAppFooter";
 import FDOperationBox from "./FD-Food-Operation";
 import FDTitle from "./FD-Title";
 import FDOrderItem from "./order-item";
+import Coupon from "./discount-item";
 export {
   FDAppHeader,
   FDAppContent,
@@ -11,5 +12,5 @@ export {
   FDOperationBox,
   FDTitle,
   FDOrderItem,
-
+  Coupon,
 };

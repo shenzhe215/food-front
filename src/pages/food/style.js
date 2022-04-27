@@ -4,26 +4,16 @@ export const FDFoodWraper = styled.div`
   width: 100%;
   height: 100%;
   /* background-color: pink; */
-
-  .orderList {
-    font-size: 30px;
-    position: fixed;
-    left: 90%;
-    top: 80%;
-
-    .shopCar {
-      font-size: 30px;
-    }
-  }
 `;
 
 export const FoodHeader = styled.div`
+  display: flex;
+  justify-content: space-between;
   position: relative;
   bottom: -2px;
   margin-top: 22px;
   margin-bottom: 22px;
   border-bottom: 2px solid #e8e8e8;
-
   .headItem {
     display: inline-block;
     position: relative;
@@ -31,8 +21,8 @@ export const FoodHeader = styled.div`
 
     .nav-tab {
       display: inline-block;
-      line-height: 1;
-      padding: 0 20px 12px;
+      /* line-height: 1; */
+      padding: 5px 20px;
       font-size: 16px;
 
       .navTitle {
@@ -40,11 +30,13 @@ export const FoodHeader = styled.div`
         font-family: Microsoft YaHei;
         :hover {
           color: #ff6000;
+          text-decoration: none;
         }
+      }
 
-        :active {
-          color: red;
-        }
+      .activeTitle {
+        font-weight: 700;
+        color: red;
       }
 
       .navCount {
@@ -52,6 +44,15 @@ export const FoodHeader = styled.div`
         color: #ff6000;
         font-weight: 400;
       }
+    }
+  }
+
+  .headBottom {
+    font-size: 16px;
+    cursor: pointer;
+    .shopCar {
+      font-size: 20px;
+      padding: 5px;
     }
   }
 `;
@@ -67,23 +68,10 @@ export const FDFoodContentWraper = styled.div`
   flex-direction: row;
   margin-top: 20px;
 
-  .side {
-    width: 13%;
-    font-size: 20px;
-    margin-right: 30px;
-
-    .foodSide {
-      border: 1px solid #dee2d1;
-      padding-left: 30px;
-      :hover {
-        cursor: pointer;
-        color: #3399ff;
-      }
-    }
-  }
-
   .main {
-    width: 90%;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
 
     > div {
       display: inline-block;

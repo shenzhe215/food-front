@@ -1,12 +1,29 @@
 import React, { memo, useState, useEffect } from "react";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 
 import { Carousel } from "antd";
 import { HomeWraper, DiscountWraper, HotFood } from "./styled";
-import Coupon from "./discount-item";
+import { getCouponListAction } from "./store/actionCreators";
+import { Coupon } from "@/components";
+
 const FDHome = memo(() => {
+  // state
+  const dispatch = useDispatch();
+  const { couponList } = useSelector(
+    (state) => ({
+      couponList: state.getIn(["homeState", "couponList"]),
+    }),
+    shallowEqual
+  );
+
   function onChange(a, b, c) {
     console.log(a, b, c);
   }
+
+  // hooks
+  useEffect(() => {
+    dispatch(getCouponListAction());
+  }, []);
 
   const contentStyle = {
     height: "160px",
@@ -15,6 +32,8 @@ const FDHome = memo(() => {
     textAlign: "center",
     background: "#364d79",
   };
+
+  console.log(couponList);
 
   return (
     <HomeWraper>
@@ -37,12 +56,9 @@ const FDHome = memo(() => {
       <DiscountWraper>
         <div className="couponTitle">点餐前请先领取优惠券</div>
         <div className="coupons">
-          <Coupon></Coupon>
-          <Coupon></Coupon>
-          <Coupon></Coupon>
-          <Coupon></Coupon>
-          <Coupon></Coupon>
-        
+          {couponList?.map((coupon) => (
+            <Coupon couponInfo={coupon} key={coupon.id} />
+          ))}
         </div>
       </DiscountWraper>
       <HotFood></HotFood>

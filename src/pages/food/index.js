@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -17,6 +17,7 @@ import {
 } from "./style";
 
 import { foodTabs } from "../../common/local-data";
+import { List } from "immutable";
 const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ const FDFood = memo(() => {
   );
 
   // other state
-  
+  const [curIndex, setCurIndex] = useState(-1);
   // hooks
   useEffect(() => {
     // if (!isLogin) {
@@ -59,62 +60,34 @@ const FDFood = memo(() => {
       </FDFoodHeaderWraper>
       <FoodHeader>
         <div className="headItem">
-          <span className="nav-tab">
-            <span className="navTitle">所有菜品</span>
-            <span className="navCount"></span>
-          </span>
+          {typeList?.map((type, index) => (
+            <span className="nav-tab" key={index}>
+              <span
+                className={index === curIndex ? "activeTitle" : "navTitle"}
+                onClick={() => {
+                  setCurIndex(index);
+                  handleChange(type.id);
+                }}
+              >
+                {type.title}
+              </span>
+              <span className="navCount"></span>
+            </span>
+          ))}
         </div>
-        <div className="headItem">
-          <span className="nav-tab">
-            <span className="navTitle">所有菜品</span>
-            <span className="navCount"></span>
-          </span>
-        </div>{" "}
-        <div className="headItem">
-          <span className="nav-tab">
-            <span className="navTitle">所有菜品</span>
-            <span className="navCount"></span>
-          </span>
-        </div>{" "}
-        <div className="headItem">
-          <span className="nav-tab">
-            <span className="navTitle">所有菜品</span>
-            <span className="navCount"></span>
-          </span>
-        </div>{" "}
-        <div className="headItem">
-          <span className="nav-tab">
-            <span className="navTitle">所有菜品</span>
-            <span className="navCount"></span>
-          </span>
+        <div
+          className="headBottom"
+          onClick={() => {
+            navigate("/order/submitorder");
+          }}
+        >
+          我的购物车
+          <Badge count={foodCount}>
+            <ShoppingCartOutlined className="shopCar" />
+          </Badge>
         </div>
       </FoodHeader>
       <FDFoodContentWraper>
-        {/* <div className={"container"}> */}
-        <div className={"side"}>
-          <ul>
-            菜品分类
-            <div
-              className="foodSide"
-              onClick={() => {
-                handleAllFood();
-              }}
-            >
-              不限
-            </div>
-            {typeList?.map((type) => (
-              <div
-                key={type.id}
-                onClick={() => {
-                  handleChange(type.id);
-                }}
-                className="foodSide"
-              >
-                {type.title}
-              </div>
-            ))}
-          </ul>
-        </div>
         <div className="main">
           {foodList?.map((food) => (
             <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
@@ -122,16 +95,6 @@ const FDFood = memo(() => {
         </div>
         {/* </div> */}
       </FDFoodContentWraper>
-      <div className="orderList">
-        <Badge count={foodCount}>
-          <ShoppingCartOutlined
-            className="shopCar"
-            onClick={() => {
-              navigate("/order/submitorder");
-            }}
-          />
-        </Badge>
-      </div>
     </FDFoodWraper>
   );
 });
