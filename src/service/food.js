@@ -8,9 +8,9 @@ export function getAllFood() {
 }
 
 // 分页带条件查询
-export function getFoodPageCondition(foodQuery) {
+export function getFoodPageCondition(current, limit, foodQuery) {
   return request({
-    url: `/foodservice/food/pageFoodCondition`,
+    url: `/foodservice/food/pageFoodCondition/${current}/${limit}`,
     method: "post",
     data: foodQuery,
   });

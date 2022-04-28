@@ -5,8 +5,9 @@ import {
   getTypeList,
   getFoodList,
   getAllFoodList,
+  getFoodPageConditionAction,
 } from "./store/actionCreators";
-import { Badge } from "antd";
+import { Badge, Pagination } from "antd";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import FDFoodItem from "@/components/food-item";
 import {
@@ -14,43 +15,84 @@ import {
   FDFoodContentWraper,
   FDFoodWraper,
   FoodHeader,
+  PageBottom,
 } from "./style";
 
-import { foodTabs } from "../../common/local-data";
-import { List } from "immutable";
 const FDFood = memo(() => {
   // state
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { isLogin, typeList, foodList, foodCount, orderList } = useSelector(
-    (state) => ({
-      typeList: state.getIn(["foodState", "typeList"]),
-      foodList: state.getIn(["foodState", "foodList"]),
-      orderList: state.getIn(["foodState", "orderList"]),
-      isLogin: state.getIn(["loginState", "isLogin"]),
-      foodCount: state.getIn(["foodState", "foodCount"]),
-    }),
-    shallowEqual
-  );
+  const { isLogin, typeList, foodList, foodCount, orderList, total } =
+    useSelector(
+      (state) => ({
+        typeList: state.getIn(["foodState", "typeList"]),
+        foodList: state.getIn(["foodState", "foodList"]),
+        orderList: state.getIn(["foodState", "orderList"]),
+        isLogin: state.getIn(["loginState", "isLogin"]),
+        foodCount: state.getIn(["foodState", "foodCount"]),
+        total: state.getIn(["foodState", "total"]),
+      }),
+      shallowEqual
+    );
 
   // other state
   const [curIndex, setCurIndex] = useState(-1);
+  const [curTypeId, setCurTypeId] = useState("");
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 15,
+  });
+
   // hooks
   useEffect(() => {
-    // if (!isLogin) {
-    //   navigate("/login");
-    // }
+    if (!isLogin) {
+      navigate("/login");
+    }
     dispatch(getTypeList());
-    dispatch(getAllFoodList());
+    // dispatch(getAllFoodList());
+    const foodQuery = {};
+    dispatch(getFoodPageConditionAction(1, 15, foodQuery));
   }, []);
 
   // other hooks
-  const handleChange = (key) => {
-    dispatch(getFoodList(key));
+  const handleChange = (typeId) => {
+    const foodQuery = {};
+    if (typeId !== "-1") {
+      foodQuery.typeId = typeId;
+      setCurTypeId(typeId);
+    }
+    setPagination({ ...pagination, current: 1 });
+    const { pageSize } = pagination;
+    dispatch(getFoodPageConditionAction(1, pageSize, foodQuery));
   };
 
-  const handleAllFood = () => {
-    dispatch(getAllFoodList());
+  // const handleAllFood = (typeId) => {
+  //   const { current, pageSize } = pagination;
+  //   const foodQuery = { typeId: typeId };
+  //   dispatch(getFoodPageConditionAction(current, pageSize, foodQuery));
+  // };
+
+  // 页面改变
+  const paginationChange = (current, pageSize) => {
+    setPagination({ ...pagination, current, pageSize });
+    const foodQuery = { typeId: curTypeId };
+    dispatch(getFoodPageConditionAction(current, pageSize, foodQuery));
+  };
+
+  const paginationObj = {
+    ...pagination,
+    total: `${total}`,
+    showQuickJumper: true,
+    // 显示每页多少条数据
+    showSizeChanger: true,
+    hideOnSinglePage: false,
+    pageSizeOptions: ["15", "30", "50", "100"],
+    onChange: paginationChange,
+    onShowSizeChange: paginationChange,
+    // 总数
+    showTotal: function () {
+      return `总共有 ${total} 条菜品`;
+    },
   };
 
   return (
@@ -60,6 +102,17 @@ const FDFood = memo(() => {
       </FDFoodHeaderWraper>
       <FoodHeader>
         <div className="headItem">
+          <span className="nav-tab">
+            <span
+              className={-1 === curIndex ? "activeTitle" : "navTitle"}
+              onClick={() => {
+                setCurIndex(-1);
+                handleChange("-1");
+              }}
+            >
+              所有菜品
+            </span>
+          </span>
           {typeList?.map((type, index) => (
             <span className="nav-tab" key={index}>
               <span
@@ -95,6 +148,9 @@ const FDFood = memo(() => {
         </div>
         {/* </div> */}
       </FDFoodContentWraper>
+      <PageBottom>
+        <Pagination {...paginationObj} />
+      </PageBottom>
     </FDFoodWraper>
   );
 });

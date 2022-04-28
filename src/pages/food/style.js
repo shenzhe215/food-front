@@ -83,3 +83,10 @@ export const FDFoodContentWraper = styled.div`
     }
   }
 `;
+
+export const PageBottom = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  padding-right: 20px;
+`;

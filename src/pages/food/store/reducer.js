@@ -8,6 +8,7 @@ const defaultState = Map({
   curFood: {},
   orderMoney: 0,
   foodCount: 0,
+  total: 0,
   orderList: [],
   foodOrderCount: {},
 });
@@ -30,6 +31,8 @@ function reducer(state = defaultState, action) {
       return state.set("foodOrderCount", action.foodOrderCount);
     case actionTypes.CHANGE_ORDER_LIST:
       return state.set("orderList", action.orderList);
+    case actionTypes.CHANGE_FOOD_LIST_TOTAL:
+      return state.set("total", action.total);
     default:
       return state;
   }

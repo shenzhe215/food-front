@@ -1,7 +1,11 @@
-import { getAllType, getFoodByType,getAllFood } from "@/service/food";
+import {
+  getAllType,
+  getFoodByType,
+  getAllFood,
+  getFoodPageCondition,
+} from "@/service/food";
 import * as actionTypes from "./constants";
 import { message } from "antd";
-import { is } from "immutable";
 
 // 更改菜品列表
 export const changeFoodListAction = (foodList) => ({
@@ -51,6 +55,11 @@ export const changeOrderListAction = (orderList) => ({
   orderList: orderList,
 });
 
+// 更改当前订单列表数信息
+export const changeFoodListTotalAction = (total) => ({
+  type: actionTypes.CHANGE_FOOD_LIST_TOTAL,
+  total,
+});
 
 // 获得菜品分类列表
 export const getTypeList = () => {
@@ -78,6 +87,19 @@ export const getAllFoodList = () => {
   };
 };
 
+// -------------获取全部菜品列表信息-------------
+export const getFoodPageConditionAction = (current, limit, foodQuery) => {
+  return (dispatch) => {
+    getFoodPageCondition(current, limit, foodQuery).then((res) => {
+      if (res.code === 20000) {
+        dispatch(changeFoodListAction(res.data.list));
+        dispatch(changeFoodListTotalAction(res.data.total));
+      } else {
+        message.error("请求错误");
+      }
+    });
+  };
+};
 
 // -------------获取菜品列表信息-------------
 export const getFoodList = (typeId) => {
