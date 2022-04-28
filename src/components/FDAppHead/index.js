@@ -84,7 +84,7 @@ const FDAppHeader = memo(() => {
               <div className="downMenu loginMenu4">
                 <Link to="/user">个人信息</Link>
                 <Link to="/location">地址信息</Link>
-                <Link to="/user">优惠信息</Link>
+                <Link to="/user/coupon">优惠信息</Link>
               </div>
               <NavLink to={"/user"}>{"个人中心"}</NavLink>
             </div>
