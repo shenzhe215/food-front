@@ -50,7 +50,6 @@ const FDAppHeader = memo(() => {
 
   const handleLogOut = () => {
     dispatch(logOutAction());
-    navigate("/login");
   };
 
   // 页面代码

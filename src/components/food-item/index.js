@@ -63,22 +63,7 @@ const FDFoodItem = memo((props) => {
       </div>
       <div className="foodOperationBox">
         <h2 className="foodContentPrice">{price}￥</h2>
-        {/* <span className="operationBox"> */}
-          {/* <div className={!foodOrderCount[id] && "hasBorder"}>
-            {foodOrderCount[id] && (
-              <MinusOutlined className="operationIcon" onClick={handleMinus} />
-            )}
-          </div>
-          <div className={!foodOrderCount[id] && "hasBorder"}>
-            {(foodOrderCount[id] && (
-              <span className="setSpace">{foodOrderCount[id]}</span>
-            )) || <span className="setSpace"></span>}
-          </div>
-          <div>
-            <PlusOutlined className="operationIcon" onClick={handleAdd} />
-          </div> */}
-          <FDOperationBox foodInfo={foodInfo} />
-        {/* </span> */}
+        <FDOperationBox foodInfo={foodInfo} />
       </div>
     </FDFoodItemWraper>
   );

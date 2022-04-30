@@ -40,18 +40,18 @@ const FDFood = memo(() => {
   const [curTypeId, setCurTypeId] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 15,
+    pageSize: 18,
   });
 
   // hooks
   useEffect(() => {
-    if (!isLogin) {
-      navigate("/login");
-    }
+    // if (!isLogin) {
+    //   navigate("/login");
+    // }
     dispatch(getTypeList());
     // dispatch(getAllFoodList());
     const foodQuery = {};
-    dispatch(getFoodPageConditionAction(1, 15, foodQuery));
+    dispatch(getFoodPageConditionAction(1, 18, foodQuery));
   }, []);
 
   // other hooks
@@ -66,11 +66,6 @@ const FDFood = memo(() => {
     dispatch(getFoodPageConditionAction(1, pageSize, foodQuery));
   };
 
-  // const handleAllFood = (typeId) => {
-  //   const { current, pageSize } = pagination;
-  //   const foodQuery = { typeId: typeId };
-  //   dispatch(getFoodPageConditionAction(current, pageSize, foodQuery));
-  // };
 
   // 页面改变
   const paginationChange = (current, pageSize) => {
@@ -86,7 +81,7 @@ const FDFood = memo(() => {
     // 显示每页多少条数据
     showSizeChanger: true,
     hideOnSinglePage: false,
-    pageSizeOptions: ["15", "30", "50", "100"],
+    pageSizeOptions: ["18", "36", "50", "100"],
     onChange: paginationChange,
     onShowSizeChange: paginationChange,
     // 总数
@@ -146,7 +141,6 @@ const FDFood = memo(() => {
             <FDFoodItem foodInfo={food} key={food.id}></FDFoodItem>
           ))}
         </div>
-        {/* </div> */}
       </FDFoodContentWraper>
       <PageBottom>
         <Pagination {...paginationObj} />

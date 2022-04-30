@@ -54,6 +54,7 @@ export const FoodHeader = styled.div`
       font-size: 20px;
       padding: 5px;
     }
+    width: 120px;
   }
 `;
 
@@ -75,10 +76,11 @@ export const FDFoodContentWraper = styled.div`
 
     > div {
       display: inline-block;
-      margin-right: calc((20% - 150px) * 1.25);
+      /* margin-right: calc((20% - 150px) * 1.25); */
+      margin-right: calc(((100 / 6 * 1%) - 150px) * 1.2);
     }
 
-    > div:nth-child(5n + 0) {
+    > div:nth-child(6n + 0) {
       margin-right: 0px;
     }
   }

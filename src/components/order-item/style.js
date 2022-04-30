@@ -125,5 +125,20 @@ export const Content = styled.div`
     align-items: center;
     justify-content: center;
     border-right: 1px solid #bfbfbf;
+
+    flex-direction: column;
+
+    p {
+      padding-bottom: 5px;
+    }
+
+    a {
+      color: red;
+    }
+
+    span {
+      color: #118adb;
+      cursor: pointer;
+    }
   }
 `;

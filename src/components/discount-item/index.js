@@ -7,10 +7,18 @@ import { message } from "antd";
 
 const Coupon = memo((props) => {
   // state
-  const { couponInfo } = props;
+  const { couponInfo, isUser } = props;
   const navigate = useNavigate();
-  const { id, type, title, requirement, description, num, beginTime, endTime } =
-    couponInfo;
+  const {
+    id,
+    type,
+    title,
+    requirement,
+    description,
+    num,
+    beginTime,
+    endTime,
+  } = couponInfo;
   const { isLogin } = useSelector(
     (state) => ({
       isLogin: state.getIn(["loginState", "isLogin"]),
@@ -35,7 +43,7 @@ const Coupon = memo((props) => {
   };
 
   return (
-    <CouponWraper onClick={handleCoupon}>
+    <CouponWraper onClick={!isUser && handleCoupon}>
       <div className="coupon">
         <p className="coupon-title">{description}</p>
         <span className="coupon-content">

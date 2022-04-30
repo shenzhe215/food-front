@@ -26,7 +26,7 @@ const FDAppContent = memo(() => {
 
   return (
     <FDContentWrapper>
-      <Layout>
+      {/* <Layout> */}
         <Content
           className="site-layout-background"
           style={{
@@ -39,7 +39,7 @@ const FDAppContent = memo(() => {
             <RouteElement />
           </Suspense>
         </Content>
-      </Layout>
+      {/* </Layout> */}
     </FDContentWrapper>
   );
 });

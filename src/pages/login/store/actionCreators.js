@@ -33,6 +33,11 @@ export const changeUserLoginCookieAction = (cookie) => ({
   cookie,
 });
 
+// 更改登录状态(cookie)
+export const logoutAction = () => ({
+  type: actionTypes.USER_LOGOUT,
+});
+
 // -------------获取登录信息-------------
 export const getLoginProfileInfo = (values) => {
   return (dispatch, getState) => {
@@ -42,6 +47,7 @@ export const getLoginProfileInfo = (values) => {
       } else {
         message.success("登录成功");
         // 登录成功
+        localStorage.setItem("login", true);
         cookie.set("food_token", res.data.token, { domain: "localhost" });
         // console.log(cookie.get("food_token"));
 
@@ -86,13 +92,15 @@ export const getLatestInfoAction = () => {
 };
 
 // -------------退出信息-------------
-export const logOutAction = (values) => {
+export const logOutAction = () => {
   return (dispatch, getState) => {
     // 清除
     // cookie.set("food_token", "", { domain: "localhost" });
     // cookie.set("food_ucenter", "", { domain: "localhost" });
     cookie.remove("food_token");
     cookie.remove("food_ucenter");
+    console.log(cookie.get("food_token"));
+    localStorage.removeItem("login");
     // 清除用户信息
     // 更改登录状态
     // clearLoginState();
@@ -106,5 +114,8 @@ export const logOutAction = (values) => {
     // 保存用户信息
     const newUserProfile = {};
     dispatch(changeUserProfileAction(newUserProfile));
+
+    dispatch(logoutAction());
+    // window.location.href = "/#/login";
   };
 };

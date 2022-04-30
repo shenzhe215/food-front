@@ -10,6 +10,8 @@ import App from "./App";
 //     <App />,
 //   document.getElementById('root')
 // );
+
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <ConfigProvider locale={zhCN}>
     <App />

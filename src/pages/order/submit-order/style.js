@@ -48,7 +48,8 @@ export const FDSubmitOrderWraper = styled.div`
     border-bottom: 1px solid #dddddd;
   }
 
-  .prices {
+  .prices,
+  .hasdiscount {
     text-align: right;
 
     .title {
@@ -62,6 +63,10 @@ export const FDSubmitOrderWraper = styled.div`
     }
   }
 
+  .hasdiscount {
+    text-decoration: line-through;
+  }
+
   .submitBtn {
     text-align: right;
     margin-top: 20px;
@@ -71,5 +76,9 @@ export const FDSubmitOrderWraper = styled.div`
       width: 150px;
       height: 45px;
     }
+  }
+
+  .coupon {
+    text-align: right;
   }
 `;

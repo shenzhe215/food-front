@@ -1,15 +1,18 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import { OrderItemWraper, Header, Content } from "./style";
-import { Divider, Image, Input, message, Modal } from "antd";
+import { Button, Divider, Image, Input, message, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { deleteOrderById } from "@/service/order";
 import { getOrderListAction } from "@/pages/order/store/actionCreators";
 import { addFoodComment } from "@/service/food";
+import { finishOrder } from "@/service/order";
 const FDOrderItem = memo((props) => {
   // state
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { orderInfo } = props;
   const {
     id,
@@ -66,7 +69,7 @@ const FDOrderItem = memo((props) => {
     return (
       <>
         <div className="foodInfo">
-          <Image src={cover} width={100} />
+          <Image src={cover} width={80} height={60} />
           <div className="foodTitle">{title}</div>
         </div>
 
@@ -79,16 +82,36 @@ const FDOrderItem = memo((props) => {
     );
   };
 
+  // 确认收货
+  const handleRecive = () => {
+    finishOrder(id).then((res) => {
+      if (res.code === 20000) {
+        message.success("确认收货成功");
+        dispatch(getOrderListAction());
+      } else {
+        message.error("确认收货失败");
+      }
+    });
+  };
+
   const getStatus = () => {
     switch (status) {
       case 0:
-        return "未支付";
+        return (
+          <>
+            <p>未支付</p>
+            <Link to={`/order/pay/${orderNo}`}>去支付</Link>
+          </>
+        );
       case 1:
-        return "未支付";
+        return (
+          <>
+            <p>已支付，待收货</p>
+            <span onClick={() => handleRecive()}>确认收货</span>
+          </>
+        );
       case 2:
-        return "未支付";
-      case 3:
-        return "未支付";
+        return "订单完成";
       default:
         return "订单状态";
     }

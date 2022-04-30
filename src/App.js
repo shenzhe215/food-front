@@ -8,6 +8,7 @@ const FDLogin = React.lazy(() => import("./pages/login/login"));
 const FDRegister = React.lazy(() => import("./pages/login/register"));
 const DefaultLayout = React.lazy(() => import("./layout"));
 
+
 const App = memo(() => {
   return (
     <Provider store={store}>

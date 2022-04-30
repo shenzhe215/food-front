@@ -2,7 +2,7 @@ import React, { memo, useState, useEffect } from "react";
 import { Form, Input, Button, Radio, message, InputNumber } from "antd";
 
 import { getMatchReg } from "@/utils/format-utils";
-import { FDLoginWraper, FDInputWraper, FDBtnWraper,LoginPane } from "./style";
+import { FDLoginWraper, FDInputWraper, FDBtnWraper, LoginPane } from "./style";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { sendRegisterCode, sendRegister } from "@/service/login";
@@ -40,11 +40,12 @@ const FDLogin = memo(() => {
   // hooks
   useEffect(() => {
     // navigate("/food");
+    // window.history.go(0);
   }, []);
 
   useEffect(() => {
     if (isLogin) {
-      navigate("/food");
+      navigate("/home");
     } else {
       navigate("/login");
     }
@@ -138,51 +139,51 @@ const FDLogin = memo(() => {
   return (
     <FDLoginWraper>
       {/* <LoginPane> */}
-        <div className="loginTitle">
-          <span className="loginSpan">登录</span>
-          <span className="welcomeSpan">欢迎再次回来~</span>
-        </div>
-        <FDInputWraper>
-          <Form
-            {...layout}
-            layout="horizontal"
-            onFinish={onFinish}
-            // validateMessages={validateMessages}
-            labelAlign="right"
-            size="large"
+      <div className="loginTitle">
+        <span className="loginSpan">登录</span>
+        <span className="welcomeSpan">欢迎再次回来~</span>
+      </div>
+      <FDInputWraper>
+        <Form
+          {...layout}
+          layout="horizontal"
+          onFinish={onFinish}
+          // validateMessages={validateMessages}
+          labelAlign="right"
+          size="large"
+        >
+          <Form.Item
+            label="手机号"
+            name="mobile"
+            rules={[
+              {
+                pattern: mathchPhoneReg,
+                message: `请输入正确的手机号`,
+              },
+              { required: true, message: "请输入你的手机号" },
+            ]}
           >
-            <Form.Item
-              label="手机号"
-              name="mobile"
-              rules={[
-                {
-                  pattern: mathchPhoneReg,
-                  message: `请输入正确的手机号`,
-                },
-                { required: true, message: "请输入你的手机号" },
-              ]}
-            >
-              <Input
-                placeholder="请输入手机号"
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                }}
-              />
-            </Form.Item>
-            {loginForm()}
-            <Form.Item >
-              <Button type="primary" htmlType="submit" className="submitBtn">
-                登录
-              </Button>
-            </Form.Item>
-            <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 1 }}>
-              <div className="registerRow">
-                <span>找回密码</span>
-                <a onClick={handleRegister}>快速注册</a>
-              </div>
-            </Form.Item>
-          </Form>
-        </FDInputWraper>
+            <Input
+              placeholder="请输入手机号"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+            />
+          </Form.Item>
+          {loginForm()}
+          <Form.Item>
+            <Button type="primary" htmlType="submit" className="submitBtn">
+              登录
+            </Button>
+          </Form.Item>
+          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 1 }}>
+            <div className="registerRow">
+              <span>找回密码</span>
+              <a onClick={handleRegister}>快速注册</a>
+            </div>
+          </Form.Item>
+        </Form>
+      </FDInputWraper>
       {/* </LoginPane> */}
     </FDLoginWraper>
   );

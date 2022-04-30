@@ -26,7 +26,11 @@ const FDUser = memo(() => {
   const [isUpdate, setIsUpdate] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   // hooks
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+  }, []);
   // 其他hooks
   const handlePassword = () => {
     if (isUpdate) {

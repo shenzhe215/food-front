@@ -23,7 +23,6 @@ const FDRegister = memo(() => {
 
   const onFinish = (values) => {
     sendRegister(values).then((res) => {
-      console.log(res);
       if (res.code === 20000) {
         message.success("注册成功");
         navigate("/login");
@@ -42,7 +41,6 @@ const FDRegister = memo(() => {
   // 验证码处理
   // handle function
   const handleSendCode = () => {
-    console.log(phone);
     // 60秒延迟定时器
     if (!isSendSatte) {
       let i = 0;
@@ -58,7 +56,6 @@ const FDRegister = memo(() => {
       // 发送验证码
       !isSendSatte &&
         sendRegisterCode(phone).then((res) => {
-          console.log(phone);
           if (res.code === 20000) message.success("发送成功");
           else message.error("发送失败, 请60秒后发送验证码");
         });

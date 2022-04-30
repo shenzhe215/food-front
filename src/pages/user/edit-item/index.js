@@ -77,7 +77,6 @@ const EditItem = memo((props) => {
       // 发送验证码
       !isSendSatte &&
         sendRegisterCode(phone).then((res) => {
-          console.log(phone);
           if (res.code === 20000) message.success("发送成功");
           else message.error("发送失败, 请60秒后发送验证码");
         });

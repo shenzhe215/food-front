@@ -5,5 +5,6 @@ export const FDAppWraper = styled.div`
   position: absolute;
   width: 100%;
   height: auto;
-  /* min-height: 100%; */
+  min-height: 100%;
+
 `;

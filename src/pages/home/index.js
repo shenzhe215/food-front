@@ -1,5 +1,6 @@
 import React, { memo, useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { Carousel } from "antd";
 import { HomeWraper, DiscountWraper, HotFood } from "./styled";
@@ -9,9 +10,11 @@ import { Coupon } from "@/components";
 const FDHome = memo(() => {
   // state
   const dispatch = useDispatch();
-  const { couponList } = useSelector(
+  const navigate = useNavigate();
+  const { couponList, isLogin } = useSelector(
     (state) => ({
       couponList: state.getIn(["homeState", "couponList"]),
+      isLogin: state.getIn(["loginState", "isLogin"]),
     }),
     shallowEqual
   );
@@ -22,6 +25,10 @@ const FDHome = memo(() => {
 
   // hooks
   useEffect(() => {
+    if (!isLogin) {
+      navigate("/login");
+    }
+
     dispatch(getCouponListAction());
   }, []);
 
@@ -32,8 +39,6 @@ const FDHome = memo(() => {
     textAlign: "center",
     background: "#364d79",
   };
-
-  console.log(couponList);
 
   return (
     <HomeWraper>
@@ -57,7 +62,7 @@ const FDHome = memo(() => {
         <div className="couponTitle">点餐前请先领取优惠券</div>
         <div className="coupons">
           {couponList?.map((coupon) => (
-            <Coupon couponInfo={coupon} key={coupon.id} />
+            <Coupon couponInfo={coupon} key={coupon.id} isUser={false} />
           ))}
         </div>
       </DiscountWraper>

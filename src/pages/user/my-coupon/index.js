@@ -20,11 +20,12 @@ const FDMyCoupon = memo(() => {
     dispatch(getCouponListAction());
   }, []);
 
+  console.log(couponList);
   return (
     <MyCouponWraper>
-      {couponList?.map((coupon) => {
-        <Coupon key={coupon.id} couponInfo={coupon} />;
-      })}
+      {couponList?.map((coupon) => (
+        <Coupon couponInfo={coupon} key={coupon.id} isUser={true}/>
+      ))}
     </MyCouponWraper>
   );
 });

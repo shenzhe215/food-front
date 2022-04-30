@@ -1,5 +1,5 @@
 import styled from "styled-components";
 
 export const MyCouponWraper = styled.div`
-  background-color: pink;
+  background-color: #f9f9f9;
 `;

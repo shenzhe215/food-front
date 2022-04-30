@@ -40,7 +40,6 @@ const FDFoodInfo = memo(() => {
     });
     getCommentListById(curFood.id).then((res) => {
       if (res.code === 20000) {
-        console.log(res.data)
         setCommentList(res.data.list);
       }
     });

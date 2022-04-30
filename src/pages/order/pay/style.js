@@ -1,14 +1,30 @@
 import styled from "styled-components";
 
 export const PayWraper = styled.div`
-  background-color: #eeeeee;
+  /* background-color: #eeeeee; */
+
+  .step {
+    width: 70%;
+    margin-left: 15%;
+    padding: 10px;
+  }
 `;
 
 export const PayUp = styled.div`
+  display: flex;
+  justify-content: space-between;
+
   background-color: #f3f3f3;
-  border: 1px solid #dbdbdb;
-  /* text-align: center; */
+  border-bottom: 1px solid #dbdbdb;
+
+  font-size: 15px;
+  font-weight: bold;
   padding: 5px 5px;
+
+  p {
+    display: flex;
+    align-items: center;
+  }
 `;
 
 export const PayContent = styled.div`
@@ -25,11 +41,23 @@ export const PayContent = styled.div`
   .border {
     border-bottom: 1px solid #f0f0f0;
     padding: 5px;
+    font-size: 15px;
+    font-weight: bold;
   }
 
+  .payNum {
+    /* background-color: #f9f9f9; */
+    font-size: 15px;
+    text-align: right;
+    span {
+      color: red;
+      font-size: 25px;
+    }
+  }
   .payWay {
     display: flex;
     margin-top: 10px;
+    justify-content: right;
     .payItem {
       display: flex;
       flex-direction: column;
@@ -51,22 +79,18 @@ export const PayContent = styled.div`
         background-position: -210px 190px;
       }
 
-      .itemImg {
-        width: 200px;
-        height: 200px;
-        margin-top: 10px;
+      .monitor {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+        line-height: 50px;
+        user-select: none;
+        :hover {
+          cursor: pointer;
+        }
       }
-
     }
   }
 `;
 
-export const PayBottom = styled.div`
-  background-color: #f9f9f9;
-  font-size: 15px;
-  text-align: right;
-  span {
-    color: red;
-    font-size: 25px;
-  }
-`;
+export const PayNum = styled.div``;
