@@ -71,10 +71,10 @@ const FDFoodSubmitOrder = memo(() => {
 
   const handleSubmit = () => {
     if (location == null) {
-      message.info("请选择地址");
+      message.info("请选择地址", 1);
       return;
     } else if (orderList.length == 0) {
-      message.info("请先选择菜品");
+      message.info("请先选择菜品", 1);
       return;
     } else {
       var orderInfo = {};
@@ -109,7 +109,6 @@ const FDFoodSubmitOrder = memo(() => {
     },
     {
       title: "菜品封面",
-      // dataIndex: "cover",
       key: "cover",
       render: (text, record) => (
         <Image src={record.cover} width={80} height={60} />
@@ -119,6 +118,21 @@ const FDFoodSubmitOrder = memo(() => {
       title: "菜品单价(元)",
       dataIndex: "price",
       key: "price",
+      render: (text, record) => (
+        <div className="tablePrice">
+          <sapn
+            className={
+              (record.discountPrice && "hasdiscount") || "foodContentPrice"
+            }
+          >
+            {record.price}￥
+          </sapn>
+          {record.discountPrice && (
+            <span className="foodContentPrice">{record.discountPrice}￥</span>
+          )}
+          {/* {record.discountPrice === null ? record.price : record.discountPrice} */}
+        </div>
+      ),
     },
     {
       title: "数量",
@@ -130,7 +144,11 @@ const FDFoodSubmitOrder = memo(() => {
       key: "operation",
       render: (text, record) => (
         <span style={{ color: "red" }}>
-          {foodOrderCount[record.id] * record.price}
+          {foodOrderCount[record.id] *
+            (record.discountPrice === null
+              ? record.price
+              : record.discountPrice)}
+          ￥
         </span>
       ),
     },
@@ -208,7 +226,7 @@ const FDFoodSubmitOrder = memo(() => {
           <span className="money">
             ￥
             {(couponInfo.type === 1 && orderMoney - couponInfo.title) ||
-              orderMoney * 0.1 * couponInfo.title}
+              (orderMoney * couponInfo.title) / 10}
           </span>
         </div>
       )}

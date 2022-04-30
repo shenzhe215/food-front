@@ -27,9 +27,17 @@ export const FDFoodItemWraper = styled.div`
     }
   }
 
+  .foodContentPrice,
+  .hasdiscount {
+    font-size: 15px;
+  }
+
   .foodContentPrice {
     color: red;
-    font-size: 15px;
+  }
+
+  .hasdiscount {
+    text-decoration: line-through;
   }
 
   .foodOperationBox {
@@ -49,7 +57,7 @@ export const FDFoodItemWraper = styled.div`
       /* display: flex;
       flex-direction: row;
       padding-right: 5px; */
-/* 
+      /* 
       .hasBorder {
         border: none;
       }

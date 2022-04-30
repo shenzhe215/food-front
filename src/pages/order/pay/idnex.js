@@ -57,7 +57,7 @@ const FDPay = memo(() => {
         console.log("连接成功");
       }
       if (msg.data === "支付成功") {
-        message.success("支付成功");
+        message.success("支付成功", 1);
         clearOrderState();
         navigate("/order");
       }
@@ -79,11 +79,11 @@ const FDPay = memo(() => {
           if (res.code === 20000) {
             setUrl(res.data.url);
           } else {
-            message.error(res.message);
+            message.error(res.message, 1);
           }
         });
       } else {
-        message.error(res.message);
+        message.error(res.message, 1);
       }
     });
   }, []);

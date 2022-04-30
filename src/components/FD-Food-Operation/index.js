@@ -17,18 +17,22 @@ const FDOperationBox = memo((props) => {
 
   // other states
   const foodInfo = props.foodInfo;
-  const { id, price } = foodInfo;
+  const { id, price, discountPrice } = foodInfo;
 
   // other hooks
 
   const handleMinus = (e) => {
     e.stopPropagation();
-    dispatch(changeOrderMoney(foodInfo, price, false));
+    discountPrice !== null
+      ? dispatch(changeOrderMoney(foodInfo, discountPrice, false))
+      : dispatch(changeOrderMoney(foodInfo, price, false));
   };
 
   const handleAdd = (e) => {
     e.stopPropagation();
-    dispatch(changeOrderMoney(foodInfo, price, true));
+    discountPrice === null
+      ? dispatch(changeOrderMoney(foodInfo, price, true))
+      : dispatch(changeOrderMoney(foodInfo, discountPrice, true));
   };
 
   return (

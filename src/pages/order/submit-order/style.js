@@ -11,6 +11,15 @@ export const FDSubmitOrderWraper = styled.div`
     margin-left: 15%;
   }
 
+  .tablePrice {
+    .hasdiscount {
+      text-decoration: line-through;
+      padding-right: 10px;
+    }
+    .foodContentPrice {
+      color: red;
+    }
+  }
   .location {
     .littleTitle {
       display: flex;

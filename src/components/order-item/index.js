@@ -44,10 +44,10 @@ const FDOrderItem = memo((props) => {
       foodComment.foodId = foodItem.foodId;
       addFoodComment(foodComment).then((res) => {
         if (res.code === 20000) {
-          message.success("添加评论成功");
+          message.success("添加评论成功", 1);
           setVisiable(false);
         } else {
-          message.error(res.message);
+          message.error(res.message, 1);
         }
       });
     }
@@ -57,10 +57,10 @@ const FDOrderItem = memo((props) => {
   const handleDelete = () => {
     deleteOrderById(id).then((res) => {
       if (res.code === 20000) {
-        message.success("订单删除成功");
+        message.success("订单删除成功", 1);
         dispatch(getOrderListAction());
       } else {
-        message.error("删除失败");
+        message.error("删除失败", 1);
       }
     });
   };
@@ -75,9 +75,20 @@ const FDOrderItem = memo((props) => {
 
         <div className="price">￥{price}</div>
         <div className="count">{buyNum}</div>
-        <span className="comment" onClick={addComment.bind(null, item)}>
-          评论
-        </span>
+        {(status === 2 && (
+          <span className="comment" onClick={addComment.bind(null, item)}>
+            评论
+          </span>
+        )) || (
+          <span
+            className="noComment"
+            onClick={() => {
+              message.info("收货后方可评价!", 1);
+            }}
+          >
+            评论
+          </span>
+        )}
       </>
     );
   };
@@ -86,10 +97,10 @@ const FDOrderItem = memo((props) => {
   const handleRecive = () => {
     finishOrder(id).then((res) => {
       if (res.code === 20000) {
-        message.success("确认收货成功");
+        message.success("确认收货成功", 1);
         dispatch(getOrderListAction());
       } else {
-        message.error("确认收货失败");
+        message.error("确认收货失败", 1);
       }
     });
   };
@@ -137,7 +148,16 @@ const FDOrderItem = memo((props) => {
 
         <div className="location">{location}</div>
         <div className="status">{getStatus()}</div>
-        <div className="fee">{totalFee}￥</div>
+        <div className="fee">
+          <div className={rateFee ? "feebox" : "ratefeebox"}>
+            总费用：<span>{totalFee}￥</span>
+          </div>
+          {rateFee > 0 && (
+            <div className="ratefeebox">
+              折扣价：<span>{rateFee}￥</span>
+            </div>
+          )}
+        </div>
       </Content>
       <Modal
         title={"正在评论 " + foodItem.title}

@@ -26,7 +26,9 @@ export const getCouponListAction = () => {
     getCouponFrontList().then((res) => {
       if (res.code === 20000) {
         const couponList = res.data.list;
-        dispatch(changeCouponListAction(couponList));
+        couponList[0] !== null
+          ? dispatch(changeCouponListAction(couponList))
+          : dispatch(changeCouponListAction([]));
       }
     });
   };

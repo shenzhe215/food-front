@@ -88,17 +88,20 @@ export const Content = styled.div`
       justify-content: center;
     }
 
-    .comment {
+    .comment,
+    .noComment {
       width: 10%;
       display: flex;
       align-items: center;
       justify-content: center;
 
-      color: #3f9cd9;
-
       :hover {
         cursor: pointer;
       }
+    }
+
+    .comment {
+      color: #3f9cd9;
     }
   }
 
@@ -113,10 +116,25 @@ export const Content = styled.div`
   .fee {
     width: 10%;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: red;
-    font-weight: bold;
+
+    .ratefeebox,
+    .feebox {
+      color: black;
+    }
+
+    .ratefeebox {
+      span {
+        color: red;
+        font-weight: 700;
+      }
+    }
+
+    .feebox {
+      text-decoration: line-through;
+    }
   }
 
   .status {

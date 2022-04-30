@@ -52,7 +52,7 @@ const EditItem = memo((props) => {
     values.avatar = avatar;
     updateUserInfo(values).then((res) => {
       if (res.code === 20000) {
-        message.success("用户信息更新成功");
+        message.success("用户信息更新成功",1);
         dispatch(getLatestInfoAction());
       } else {
         message.error(res.message);
