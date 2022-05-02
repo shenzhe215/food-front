@@ -20,7 +20,6 @@ const FDMyCoupon = memo(() => {
     dispatch(getCouponListAction());
   }, []);
 
-  console.log(couponList.length > 0);
   return (
     <MyCouponWraper>
       {couponList.length > 0 &&

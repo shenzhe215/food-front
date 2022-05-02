@@ -24,7 +24,7 @@ export const CouponWraper = styled.div`
     top: calc(50% - 7.5px);
     content: "";
     right: 0;
-    background: radial-gradient(circle 5px at 5px 5px, pink 5px, #e9bb16 50%);
+    background: radial-gradient(circle 5px at 5px 5px, #fff 5px, #e9bb16 50%);
   }
 
   &::after {
@@ -36,7 +36,7 @@ export const CouponWraper = styled.div`
     left: 0;
     background-image: radial-gradient(
       circle 5px at 0 5px,
-      pink 5px,
+      #fff 5px,
       #e9bb16 50%
     );
   }

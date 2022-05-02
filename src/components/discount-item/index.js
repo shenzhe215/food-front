@@ -9,16 +9,8 @@ const Coupon = memo((props) => {
   // state
   const { couponInfo, isUser } = props;
   const navigate = useNavigate();
-  const {
-    id,
-    type,
-    title,
-    requirement,
-    description,
-    num,
-    beginTime,
-    endTime,
-  } = couponInfo;
+  const { id, type, title, requirement, description, num, beginTime, endTime } =
+    couponInfo;
   const { isLogin } = useSelector(
     (state) => ({
       isLogin: state.getIn(["loginState", "isLogin"]),
@@ -28,6 +20,9 @@ const Coupon = memo((props) => {
 
   // other hooks
   const handleCoupon = () => {
+    if (isUser) {
+      return;
+    }
     if (!isLogin) {
       message.info("请先登录");
       navigate("/login");
@@ -43,7 +38,7 @@ const Coupon = memo((props) => {
   };
 
   return (
-    <CouponWraper onClick={!isUser && handleCoupon}>
+    <CouponWraper onClick={handleCoupon}>
       <div className="coupon">
         <p className="coupon-title">{description}</p>
         <span className="coupon-content">

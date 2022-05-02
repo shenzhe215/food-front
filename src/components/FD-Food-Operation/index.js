@@ -37,12 +37,12 @@ const FDOperationBox = memo((props) => {
 
   return (
     <FDOperationBoxWraper>
-      <div className={!foodOrderCount[id] && "hasBorder"}>
+      <div className={!foodOrderCount[id] ? "hasBorder" : ""}>
         {foodOrderCount[id] && (
           <MinusOutlined className="operationIcon" onClick={handleMinus} />
         )}
       </div>
-      <div className={!foodOrderCount[id] && "hasBorder"}>
+      <div className={!foodOrderCount[id] ? "hasBorder" : ""}>
         {(foodOrderCount[id] && (
           <span className="setSpace">{foodOrderCount[id]}</span>
         )) || <span className="setSpace"></span>}

@@ -64,7 +64,6 @@ const FDFoodSubmitOrder = memo(() => {
   };
 
   const handleCouponChange = (value) => {
-    console.log(value);
     couponList?.map((coupon) => coupon.id === value && setCouponInfo(coupon)) &&
       setDiscount(true);
   };
@@ -120,13 +119,13 @@ const FDFoodSubmitOrder = memo(() => {
       key: "price",
       render: (text, record) => (
         <div className="tablePrice">
-          <sapn
+          <span
             className={
               (record.discountPrice && "hasdiscount") || "foodContentPrice"
             }
           >
             {record.price}￥
-          </sapn>
+          </span>
           {record.discountPrice && (
             <span className="foodContentPrice">{record.discountPrice}￥</span>
           )}

@@ -105,13 +105,11 @@ const FDUserLocation = memo(() => {
       key: "isDefault",
       dataIndex: "isDefault",
       render: (text, record) => (
-        (
-          <Space size="middle">
-            {(record.isDefault && (
-              <div className="defaultLoc">默认地址</div>
-            )) || <a onClick={handleDefault.bind(null, record)}>设为默认</a>}
-          </Space>
-        )
+        <Space size="middle">
+          {(record.isDefault && <div className="defaultLoc">默认地址</div>) || (
+            <a onClick={handleDefault.bind(null, record)}>设为默认</a>
+          )}
+        </Space>
       ),
     },
   ];
@@ -129,6 +127,9 @@ const FDUserLocation = memo(() => {
         columns={columns}
         bordered={true}
         pagination={false}
+        rowKey={(record) => {
+          return record.id;
+        }}
       />
     </FDLocationWraper>
   );

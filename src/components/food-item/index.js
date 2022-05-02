@@ -25,7 +25,6 @@ const FDFoodItem = memo((props) => {
     navigate(`info/${id}`);
   };
 
-
   return (
     <FDFoodItemWraper>
       <Image
@@ -42,7 +41,7 @@ const FDFoodItem = memo((props) => {
         <h2 className="foodContentTitle">{title}</h2>
       </div>
       <div className="foodOperationBox">
-        <h2 className={(discountPrice && "hasdiscount") || "foodContentPrice"}>
+        <h2 className={discountPrice ? "hasdiscount" : "foodContentPrice"}>
           {price}￥
         </h2>
         {discountPrice && (

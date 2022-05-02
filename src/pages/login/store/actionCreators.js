@@ -99,7 +99,6 @@ export const logOutAction = () => {
     // cookie.set("food_ucenter", "", { domain: "localhost" });
     cookie.remove("food_token");
     cookie.remove("food_ucenter");
-    console.log(cookie.get("food_token"));
     localStorage.removeItem("login");
     // 清除用户信息
     // 更改登录状态

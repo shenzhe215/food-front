@@ -8,6 +8,8 @@ import { LeftOutlined, ShoppingCartOutlined } from "@ant-design/icons";
 import { getFoodById, getCommentListById } from "@/service/food";
 import { FDFoodInfoWraper, CommentArea } from "./style";
 import { FDOperationBox } from "@/components";
+import { setIn } from "immutable";
+import { FDTitle } from "../../../components";
 const FDFoodInfo = memo(() => {
   // states
   const navigate = useNavigate();
@@ -26,8 +28,9 @@ const FDFoodInfo = memo(() => {
   const [description, setDescription] = useState("");
   const [commentList, setCommentList] = useState([]);
   const [isDesc, setIsDesc] = useState(true);
+  const [index, setIndex] = useState(0);
 
-  const { cover, price, buyCount, title } = curFood;
+  const { cover, price, buyCount, title, discountPrice } = curFood;
   // hooks
   useEffect(() => {
     setId(params.id);
@@ -73,68 +76,71 @@ const FDFoodInfo = memo(() => {
 
   return (
     <FDFoodInfoWraper className="foodinfowraper">
-      <div className="title">菜品详情</div>
+      <FDTitle title="菜品详情"></FDTitle>
+      <div className="food">
+        <div className="foodContent">
+          <Image
+            src={cover}
+            className="foodInfoImg"
+            width={400}
+            height={300}
+          ></Image>
 
-      <div className="foodContent">
-        {/* <div className="foodInfoUp"> */}
-        <Image
-          src={cover}
-          className="foodInfoImg"
-          width={400}
-          height={300}
-        ></Image>
-
-        {/* </div> */}
-
-        <div className="foodInfo">
-          <div className="back">
-            <Button
-              onClick={() => {
-                window.history.go(-1);
-              }}
-              icon={<LeftOutlined />}
-            >
-              返回
-            </Button>
-          </div>
-          <span className="firstLine">
-            <h1>{title}</h1>
-          </span>
-          <div className="secondLine">
-            <span>
-              价格
-              <h1>￥{price}</h1>
+          <div className="foodInfo">
+            <div className="back">
+              <Button
+                onClick={() => {
+                  window.history.go(-1);
+                }}
+                icon={<LeftOutlined />}
+              >
+                返回
+              </Button>
+            </div>
+            <span className="firstLine">
+              <h1>{title}</h1>
             </span>
-          </div>
-          <div className="thirdLine">
-            <span>数量</span>
-            <FDOperationBox foodInfo={curFood} />
-          </div>
-          <div className="fourthLine">
+            <div className="secondLine">
+              <span>
+                价格
+                <h1 className={discountPrice && "hasdiscount"}>￥{price}</h1>
+                {discountPrice && <h1>￥{discountPrice}</h1>}
+              </span>
+            </div>
+            <div className="thirdLine">
+              <span>数量</span>
+              <FDOperationBox foodInfo={curFood} />
+            </div>
+            {/* <div className="fourthLine">
             <Button>立即购买</Button>
             <span className="space"></span>
             <Button icon={<ShoppingCartOutlined />}>加入购物车</Button>
+          </div> */}
           </div>
         </div>
-      </div>
 
-      <div className="foodInfoDown">
-        <span
-          onClick={() => {
-            setIsDesc(true);
-          }}
-        >
-          详情
-        </span>
-        <span
-          onClick={() => {
-            setIsDesc(false);
-          }}
-        >
-          评价
-        </span>
+        <div className="foodInfoDown">
+          <span
+            className={index === 0 ? "clicked" : ""}
+            onClick={() => {
+              setIsDesc(true);
+              setIndex(0);
+            }}
+          >
+            详情
+          </span>
+          <span
+            className={index === 1 ? "clicked" : ""}
+            onClick={() => {
+              setIsDesc(false);
+              setIndex(1);
+            }}
+          >
+            评价
+          </span>
+        </div>
+        <div>{descriptionOrComment()}</div>
       </div>
-      <div>{descriptionOrComment()}</div>
     </FDFoodInfoWraper>
   );
 });

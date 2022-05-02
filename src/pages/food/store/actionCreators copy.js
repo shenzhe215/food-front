@@ -129,7 +129,6 @@ export const changeOrderList = (foodInfo, isAdd) => {
   return (dispatch, getState) => {
     const orderList = getState().getIn(["foodState", "orderList"]);
     const newOrderList = JSON.parse(JSON.stringify(orderList));
-    // console.log(newOrderList);
 
     if (isAdd) {
       let foodInList = false;

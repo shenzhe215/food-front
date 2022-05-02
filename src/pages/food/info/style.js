@@ -1,34 +1,33 @@
 import styled from "styled-components";
 
 export const FDFoodInfoWraper = styled.div`
-  background-color: #f7f7f7;
-  /* background-color: lightpink; */
+  /* background-color: #f7f7f7; */
   width: 100%;
   height: 100%;
 
-  .title {
-    height: 50px;
-    font-size: 30px;
-    background-color: #dcddd8;
-    margin-bottom: 20px;
+  .food {
+    position: relative;
+    /* left: calc((100% - 720px) / 2); */
+    left: 20%;
+    /* right: 20%; */
   }
 
   .foodContent {
     display: flex;
     flex-direction: row;
-    margin-left: 20%;
     /* border: 1px solid black; */
-    /* width: 60%; */
-
     .foodInfo {
       display: flex;
       flex-direction: column;
-      margin-left: 20px;
+      /* margin-left: 10%; */
+      margin-left: 50px;
+      width: calc((60% - 450px));
       justify-content: space-between;
 
       .back {
         display: flex;
         justify-content: right;
+        width: 300px;
         margin-bottom: 60px;
       }
 
@@ -56,6 +55,13 @@ export const FDFoodInfoWraper = styled.div`
             padding-left: 20px;
           }
         }
+
+        .hasdiscount {
+          text-decoration: line-through;
+          color: black;
+          font-weight: normal;
+          /* font-size: 20px; */
+        }
       }
 
       .thirdLine {
@@ -63,6 +69,8 @@ export const FDFoodInfoWraper = styled.div`
         padding-left: 10px;
         display: flex;
         justify-content: space-between;
+        width: 300px;
+        margin-right: 10%;
       }
 
       .fourthLine {
@@ -73,39 +81,17 @@ export const FDFoodInfoWraper = styled.div`
         }
       }
     }
-    .foodInfoDown {
-      margin-top: 20px;
-      margin-left: 20%;
-      font-size: 20px;
-      border-bottom: 1px solid black;
-      width: 720px;
-
-      span {
-        margin-right: 15px;
-        :hover {
-          cursor: pointer;
-          color: #3399ff;
-        }
-
-        :active {
-          color: blue;
-        }
-      }
-
-      span.active {
-        color: #fff;
-        background: #000;
-        text-decoration: none;
-      }
-    }
   }
 
   .foodInfoDown {
     margin-top: 20px;
-    margin-left: 20%;
     font-size: 20px;
-    border-bottom: 1px solid black;
-    width: 720px;
+    border-bottom: 1px solid #dadada;
+    /* width: 720px; */
+    width: 60%;
+    .clicked {
+      color: red;
+    }
 
     span {
       margin-right: 15px;
@@ -118,13 +104,13 @@ export const FDFoodInfoWraper = styled.div`
 
   .description {
     margin-top: 20px;
-    margin-left: 20%;
     font-size: 15px;
-    width: 720px;
+    /* width: 720px; */
+    width: 60%;
   }
 `;
 
 export const CommentArea = styled.div`
-  margin-left: 20%;
   margin-right: 20%;
+  width: 60%;
 `;

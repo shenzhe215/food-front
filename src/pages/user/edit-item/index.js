@@ -35,7 +35,7 @@ const EditItem = memo((props) => {
   const codeReg = /[0-9a-zA-Z._-]{4,20}/;
   const [loading, setLoading] = useState(false);
   const [avatar, setAvatar] = useState("");
- 
+
   // hooks
   useEffect(() => {
     const { avatar, nickname, mobile } = userInfo;
@@ -52,7 +52,7 @@ const EditItem = memo((props) => {
     values.avatar = avatar;
     updateUserInfo(values).then((res) => {
       if (res.code === 20000) {
-        message.success("用户信息更新成功",1);
+        message.success("用户信息更新成功", 1);
         dispatch(getLatestInfoAction());
       } else {
         message.error(res.message);
@@ -112,6 +112,14 @@ const EditItem = memo((props) => {
       <div style={{ marginTop: 8 }}>上传</div>
     </div>
   );
+
+  const normFile = (e) => {
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e && e.fileList;
+  };
+
   return (
     <div>
       <Form
@@ -120,7 +128,12 @@ const EditItem = memo((props) => {
         form={form}
         {...formItemLayout}
       >
-        <Form.Item label="头像" name="avatar">
+        <Form.Item
+          label="头像"
+          name="avatar"
+          valuePropName="fileList"
+          getValueFromEvent={normFile}
+        >
           <Upload
             maxCount="1"
             // name="avatar"

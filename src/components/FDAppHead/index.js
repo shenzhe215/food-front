@@ -73,10 +73,10 @@ const FDAppHeader = memo(() => {
               <NavLink to={"/food"}>{"进行点餐"}</NavLink>
             </div>
             <div className="select-item order">
-              <div className="downMenu loginMenu3">
+              {/* <div className="downMenu loginMenu3">
                 <Link to={"/order"}>进行中</Link>
                 <Link to={"/order"}>已完成</Link>
-              </div>
+              </div> */}
               <NavLink to={"/order"}>{"订单管理"}</NavLink>
             </div>
             <div className="select-item person">

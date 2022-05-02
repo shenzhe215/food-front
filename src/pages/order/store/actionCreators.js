@@ -57,7 +57,6 @@ export const getOrderListByTypeAction = (status) => {
 export const getPageOrderListAction = (current, limit) => {
   return (dispatch, getState) => {
     pageListOrder(current, limit).then((res) => {
-      console.log(res);
       if (res.code !== 20000) {
         message.error("订单获取失败");
       } else {
@@ -74,7 +73,6 @@ export const getPageOrderListAction = (current, limit) => {
 export const getPageOrderByStatusAction = (current, limit, status) => {
   return (dispatch, getState) => {
     pageStatusOrder(current, limit, status).then((res) => {
-      console.log(res);
       if (res.code !== 20000) {
         message.error("订单获取失败");
       } else {
