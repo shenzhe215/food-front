@@ -72,3 +72,11 @@ export function finishOrder(orderId) {
     method: "get",
   });
 }
+
+// 获取ip
+export function getIpAddr() {
+  return request({
+    url: `/orderservice/api/ip`,
+    method: "get",
+  });
+}

@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { CouponWraper } from "./style";
 import { getCoupon } from "@/service/coupon";
 import { message } from "antd";
-
 const Coupon = memo((props) => {
   // state
   const { couponInfo, isUser } = props;
@@ -38,14 +37,32 @@ const Coupon = memo((props) => {
   };
 
   return (
-    <CouponWraper onClick={handleCoupon}>
-      <div className="coupon">
-        <p className="coupon-title">{description}</p>
-        <span className="coupon-content">
-          {type === 1 ? title + "元" : title + "折"}
-        </span>
-        <p>{"满" + requirement + "元可用"}</p>
+    <CouponWraper>
+      <div className="left">
+        <div className="left-box">
+          <span className="unit">{type === 1 ? "元" : "折"}</span>
+          <span className="type">{type === 1 ? "满减券" : "打折券"}</span>
+        </div>
+        <div className="title">{title}</div>
       </div>
+      <div className="right">
+        <span className="condition">{"满" + requirement + "元可用"}</span>
+        {isUser ? (
+          <span
+            className="action"
+            onClick={() => {
+              navigate("/food");
+            }}
+          >
+            {" 使用>"}
+          </span>
+        ) : (
+          <span className="action" onClick={handleCoupon}>
+            {" 领取>"}
+          </span>
+        )}
+      </div>
+      {/* </div> */}
     </CouponWraper>
   );
 });

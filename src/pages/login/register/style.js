@@ -29,13 +29,10 @@ export const FDInputWraper = styled.div`
   
   .submitBtn {
     width: 100%;
-    margin-top: -15px;
-    margin-left: 127.99px;
   }
 
   .loginRow {
     width: 100%;
-    margin-left: 127.99px;
     margin-top: -30px;
 
     display: flex;

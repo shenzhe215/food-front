@@ -2,11 +2,12 @@ import React, { memo, useState, useEffect } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { Carousel } from "antd";
+import { Carousel, message, Image } from "antd";
 import { HomeWraper, DiscountWraper, HotFood } from "./styled";
 import { getCouponListAction } from "./store/actionCreators";
 import { Coupon } from "@/components";
-
+import { getAllBanner } from "@/service/banner";
+import { foodGoodPrice } from "@/service/food";
 const FDHome = memo(() => {
   // state
   const dispatch = useDispatch();
@@ -19,43 +20,44 @@ const FDHome = memo(() => {
     shallowEqual
   );
 
-  function onChange(a, b, c) {
-    console.log(a, b, c);
-  }
+  // othenr states
+  const [bannerList, setBannerList] = useState([]);
+  const [foodList, setFoodList] = useState([]);
+
+  const fetchFoodGoodList = () => {
+    foodGoodPrice().then((res) => {
+      if (res.code === 20000) {
+        setFoodList(res.data.list);
+      } else {
+        message.error("获取菜品信息失败", 1);
+      }
+    });
+  };
 
   // hooks
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
     }
+    getAllBanner().then((res) => {
+      if (res.code === 20000) {
+        setBannerList(res.data.item);
+      } else {
+        message.error("获取banner失败", 1);
+      }
+    });
 
+    fetchFoodGoodList();
     dispatch(getCouponListAction());
   }, []);
-
-  const contentStyle = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
-  };
 
   return (
     <HomeWraper>
       <div className="carousel">
-        <Carousel afterChange={onChange} autoplay={true}>
-          <div>
-            <h3 style={contentStyle}>1</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>2</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>3</h3>
-          </div>
-          <div>
-            <h3 style={contentStyle}>4</h3>
-          </div>
+        <Carousel autoplay={true}>
+          {bannerList?.map((banner) => (
+            <img src={banner.imageUrl} key={banner.id}></img>
+          ))}
         </Carousel>
       </div>
       <DiscountWraper>

@@ -48,6 +48,29 @@ export const headerLinks = [
   },
 ];
 
+export const userTabs = [
+  {
+    title: "我的信息",
+    link: "/user",
+  },
+  {
+    title: "修改密码",
+    link: "/password",
+  },
+  {
+    title: "修改个人信息",
+    link: "/user/info",
+  },
+  {
+    title: "我的地址",
+    link: "/location",
+  },
+  {
+    title: "我的优惠信息",
+    link: "/user/coupon",
+  },
+];
+
 // export const tabs = [
 //   {
 //     key: "/home",

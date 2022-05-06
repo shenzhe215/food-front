@@ -1,16 +1,8 @@
-import React, { memo, useState, useEffect } from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import React, { memo, useState } from "react";
 import { Form, Input, Button, message } from "antd";
-import { useNavigate } from "react-router-dom";
 
-import { getMatchReg } from "@/utils/format-utils";
 import { updatePassword } from "@/service/login";
 const PasswordItem = memo(() => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const mathchPhoneReg = getMatchReg("phone");
-  const mathchUsername = getMatchReg("username");
-
   // 自定义state
   const [update, setUpdate] = useState(false);
   const [form] = Form.useForm();
@@ -54,7 +46,7 @@ const PasswordItem = memo(() => {
             { required: true, message: "请输入你的旧密码" },
           ]}
         >
-          <Input.Password placeholder="请输入用户名" />
+          <Input.Password placeholder="请输入旧密码" />
         </Form.Item>
 
         <Form.Item

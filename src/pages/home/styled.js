@@ -1,11 +1,11 @@
 import styled from "styled-components";
 export const HomeWraper = styled.div`
-  background-color: pink;
 
-  .carousel {
-    background-color: red;
-    height: 300px;
+  img {
+    max-width: 100%;
+    height: 400px;
   }
+
 `;
 
 export const DiscountWraper = styled.div`
@@ -15,7 +15,7 @@ export const DiscountWraper = styled.div`
     font-size: 15px;
     font-weight: 700;
     background-color: #e9bb16;
-    margin: 10px 10px;
+    margin: 15px 20px;
     border-radius: 17px;
     text-align: center;
   }

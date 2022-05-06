@@ -111,11 +111,6 @@ const FDFoodInfo = memo(() => {
               <span>数量</span>
               <FDOperationBox foodInfo={curFood} />
             </div>
-            {/* <div className="fourthLine">
-            <Button>立即购买</Button>
-            <span className="space"></span>
-            <Button icon={<ShoppingCartOutlined />}>加入购物车</Button>
-          </div> */}
           </div>
         </div>
 

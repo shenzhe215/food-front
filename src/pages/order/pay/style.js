@@ -8,6 +8,15 @@ export const PayWraper = styled.div`
     margin-left: 15%;
     padding: 10px;
   }
+
+  .itemImg {
+    display: flex;
+    justify-content: center;
+    padding-left: calc(50% - 100px);
+    img {
+      margin-left: calc(50% - 100px);
+    }
+  }
 `;
 
 export const PayUp = styled.div`

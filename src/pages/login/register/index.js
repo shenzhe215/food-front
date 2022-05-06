@@ -64,11 +64,14 @@ const FDRegister = memo(() => {
   };
 
   // 表单样式
-  const layout = {
-    labelCol: { span: 2 },
+  const formItemLayout = {
+    labelCol: { span: 2, offset: 0 },
     wrapperCol: { span: 4 },
   };
 
+  const formTailLayout = {
+    wrapperCol: { span: 4, offset: 2 },
+  };
   return (
     <FDRegisterWraper>
       <div className="registerTitle">
@@ -77,7 +80,7 @@ const FDRegister = memo(() => {
       </div>
       <FDInputWraper>
         <Form
-          {...layout}
+          {...formItemLayout}
           layout="horizontal"
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
@@ -141,12 +144,12 @@ const FDRegister = memo(() => {
               }
             />
           </Form.Item>
-          <Form.Item>
+          <Form.Item {...formTailLayout}>
             <Button type="primary" htmlType="submit" className="submitBtn">
               注册
             </Button>
           </Form.Item>
-          <Form.Item>
+          <Form.Item {...formTailLayout}>
             <div className="loginRow">
               <span></span>
               <a onClick={handleLogin}>去登录</a>

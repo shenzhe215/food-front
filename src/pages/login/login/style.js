@@ -28,7 +28,6 @@ export const FDInputWraper = styled.div`
 
   .submitBtn {
     width: 100%;
-    margin-left: 63.99px;
   }
 
   .registerRow {

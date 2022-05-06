@@ -120,10 +120,6 @@ const FDLogin = memo(() => {
     }
   };
 
-  const layout = {
-    labelCol: { span: 1 },
-    wrapperCol: { span: 4 },
-  };
 
   const validateMessages = {
     required: "${label} is required!",
@@ -136,6 +132,15 @@ const FDLogin = memo(() => {
     },
   };
 
+  const formItemLayout = {
+    labelCol: { span: 1, offset: 0 },
+    wrapperCol: { span: 4 },
+  };
+
+  const formTailLayout = {
+    wrapperCol: { span: 4, offset: 1 },
+  };
+
   return (
     <FDLoginWraper>
       {/* <LoginPane> */}
@@ -145,7 +150,7 @@ const FDLogin = memo(() => {
       </div>
       <FDInputWraper>
         <Form
-          {...layout}
+          {...formItemLayout}
           layout="horizontal"
           onFinish={onFinish}
           // validateMessages={validateMessages}
@@ -171,12 +176,30 @@ const FDLogin = memo(() => {
             />
           </Form.Item>
           {loginForm()}
-          <Form.Item>
+          {/* <Form.Item
+            label="验证码"
+            name="verify"
+            rules={[
+              {
+                pattern: mathchPhoneReg,
+                message: `请输入验证码`,
+              },
+              { required: true, message: "请输入验证码" },
+            ]}
+          >
+            <Input
+              placeholder="请输入手机号"
+              onChange={(e) => {
+                setPhone(e.target.value);
+              }}
+            />
+          </Form.Item> */}
+          <Form.Item {...formTailLayout}>
             <Button type="primary" htmlType="submit" className="submitBtn">
               登录
             </Button>
           </Form.Item>
-          <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 1 }}>
+          <Form.Item {...formTailLayout}>
             <div className="registerRow">
               <span>找回密码</span>
               <a onClick={handleRegister}>快速注册</a>

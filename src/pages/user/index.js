@@ -6,7 +6,7 @@ import { FDUserWraper, ContentArea, InfoBottom, Footer } from "./style";
 import { FDTitle } from "@/components";
 import EditItem from "./edit-item";
 import PasswordItem from "./password-item";
-
+import FDUserTab from "./userTab";
 // 默认头像
 const DEFAULT_AVATAR =
   "https://guli-file-190513.oss-cn-beijing.aliyuncs.com/avatar/default.jpg";
@@ -46,9 +46,8 @@ const FDUser = memo(() => {
     setIsUpdate(!isUpdate);
   };
 
-  return (
-    <FDUserWraper>
-      <FDTitle title="个人信息" />
+  const userInfoItem = () => {
+    return (
       <ContentArea>
         <div className="row">
           <label>头像：</label>
@@ -69,7 +68,15 @@ const FDUser = memo(() => {
           <p>{userInfo.credit}</p>
         </div>
       </ContentArea>
-      <InfoBottom>
+    );
+  };
+
+  return (
+    <FDUserWraper>
+      <FDTitle title="个人信息" />
+      <FDUserTab />
+      {userInfoItem}
+      {/* <InfoBottom>
         <Space>
           <Button type="primary" onClick={handlePassword}>
             修改登录密码
@@ -78,7 +85,7 @@ const FDUser = memo(() => {
             修改个人信息
           </Button>
         </Space>
-      </InfoBottom>
+      </InfoBottom> */}
       <Footer>
         {isUpdate && <EditItem userInfo={userInfo} />}
         {isPassword && <PasswordItem password={userInfo.password} />}

@@ -2,54 +2,109 @@ import styled from "styled-components";
 
 export const CouponWraper = styled.div`
   background-color: #e9bb16;
+  background-image: -webkit-linear-gradient(left, #f4703f 0%, #e73130 100%);
   position: relative;
-  display: inline-block;
+  display: flex;
   border-radius: 5px;
   color: #fff;
   text-align: center;
-  min-width: 150px;
-  /* margin-right: 10px; */
-  margin-left: 10px;
-  margin-bottom: 15px;
-  padding: 0 10px;
+  width: 260px;
+  margin-right: 40px;
+  margin-left: 20px;
+  margin-bottom: 10px;
 
-  :hover {
-    cursor: pointer;
+  .left {
+    width: 55%;
+    border-right: 1px dashed #f7deab;
+    display: flex;
+
+    .left-box {
+      display: flex;
+      flex-direction: column;
+      /* background-color: #fff; */
+      justify-content: center;
+      width: 40%;
+      height: 100px;
+
+      .unit {
+        color: #f7deab;
+        font-size: 20px;
+        text-align: right;
+      }
+
+      .type {
+        border-radius: 10px;
+        background-color: #f8dfac;
+        color: #d3492c;
+        font-weight: 700;
+        margin-left: -20px;
+        width: 65px;
+      }
+    }
+
+    .title {
+      font-size: 60px;
+      color: #f7deab;
+      font-weight: 700;
+      display: flex;
+      width: 60%;
+      height: 100px;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .right {
+    width: 40%;
+    margin-left: 7.5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .condition {
+      font-size: 16px;
+      color: #f7deab;
+      padding-bottom: 5px;
+    }
+
+    .action {
+      background-color: #f7deab;
+      color: #d3492c;
+      border-radius: 10px;
+      width: 60px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
   }
 
   &::before {
     position: absolute;
-    width: 5px;
-    height: 10px;
-    top: calc(50% - 7.5px);
+    width: 10px;
+    height: 5px;
+    /* top: calc(50% - 7.5px); */
     content: "";
-    right: 0;
-    background: radial-gradient(circle 5px at 5px 5px, #fff 5px, #e9bb16 50%);
+    left: calc(55% - 5px);
+    background: radial-gradient(
+      circle 5px at 5px 0px,
+      #fff 5px,
+      transparent 50%
+    );
   }
 
   &::after {
     position: absolute;
-    width: 5px;
-    height: 10px;
-    top: calc(50% - 7.5px);
+    width: 10px;
+    height: 5px;
+    /* top: calc(50% - 7.5px); */
+    top: calc(100% - 5px);
+    left: calc(55% - 5px);
     content: "";
-    left: 0;
     background-image: radial-gradient(
-      circle 5px at 0 5px,
+      circle 5px at 5px 5px,
       #fff 5px,
-      #e9bb16 50%
+      transparent 50%
     );
-  }
-
-  .coupon {
-    padding: 15px;
-  }
-  .coupon-title {
-    font-size: 15px;
-  }
-
-  .coupon-content {
-    font-weight: 700;
-    font-size: 20px;
   }
 `;

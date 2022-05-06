@@ -1,9 +1,5 @@
 import styled from "styled-components";
 
-export const FDUserWraper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
 
 export const ContentArea = styled.div`
   background-color: #ccc;
@@ -32,17 +28,3 @@ export const ContentArea = styled.div`
   }
 `;
 
-export const InfoBottom = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  justify-content: center;
-`;
-
-export const Footer = styled.div`
-  width: 100%;
-  height: 100%;
-  /* background-color: green; */
-`;

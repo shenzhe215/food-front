@@ -5,7 +5,7 @@ import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { FDTitle } from "@/components";
 import { PayWraper, PayUp, PayContent } from "./style";
 import { Button, message, Steps, Modal } from "antd";
-import { getUrl, getOrderInfo } from "@/service/order";
+import { getUrl, getOrderInfo, getIpAddr } from "@/service/order";
 import {
   changeFoodOrderCoutnAction,
   changeOrderListAction,
@@ -27,15 +27,27 @@ const FDPay = memo(() => {
   const params = useParams();
   // other state
   const [url, setUrl] = useState("");
-
   const [visiable, setVisiable] = useState(false);
   const [id, setId] = useState("");
   const [orderInfo, setOrderInfo] = useState({});
 
   const [socketUrl, setSocketUrl] = useState(
-    "ws://192.168.1.104:8004/ws/" + params.id
+    "ws://192.168.43.15:8004/ws/" + params.id
   );
   const [messageHistory, setMessageHistory] = useState([]);
+
+  const fetchIpAddr = () => {
+    getIpAddr().then((res) => {
+      if (res.code === 20000) {
+        const ip = res.data.ip;
+        console.log(ip);
+        setSocketUrl("ws://" + ip + ":8004/ws/" + params.id);
+        console.log("111");
+      } else {
+        message.error("获取ip失败", 1);
+      }
+    });
+  };
 
   const getSocketUrl = useCallback(() => {
     return new Promise((resolve) => {
@@ -44,6 +56,33 @@ const FDPay = memo(() => {
       }, 2000);
     });
   }, []);
+
+  // hooks
+  useEffect(() => {
+    const { id } = params;
+    setId(id);
+    // 获取ip信息
+    fetchIpAddr();
+    // 获取订单信息
+    getOrderInfo(id).then((res) => {
+      if (res.code === 20000) {
+        setOrderInfo(res.data.item);
+
+        // 获取支付二维码
+        getUrl(id).then((res) => {
+          if (res.code === 20000) {
+            setUrl(res.data.url);
+          } else {
+            message.error(res.message, 1);
+          }
+        });
+      } else {
+        message.error(res.message, 1);
+      }
+    });
+  }, []);
+
+  console.log("222");
 
   const { lastMessage, getWebSocket } = useWebSocket(getSocketUrl, {
     onOpen: () => {
@@ -64,29 +103,6 @@ const FDPay = memo(() => {
     },
     shouldReconnect: false,
   });
-
-  // hooks
-  useEffect(() => {
-    const { id } = params;
-    setId(id);
-    // 获取订单信息
-    getOrderInfo(id).then((res) => {
-      if (res.code === 20000) {
-        setOrderInfo(res.data.item);
-
-        // 获取支付二维码
-        getUrl(id).then((res) => {
-          if (res.code === 20000) {
-            setUrl(res.data.url);
-          } else {
-            message.error(res.message, 1);
-          }
-        });
-      } else {
-        message.error(res.message, 1);
-      }
-    });
-  }, []);
 
   // other hooks
   const payOrder = () => {
@@ -175,12 +191,9 @@ const FDPay = memo(() => {
           </Button>,
         ]}
       >
-        {/* <div className="itemImg"> */}
-        <img
-          src={"data:image/jepg;base64," + url}
-          width={200}
-          className="itemImg"
-        />
+        <div className="itemImg">
+          <img src={"data:image/jepg;base64," + url} width={200} />
+        </div>
         {/* </div> */}
       </Modal>
     </PayWraper>

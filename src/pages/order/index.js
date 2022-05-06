@@ -12,8 +12,6 @@ import {
 import { FDTitle, FDOrderItem } from "@/components";
 import { Pagination } from "antd";
 import {
-  getOrderListAction,
-  getOrderListByTypeAction,
   getPageOrderListAction,
   getPageOrderByStatusAction,
 } from "./store/actionCreators";

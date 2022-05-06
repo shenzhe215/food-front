@@ -96,6 +96,8 @@ const EditItem = memo((props) => {
   };
 
   const handleChange = (info) => {
+    console.log(info);
+    console.log(info.file.status);
     if (info.file.status === "uploading") {
       setLoading(true);
       return;
@@ -136,7 +138,6 @@ const EditItem = memo((props) => {
         >
           <Upload
             maxCount="1"
-            // name="avatar"
             listType="picture-card"
             action="http://127.0.0.1:9001/foodoss/fileoss"
             className="avatar-uploader"

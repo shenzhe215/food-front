@@ -64,3 +64,13 @@ export function getCommentListById(foodId) {
     method: "get",
   });
 }
+
+
+// 添加菜品评论菜品
+export function foodGoodPrice() {
+  return request({
+    url: `/foodservice/foodfront/foodGoodPrice`,
+    method: "get",
+  });
+}
+
