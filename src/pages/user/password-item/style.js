@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-export const EditWraper = styled.div`
-
-
-`
+export const PwdWraper = styled.div`
+  margin-top: 85px;
+`;

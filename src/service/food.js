@@ -65,8 +65,7 @@ export function getCommentListById(foodId) {
   });
 }
 
-
-// 添加菜品评论菜品
+// 查询特惠菜品
 export function foodGoodPrice() {
   return request({
     url: `/foodservice/foodfront/foodGoodPrice`,
@@ -74,3 +73,10 @@ export function foodGoodPrice() {
   });
 }
 
+// 分页查询特惠菜品
+export function pageFoodGoodPrice(current, limit) {
+  return request({
+    url: `/foodservice/foodfront/pageFoodGoodPrice/${current}/${limit}`,
+    method: "post",
+  });
+}

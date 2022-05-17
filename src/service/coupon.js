@@ -23,3 +23,11 @@ export function getCouponList() {
     method: "get",
   });
 }
+
+// 分页查询所有优惠券信息
+export function pageCouponList(current, limit) {
+  return request({
+    url: `/foodservice/coupon/pageCouponList/${current}/${limit}`,
+    method: "post",
+  });
+}

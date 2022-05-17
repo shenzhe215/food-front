@@ -8,9 +8,9 @@ export const CouponWraper = styled.div`
   border-radius: 5px;
   color: #fff;
   text-align: center;
-  width: 260px;
-  margin-right: 40px;
-  margin-left: 20px;
+  width: 240px;
+  /* margin-right: 40px; */
+  /* margin-left: 20px; */
   margin-bottom: 10px;
 
   .left {

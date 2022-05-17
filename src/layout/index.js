@@ -8,7 +8,6 @@ const FDDefaultLayout = memo(() => {
     <FDAppWraper>
       <FDAppHeader />
       <FDAppContent />
-      {/* <FDAppFooter /> */}
     </FDAppWraper>
   );
 });

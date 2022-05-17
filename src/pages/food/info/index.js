@@ -15,9 +15,9 @@ const FDFoodInfo = memo(() => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const { curFood, foodOrderCount } = useSelector(
+  const { foodOrderCount } = useSelector(
     (state) => ({
-      curFood: state.getIn(["foodState", "curFood"]),
+      // curFood: state.getIn(["foodState", "curFood"]),
       foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
     }),
     shallowEqual
@@ -29,24 +29,24 @@ const FDFoodInfo = memo(() => {
   const [commentList, setCommentList] = useState([]);
   const [isDesc, setIsDesc] = useState(true);
   const [index, setIndex] = useState(0);
+  const [curFood, setCurFood] = useState({});
 
   const { cover, price, buyCount, title, discountPrice } = curFood;
   // hooks
   useEffect(() => {
-    setId(params.id);
-  });
-
-  useEffect(() => {
-    getFoodById(curFood.id).then((res) => {
+    const { id } = params;
+    setId(id);
+    getFoodById(id).then((res) => {
+      setCurFood(res.data.item);
       const newDescription = res.data.item.description;
       setDescription(newDescription);
     });
-    getCommentListById(curFood.id).then((res) => {
+    getCommentListById(id).then((res) => {
       if (res.code === 20000) {
         setCommentList(res.data.list);
       }
     });
-  }, []);
+  }, [params]);
 
   const descriptionOrComment = () => {
     return isDesc ? (
@@ -66,6 +66,7 @@ const FDFoodInfo = memo(() => {
                 avatar={item.avatar}
                 content={item.content}
                 datetime={item.gmtCreate}
+                style={{ fontSize: "18px" }}
               />
             </li>
           )}
@@ -75,7 +76,7 @@ const FDFoodInfo = memo(() => {
   };
 
   return (
-    <FDFoodInfoWraper className="foodinfowraper">
+    <FDFoodInfoWraper>
       <FDTitle title="菜品详情"></FDTitle>
       <div className="food">
         <div className="foodContent">

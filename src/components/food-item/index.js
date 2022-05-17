@@ -29,8 +29,8 @@ const FDFoodItem = memo((props) => {
     <FDFoodItemWraper>
       <Image
         src={cover}
-        width={150}
-        height={100}
+        width={320}
+        height={180}
         className="foodImg"
         onClick={() => {
           handleClick();
@@ -41,12 +41,14 @@ const FDFoodItem = memo((props) => {
         <h2 className="foodContentTitle">{title}</h2>
       </div>
       <div className="foodOperationBox">
-        <h2 className={discountPrice ? "hasdiscount" : "foodContentPrice"}>
-          {price}￥
-        </h2>
-        {discountPrice && (
-          <h2 className="foodContentPrice">{discountPrice}￥</h2>
-        )}
+        <div className="food-price">
+          <h2 className={discountPrice ? "hasdiscount" : "foodContentPrice"}>
+            {price}￥
+          </h2>
+          {discountPrice && (
+            <h2 className="foodContentPrice">{discountPrice}￥</h2>
+          )}
+        </div>
         <FDOperationBox foodInfo={foodInfo} />
       </div>
     </FDFoodItemWraper>

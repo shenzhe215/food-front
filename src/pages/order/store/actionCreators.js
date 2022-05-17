@@ -60,10 +60,10 @@ export const getPageOrderListAction = (current, limit) => {
       if (res.code !== 20000) {
         message.error("订单获取失败");
       } else {
-        const newOrderLIst = res.data.list;
+        const newOrderList = res.data.list;
         const total = res.data.total;
         dispatch(changeOrderTotalAction(total));
-        dispatch(changeOrderListAction(newOrderLIst));
+        dispatch(changeOrderListAction(newOrderList));
       }
     });
   };

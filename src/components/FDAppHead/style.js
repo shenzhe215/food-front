@@ -11,10 +11,15 @@ export const HeaderWrapper = styled.div`
   .appTitle {
     vertical-align: middle;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 18px;
     width: 120px;
     display: flex;
     align-items: center;
+
+    .title-icon {
+      font-size: 22px;
+      margin-right: 8px;
+    }
   }
 
   .content {

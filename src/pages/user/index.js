@@ -1,15 +1,17 @@
 import React, { memo, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { Button, Avatar, Space } from "antd";
-import { FDUserWraper, ContentArea, InfoBottom, Footer } from "./style";
+import { Avatar } from "antd";
+import { FDUserWraper, FDUserContentWraper } from "./style";
 import { FDTitle } from "@/components";
 import EditItem from "./edit-item";
 import PasswordItem from "./password-item";
 import FDUserTab from "./userTab";
+import FDUserinfoItem from "./userinfo-item";
+import FDMyCoupon from "./my-coupon";
+import FDUserLocation from "./mylocation";
+
 // 默认头像
-const DEFAULT_AVATAR =
-  "https://guli-file-190513.oss-cn-beijing.aliyuncs.com/avatar/default.jpg";
 
 const FDUser = memo(() => {
   const { isLogin, userInfo } = useSelector(
@@ -21,75 +23,45 @@ const FDUser = memo(() => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const params = useParams();
 
   // 自定义state
-  const [isUpdate, setIsUpdate] = useState(false);
-  const [isPassword, setIsPassword] = useState(false);
+  const [type, setType] = useState();
   // hooks
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
     }
   }, []);
-  // 其他hooks
-  const handlePassword = () => {
-    if (isUpdate) {
-      setIsUpdate(false);
+
+  useEffect(() => {
+    setType(params.type);
+  }, [params]);
+
+  // other hooks
+  const getUserContent = () => {
+    switch (type) {
+      case "password":
+        return <PasswordItem />;
+      case "edit":
+        return <EditItem />;
+      case "coupon":
+        return <FDMyCoupon />;
+      case "location":
+        return <FDUserLocation />;
+      default:
+        return <FDUserinfoItem />;
     }
-    setIsPassword(!isPassword);
   };
-
-  const handleUpdate = () => {
-    if (isPassword) {
-      setIsPassword(false);
-    }
-    setIsUpdate(!isUpdate);
-  };
-
-  const userInfoItem = () => {
-    return (
-      <ContentArea>
-        <div className="row">
-          <label>头像：</label>
-          <p>
-            <Avatar src={userInfo.avatar} size={48} />
-          </p>
-        </div>
-        <div className="row">
-          <label>用户名：</label>
-          <p>{userInfo.nickname}</p>
-        </div>
-        <div className="row">
-          <label>手机号：</label>
-          <p>{userInfo.mobile}</p>
-        </div>
-        <div className="row">
-          <label>用户积分：</label>
-          <p>{userInfo.credit}</p>
-        </div>
-      </ContentArea>
-    );
-  };
-
   return (
     <FDUserWraper>
-      <FDTitle title="个人信息" />
-      <FDUserTab />
-      {userInfoItem}
-      {/* <InfoBottom>
-        <Space>
-          <Button type="primary" onClick={handlePassword}>
-            修改登录密码
-          </Button>
-          <Button type="primary" onClick={handleUpdate}>
-            修改个人信息
-          </Button>
-        </Space>
-      </InfoBottom> */}
-      <Footer>
-        {isUpdate && <EditItem userInfo={userInfo} />}
-        {isPassword && <PasswordItem password={userInfo.password} />}
-      </Footer>
+      {/* <FDTitle title="个人信息" /> */}
+      <div className="fd-content">
+        <div className="user-tab">
+          <FDUserTab />
+        </div>
+        <FDUserContentWraper>{getUserContent()}</FDUserContentWraper>
+      </div>
     </FDUserWraper>
   );
 });

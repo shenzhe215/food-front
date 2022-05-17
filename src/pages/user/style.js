@@ -3,46 +3,37 @@ import styled from "styled-components";
 export const FDUserWraper = styled.div`
   width: 100%;
   height: 100%;
-`;
+  /* background-color: #f0f3ef; */
 
-export const ContentArea = styled.div`
-  background-color: #ccc;
-  position: relative;
-  left: calc(30% - 120px);
-  right: 20%;
-  width: 40%;
-  display: inline-block;
-
-  .row {
+  .fd-content {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    label {
-      font-size: 15px;
-      padding: 5px 10px;
-      width: 150px;
-      text-align: left;
-    }
+    flex-direction: row;
+    justify-content: left;
+    position: relative;
+    width: 100%;
+    height: 400px;
 
-    p {
-      font-size: 18px;
-      width: 150px;
-      padding: 5px;
+    .user-tab {
+      /* margin-right: 20px; */
+      padding: 15px 20px;
+      background-color: #fff;
+      margin-right: 20px;
     }
   }
 `;
 
-export const InfoBottom = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  justify-content: center;
-`;
+export const FDUserContentWraper = styled.div`
+  width: 90%;
+  text-align: center;
+  background-color: #fff;
+  padding: 10px;
 
-export const Footer = styled.div`
-  width: 100%;
-  height: 100%;
-  /* background-color: green; */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `;

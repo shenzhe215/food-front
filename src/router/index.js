@@ -1,9 +1,4 @@
 import React from "react";
-import {
-  lazyLoad,
-  redirect,
-  setRouteBefore,
-} from "@/components/RouterGuard/fn";
 const FDLogin = React.lazy((_) => import("../pages/login/login"));
 const FDRegister = React.lazy((_) => import("../pages/login/register"));
 const DefaultLayout = React.lazy(() => import("../layout"));
@@ -21,6 +16,10 @@ const FDPay = React.lazy((_) => import("../pages/order/pay/idnex"));
 const FDOrder = React.lazy((_) => import("../pages/order"));
 const FDUser = React.lazy((_) => import("../pages/user"));
 const FDMyCoupon = React.lazy((_) => import("../pages/user/my-coupon"));
+const FDCouponPage = React.lazy((_) => import("../pages/coupon"));
+const PayInfo = React.lazy((_) =>
+  import("../pages/order/pay/pay-message/idnex")
+);
 const routes = [
   {
     path: "/",
@@ -33,6 +32,7 @@ const routes = [
       title: "首页",
       needLogin: true,
     },
+    key: true,
   },
   {
     path: "/login",
@@ -66,6 +66,10 @@ const routes = [
       { path: "info", element: <FDLocationInfo /> },
       { path: "info/:id", element: <FDLocationInfo /> },
     ],
+    meta: {
+      title: "位置",
+      needLogin: true,
+    },
   },
   {
     path: "/order",
@@ -75,43 +79,33 @@ const routes = [
       { path: "pay", element: <FDPay /> },
       { path: "pay/:id", element: <FDPay /> },
     ],
+    meta: {
+      title: "订单",
+      needLogin: true,
+    },
+  },
+  {
+    path: "/pay/success/:id",
+    element: <PayInfo />,
   },
   {
     path: "/user",
     children: [
       { index: true, element: <FDUser /> },
-      { path: "submitorder", element: <FDFoodSubmitOrder /> },
-      { path: "coupon", element: <FDMyCoupon /> },
+      { path: ":type", element: <FDUser /> },
     ],
-  },
-];
-
-// 全局路由配置
-const routes2 = [
-  {
-    path: "/",
-    element: redirect("/home"),
-  },
-  {
-    path: "/food",
-    element: lazyLoad(() => import("../pages/food"), {
-      title: "菜品",
+    meta: {
+      title: "用户",
       needLogin: true,
-    }),
+    },
   },
   {
-    path: "/home",
-    element: lazyLoad(() => import("../pages/home"), {
-      title: "菜品",
+    path: "/coupon",
+    element: <FDCouponPage />,
+    meta: {
+      title: "领券中心",
       needLogin: true,
-    }),
-  },
-  {
-    path: "/login",
-    element: lazyLoad(() => import("../pages/food"), {
-      title: "菜品",
-      needLogin: true,
-    }),
+    },
   },
 ];
 
@@ -133,8 +127,5 @@ const onRouteBefore = ({ pathname, meta }) => {
     }
   }
 };
-setRouteBefore(onRouteBefore);
 
 export default routes;
-
-// export default routes;

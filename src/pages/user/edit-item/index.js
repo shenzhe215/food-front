@@ -6,7 +6,7 @@ import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
 import { getMatchReg } from "@/utils/format-utils";
 import { sendRegisterCode, updateUserInfo } from "@/service/login";
 import { getLatestInfoAction } from "../../login/store";
-
+import { EditWraper } from "./style";
 function beforeUpload(file) {
   const isJpgOrPng = file.type === "image/jpeg" || file.type === "image/png";
   if (!isJpgOrPng) {
@@ -24,8 +24,16 @@ const EditItem = memo((props) => {
   const mathchPhoneReg = getMatchReg("phone");
   const mathchUsername = getMatchReg("username");
 
+  const { isLogin, userInfo } = useSelector(
+    (state) => ({
+      isLogin: state.getIn(["loginState", "isLogin"]),
+      userInfo: state.getIn(["loginState", "profile"]),
+    }),
+    shallowEqual
+  );
+
   // 自定义state
-  const { userInfo } = props;
+  // const { userInfo } = props;
   const [update, setUpdate] = useState(false);
   const [form] = Form.useForm();
   const [isSendSatte, setIsSendSatte] = useState(false);
@@ -96,8 +104,6 @@ const EditItem = memo((props) => {
   };
 
   const handleChange = (info) => {
-    console.log(info);
-    console.log(info.file.status);
     if (info.file.status === "uploading") {
       setLoading(true);
       return;
@@ -123,7 +129,7 @@ const EditItem = memo((props) => {
   };
 
   return (
-    <div>
+    <EditWraper>
       <Form
         layout="horizontal"
         onFinish={onFinish}
@@ -158,9 +164,9 @@ const EditItem = memo((props) => {
           rules={[
             {
               pattern: mathchUsername,
-              message: `请输入正确的收货人`,
+              message: `请输入正确的用户名`,
             },
-            { required: true, message: "请输入你的账户" },
+            { required: true, message: "请输入正确的用户名" },
           ]}
         >
           <Input placeholder="请输入用户名" />
@@ -210,7 +216,7 @@ const EditItem = memo((props) => {
           </div>
         </Form.Item>
       </Form>
-    </div>
+    </EditWraper>
   );
 });
 

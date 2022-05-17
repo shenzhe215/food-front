@@ -1,45 +1,40 @@
 import React, { memo, useState, Suspense } from "react";
 import routes from "@/router";
-import { useRoutes, Link } from "react-router-dom";
+import { useRoutes } from "react-router-dom";
 
-import { menus } from "@/common/local-data";
-import { Layout, Menu, Breadcrumb } from "antd";
-import {
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-} from "@ant-design/icons";
+import { Layout } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 import { FDContentWrapper } from "./style";
-const { Content, Sider } = Layout;
+const { Content } = Layout;
 
 function RouteElement() {
   const element = useRoutes(routes);
+  // const meta = useRoutes(routes);
+  const { props } = useRoutes(routes);
+  window.onunload = () => {
+    localStorage.clear();
+  };
+  if (!localStorage.getItem("login")) {
+    window.location.href = "/#/login";
+  }
   return element;
 }
 
-const { SubMenu } = Menu;
-
 const FDAppContent = memo(() => {
-  // other states
-
-  // other hooks
-
   return (
     <FDContentWrapper>
-      {/* <Layout> */}
-        <Content
-          className="site-layout-background"
-          style={{
-            padding: 10,
-            margin: 0,
-            minHeight: 280,
-          }}
-        >
-          <Suspense fallback={<div>page loading</div>}>
-            <RouteElement />
-          </Suspense>
-        </Content>
-      {/* </Layout> */}
+      <Content
+        className="site-layout-background"
+        style={{
+          padding: 10,
+          margin: 0,
+          minHeight: 280,
+        }}
+      >
+        <Suspense fallback={<LoadingOutlined />}>
+          <RouteElement />
+        </Suspense>
+      </Content>
     </FDContentWrapper>
   );
 });

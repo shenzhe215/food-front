@@ -4,28 +4,46 @@ export const FDLoginWraper = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-
-  background-color: #f5f5f5;
-  /* background-color: red; */
-  .loginTitle {
+  background-image: url(${require("@/assets/img/login-bg.jpg")});
+  background-size: cover;
+  .login-pane {
+    /* background-color: #fff; */
+    width: 50%;
+    height: 400px;
     position: relative;
-    top: 20%;
-    font-size: 20px;
-    text-align: center;
-    color: #000000;
+    left: 25%;
+    top: calc((100% - 400px) * 0.382);
+    display: flex;
+  }
+
+  .loginTitle {
+    width: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+
+    .loginSpan {
+      line-height: 100px;
+      margin-left: 50px;
+      .welcome,
+      .to-login {
+        color: #000;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+      }
+    }
+
+    .to-login {
+      line-height: 0;
+    }
   }
 `;
 
-export const LoginPane = styled.div`
-  background-color: #fff;
-`;
 
 export const FDInputWraper = styled.div`
-  position: relative;
-  top: 30%;
-  left: 37.5%;
-
-
+  width: 50%;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
   .submitBtn {
     width: 100%;
   }

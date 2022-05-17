@@ -20,6 +20,7 @@ const FDLocationInfo = memo(() => {
   const dispatch = useDispatch();
   const mathchPhoneReg = getMatchReg("phone");
   const mathchUsername = getMatchReg("username");
+  
   const params = useParams();
   const { curLocation } = useSelector(
     (state) => ({

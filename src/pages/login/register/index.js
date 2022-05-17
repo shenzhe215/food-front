@@ -65,98 +65,102 @@ const FDRegister = memo(() => {
 
   // 表单样式
   const formItemLayout = {
-    labelCol: { span: 2, offset: 0 },
-    wrapperCol: { span: 4 },
+    labelCol: { span: 6, offset: 2 },
+    wrapperCol: { span: 16 },
   };
 
   const formTailLayout = {
-    wrapperCol: { span: 4, offset: 2 },
+    wrapperCol: { span: 16, offset:8 },
   };
   return (
     <FDRegisterWraper>
-      <div className="registerTitle">
-        <span className="registerSpan">注册,</span>
-        <span className="welcomeSpan">欢迎注册~</span>
+      <div className="register-pane">
+        <div className="registerTitle">
+          <span className="registerSpan">
+            <h6 className="welcome">Welcome</h6>
+            <h6 className="to-register">欢迎注册湘情土菜馆</h6>
+          </span>
+        </div>
+        <FDInputWraper>
+          <Form
+            {...formItemLayout}
+            layout="horizontal"
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            size="large"
+          >
+            <Form.Item
+              label="用户名"
+              name="nickname"
+              rules={[
+                {
+                  pattern: mathchUsername,
+                  message: `请输入正确的用户名`,
+                },
+                { required: true, message: "请输入你的账户" },
+              ]}
+            >
+              <Input placeholder="请输入用户名" />
+            </Form.Item>
+            <Form.Item
+              label="密码"
+              name="password"
+              rules={[
+                { pattern: pwdReg, message: "密码最短6位" },
+                { required: true, message: "请输入密码!" },
+              ]}
+            >
+              <Input.Password placeholder="请输入密码" />
+            </Form.Item>
+            <Form.Item
+              label="手机号"
+              name="mobile"
+              rules={[
+                {
+                  pattern: mathchPhoneReg,
+                  message: `请输入正确的手机号`,
+                },
+                { required: true, message: "请输入你的手机号" },
+              ]}
+            >
+              <Input
+                placeholder="请输入手机号"
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                }}
+              />
+            </Form.Item>
+            <Form.Item
+              label="短信验证码"
+              name="code"
+              rules={[
+                { pattern: codeReg, message: "验证码最短4位" },
+                { required: true, message: "请输入验证码" },
+              ]}
+            >
+              <Input
+                placeholder="请输入验证码"
+                addonAfter={
+                  <a onClick={handleSendCode}>
+                    {isSendSatte ? second + "s" : "发送验证码"}
+                  </a>
+                }
+              />
+            </Form.Item>
+            <Form.Item {...formTailLayout}>
+              <Button type="primary" htmlType="submit" className="submitBtn">
+                注册
+              </Button>
+            </Form.Item>
+            <Form.Item {...formTailLayout}>
+              <div className="loginRow">
+                <span></span>
+                <a onClick={handleLogin}>去登录</a>
+              </div>
+            </Form.Item>
+          </Form>
+        </FDInputWraper>
       </div>
-      <FDInputWraper>
-        <Form
-          {...formItemLayout}
-          layout="horizontal"
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
-          size="large"
-        >
-          <Form.Item
-            label="用户名"
-            name="nickname"
-            rules={[
-              {
-                pattern: mathchUsername,
-                message: `请输入正确的用户名`,
-              },
-              { required: true, message: "请输入你的账户" },
-            ]}
-          >
-            <Input placeholder="请输入用户名" />
-          </Form.Item>
-          <Form.Item
-            label="密码"
-            name="password"
-            rules={[
-              { pattern: pwdReg, message: "密码最短6位" },
-              { required: true, message: "请输入密码!" },
-            ]}
-          >
-            <Input.Password placeholder="请输入密码" />
-          </Form.Item>
-          <Form.Item
-            label="手机号"
-            name="mobile"
-            rules={[
-              {
-                pattern: mathchPhoneReg,
-                message: `请输入正确的手机号`,
-              },
-              { required: true, message: "请输入你的手机号" },
-            ]}
-          >
-            <Input
-              placeholder="请输入手机号"
-              onChange={(e) => {
-                setPhone(e.target.value);
-              }}
-            />
-          </Form.Item>
-          <Form.Item
-            label="短信验证码"
-            name="code"
-            rules={[
-              { pattern: codeReg, message: "验证码最短4位" },
-              { required: true, message: "请输入验证码" },
-            ]}
-          >
-            <Input
-              placeholder="请输入验证码"
-              addonAfter={
-                <a onClick={handleSendCode}>
-                  {isSendSatte ? second + "s" : "发送验证码"}
-                </a>
-              }
-            />
-          </Form.Item>
-          <Form.Item {...formTailLayout}>
-            <Button type="primary" htmlType="submit" className="submitBtn">
-              注册
-            </Button>
-          </Form.Item>
-          <Form.Item {...formTailLayout}>
-            <div className="loginRow">
-              <span></span>
-              <a onClick={handleLogin}>去登录</a>
-            </div>
-          </Form.Item>
-        </Form>
-      </FDInputWraper>
     </FDRegisterWraper>
   );
 });

@@ -3,10 +3,24 @@ import styled from "styled-components";
 export const PayWraper = styled.div`
   /* background-color: #eeeeee; */
 
+  .pay-body {
+    background-color: #fff;
+    padding: 20px 15px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .show {
+    display: block;
+  }
+
   .step {
-    width: 70%;
-    margin-left: 15%;
+    width: 100%;
     padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #dbdbdb;
   }
 
   .itemImg {
@@ -23,8 +37,7 @@ export const PayUp = styled.div`
   display: flex;
   justify-content: space-between;
 
-  background-color: #f3f3f3;
-  border-bottom: 1px solid #dbdbdb;
+  background-color: #fff;
 
   font-size: 15px;
   font-weight: bold;

@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const FDFoodWraper = styled.div`
   width: 100%;
   height: 100%;
-  /* background-color: pink; */
 `;
 
 export const FoodHeader = styled.div`
@@ -14,47 +13,54 @@ export const FoodHeader = styled.div`
   margin-top: 22px;
   margin-bottom: 22px;
   border-bottom: 2px solid #e8e8e8;
+
   .headItem {
     display: inline-block;
     position: relative;
     cursor: pointer;
+    font-size: 18px;
+    color: #888;
+    margin-top: -15px;
 
-    .nav-tab {
+    .navTitle,
+    .activeTitle {
+      font-family: Microsoft YaHei;
       display: inline-block;
-      /* line-height: 1; */
       padding: 5px 20px;
-      font-size: 16px;
-
-      .navTitle {
-        font-weight: 700;
-        font-family: Microsoft YaHei;
-        :hover {
-          color: #ff6000;
-          text-decoration: none;
-        }
+      width: 150px;
+      text-align: center;
+      margin-top: 15px;
+    }
+    .navTitle {
+      :hover {
+        color: #e60012;
+        text-decoration: none;
       }
+    }
 
-      .activeTitle {
-        font-weight: 700;
-        color: red;
-      }
+    .activeTitle {
+      color: white;
+      background-color: #e60012;
+      border-radius: 20px;
+    }
 
-      .navCount {
-        margin-left: 5px;
-        color: #ff6000;
-        font-weight: 400;
-      }
+    .navCount {
+      margin-left: 5px;
+      color: #e60012;
+      font-weight: 400;
     }
   }
 
   .headBottom {
-    font-size: 16px;
+    font-size: 18px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
     .shopCar {
       font-size: 20px;
-      padding: 5px;
+      padding: 10px;
     }
-    width: 120px;
+    min-width: 140px;
   }
 `;
 
@@ -71,16 +77,16 @@ export const FDFoodContentWraper = styled.div`
 
   .main {
     width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-left: 40px;
+    padding-right: 40px;
 
     > div {
       display: inline-block;
       /* margin-right: calc((20% - 150px) * 1.25); */
-      margin-right: calc(((100 / 6 * 1%) - 150px) * 1.2);
+      margin-right: calc(((100 / 3 * 1%) - 320px) * 1.5);
     }
 
-    > div:nth-child(6n + 0) {
+    > div:nth-child(3n + 0) {
       margin-right: 0px;
     }
   }

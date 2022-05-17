@@ -56,7 +56,7 @@ const FDFoodSubmitOrder = memo(() => {
 
   // other hooks
   const handleLocation = () => {
-    navigate("/location");
+    navigate("/user/location");
   };
 
   const handleProvinceChange = (value) => {
@@ -100,11 +100,6 @@ const FDFoodSubmitOrder = memo(() => {
       title: "菜品名称",
       dataIndex: "title",
       key: "title",
-    },
-    {
-      title: "菜品分类",
-      dataIndex: "type",
-      key: "type",
     },
     {
       title: "菜品封面",
@@ -156,83 +151,85 @@ const FDFoodSubmitOrder = memo(() => {
   return (
     <FDSubmitOrderWraper>
       <FDTitle title="提交订单" />
-      <div className="step">
-        <Steps current={0} labelPlacement="vertical">
-          <Step title="1.确认订单信息" />
-          <Step title="2.付款" />
-          <Step title="3.确认收货" />
-        </Steps>
-      </div>
-      <div className="location">
-        <div className="littleTitle">
-          <span>确认取餐信息</span>
-          <span onClick={handleLocation}>管理取餐地址</span>
+      <div className="order-body">
+        <div className="step">
+          <Steps current={0} labelPlacement="vertical">
+            <Step title="1.确认订单信息" />
+            <Step title="2.付款" />
+            <Step title="3.确认收货" />
+          </Steps>
         </div>
-        <div className="orderLocation">
+        <div className="location">
+          <div className="littleTitle">
+            <span>确认取餐信息</span>
+            <span onClick={handleLocation}>管理取餐地址</span>
+          </div>
+          <div className="orderLocation">
+            <Select
+              defaultActiveFirstOption
+              defaultValue={latestLocs[0]}
+              style={{ width: 600 }}
+              onChange={handleProvinceChange}
+              placeholder={"请选择送餐地址!"}
+              bordered={false}
+              // defaultOpen={true}
+              dropdownStyle={{ textAlign: "center" }}
+              showArrow={false}
+            >
+              {latestLocs.map((location) => (
+                <Option key={location.id}>{locationToString(location)}</Option>
+              ))}
+            </Select>
+          </div>
+        </div>
+
+        <div className="secondTitle">确认订单信息</div>
+        <div>
+          <Table
+            dataSource={orderList}
+            columns={columns}
+            bordered={true}
+            pagination={false}
+            rowKey={(record) => record.id}
+          />
+        </div>
+        <div className="coupon">
           <Select
-            defaultActiveFirstOption
-            defaultValue={latestLocs[0]}
-            style={{ width: 600 }}
-            onChange={handleProvinceChange}
-            placeholder={"请选择送餐地址!"}
+            style={{ width: 300 }}
+            onChange={handleCouponChange}
+            placeholder={"请选择优惠券!"}
             bordered={false}
-            // defaultOpen={true}
             dropdownStyle={{ textAlign: "center" }}
             showArrow={false}
+            allowClear={false}
           >
-            {latestLocs.map((location) => (
-              <Option key={location.id}>{locationToString(location)}</Option>
-            ))}
+            {couponList?.map(
+              (coupon) =>
+                coupon.requirement <= orderMoney && (
+                  <Option key={coupon.id}>{couponformat(coupon)}</Option>
+                )
+            )}
           </Select>
         </div>
-      </div>
-
-      <div className="secondTitle">确认订单信息</div>
-      <div>
-        <Table
-          dataSource={orderList}
-          columns={columns}
-          bordered={true}
-          pagination={false}
-          rowKey={(record) => record.id}
-        />
-      </div>
-      <div className="coupon">
-        <Select
-          style={{ width: 300 }}
-          onChange={handleCouponChange}
-          placeholder={"请选择优惠券!"}
-          bordered={false}
-          dropdownStyle={{ textAlign: "center" }}
-          showArrow={false}
-          allowClear={false}
-        >
-          {couponList?.map(
-            (coupon) =>
-              coupon.requirement <= orderMoney && (
-                <Option key={coupon.id}>{couponformat(coupon)}</Option>
-              )
-          )}
-        </Select>
-      </div>
-      <div className={(discount && "hasdiscount") || "prices"}>
-        <span className="title">菜品总价：</span>
-        <span className="money">￥{orderMoney}</span>
-      </div>
-      {discount && (
-        <div className="prices">
-          <span className="title">优惠价：</span>
-          <span className="money">
-            ￥
-            {(couponInfo.type === 1 && orderMoney - couponInfo.title) ||
-              (orderMoney * couponInfo.title) / 10}
-          </span>
+        <div className={(discount && "hasdiscount") || "prices"}>
+          <span className="title">菜品总价：</span>
+          <span className="money">￥{orderMoney}</span>
         </div>
-      )}
-      <div className="submitBtn">
-        <Button type="primary" onClick={handleSubmit}>
-          提交订单
-        </Button>
+        {discount && (
+          <div className="prices">
+            <span className="title">优惠价：</span>
+            <span className="money">
+              ￥
+              {(couponInfo.type === 1 && orderMoney - couponInfo.title) ||
+                (orderMoney * couponInfo.title) / 10}
+            </span>
+          </div>
+        )}
+        <div className="submitBtn">
+          <Button type="primary" onClick={handleSubmit}>
+            提交订单
+          </Button>
+        </div>
       </div>
     </FDSubmitOrderWraper>
   );

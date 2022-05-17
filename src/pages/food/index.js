@@ -40,7 +40,7 @@ const FDFood = memo(() => {
   const [curTypeId, setCurTypeId] = useState("");
   const [pagination, setPagination] = useState({
     current: 1,
-    pageSize: 18,
+    pageSize: 9,
   });
 
   // hooks
@@ -51,26 +51,28 @@ const FDFood = memo(() => {
     dispatch(getTypeList());
     // dispatch(getAllFoodList());
     const foodQuery = {};
-    dispatch(getFoodPageConditionAction(1, 18, foodQuery));
+    dispatch(getFoodPageConditionAction(1, 9, foodQuery));
   }, []);
 
   // other hooks
   const handleChange = (typeId) => {
+    setCurTypeId(typeId);
     const foodQuery = {};
     if (typeId !== "-1") {
       foodQuery.typeId = typeId;
-      setCurTypeId(typeId);
     }
     setPagination({ ...pagination, current: 1 });
     const { pageSize } = pagination;
     dispatch(getFoodPageConditionAction(1, pageSize, foodQuery));
   };
 
-
   // 页面改变
   const paginationChange = (current, pageSize) => {
     setPagination({ ...pagination, current, pageSize });
-    const foodQuery = { typeId: curTypeId };
+    const foodQuery = {};
+    if (curTypeId !== "-1") {
+      foodQuery.typeId = curTypeId;
+    }
     dispatch(getFoodPageConditionAction(current, pageSize, foodQuery));
   };
 
@@ -81,7 +83,7 @@ const FDFood = memo(() => {
     // 显示每页多少条数据
     showSizeChanger: true,
     hideOnSinglePage: false,
-    pageSizeOptions: ["18", "36", "50", "100"],
+    pageSizeOptions: ["9", "18", "50", "100"],
     onChange: paginationChange,
     onShowSizeChange: paginationChange,
     // 总数
@@ -92,34 +94,27 @@ const FDFood = memo(() => {
 
   return (
     <FDFoodWraper className="FDFood">
-      <FDFoodHeaderWraper>
-        <div>点餐界面</div>
-      </FDFoodHeaderWraper>
       <FoodHeader>
         <div className="headItem">
-          <span className="nav-tab">
-            <span
-              className={-1 === curIndex ? "activeTitle" : "navTitle"}
-              onClick={() => {
-                setCurIndex(-1);
-                handleChange("-1");
-              }}
-            >
-              所有菜品
-            </span>
+          <span
+            className={-1 === curIndex ? "activeTitle" : "navTitle"}
+            onClick={() => {
+              setCurIndex(-1);
+              handleChange("-1");
+            }}
+          >
+            所有菜品
           </span>
           {typeList?.map((type, index) => (
-            <span className="nav-tab" key={index}>
-              <span
-                className={index === curIndex ? "activeTitle" : "navTitle"}
-                onClick={() => {
-                  setCurIndex(index);
-                  handleChange(type.id);
-                }}
-              >
-                {type.title}
-              </span>
-              <span className="navCount"></span>
+            <span
+              className={index === curIndex ? "activeTitle" : "navTitle"}
+              key={index}
+              onClick={() => {
+                setCurIndex(index);
+                handleChange(type.id);
+              }}
+            >
+              {type.title}
             </span>
           ))}
         </div>

@@ -75,43 +75,45 @@ const FDOrder = memo(() => {
     },
   };
 
-  const orderTabs = ["所有订单", "待支付", "待收货", "已完成"];
+  const orderTabs = ["全部订单", "待支付", "待发货", "待收货", "已完成"];
   return (
     <FDOrderWraper>
-      <FDTitle title="订单表"></FDTitle>
-      <Header>
-        {orderTabs?.map((order, index) => (
-          <span className="nav-tab" key={index}>
-            <span
-              className={index === curIndex ? "activeTitle" : "navTitle"}
-              onClick={() => {
-                setCurIndex(index);
-                handleChange(index);
-              }}
-            >
-              {order}
+      <FDTitle title="我的订单"></FDTitle>
+      <div className="order-body">
+        <Header>
+          {orderTabs?.map((order, index) => (
+            <span className="nav-tab" key={index}>
+              <span
+                className={index === curIndex ? "activeTitle" : "navTitle"}
+                onClick={() => {
+                  setCurIndex(index);
+                  handleChange(index);
+                }}
+              >
+                {order}
+              </span>
+              <span className="navCount"></span>
             </span>
-            <span className="navCount"></span>
-          </span>
-        ))}
-      </Header>
-      <ContentTitle>
-        <div className="contentLeft">菜品</div>
-        <div className="price">单价</div>
-        <div className="count">数量</div>
-        <div className="comment">操作</div>
-        <div className="location">送餐地址</div>
-        <div className="status">交易状态</div>
-        <div className="fee">总费用</div>
-      </ContentTitle>
-      <Content>
-        {orderList.map((order) => (
-          <FDOrderItem orderInfo={order} key={order.id} />
-        ))}
-      </Content>
-      <PageBottom>
-        <Pagination {...paginationObj} />
-      </PageBottom>
+          ))}
+        </Header>
+        <ContentTitle>
+          <div className="contentLeft">菜品</div>
+          <div className="price">单价</div>
+          <div className="count">数量</div>
+          <div className="comment">操作</div>
+          <div className="location">送餐地址</div>
+          <div className="status">交易状态</div>
+          <div className="fee">总费用</div>
+        </ContentTitle>
+        <Content>
+          {orderList.map((order) => (
+            <FDOrderItem orderInfo={order} key={order.id} />
+          ))}
+        </Content>
+        <PageBottom>
+          <Pagination {...paginationObj} />
+        </PageBottom>
+      </div>
     </FDOrderWraper>
   );
 });

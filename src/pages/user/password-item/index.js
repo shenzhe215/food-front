@@ -2,6 +2,7 @@ import React, { memo, useState } from "react";
 import { Form, Input, Button, message } from "antd";
 
 import { updatePassword } from "@/service/login";
+import { PwdWraper } from "./style";
 const PasswordItem = memo(() => {
   // 自定义state
   const [update, setUpdate] = useState(false);
@@ -22,16 +23,16 @@ const PasswordItem = memo(() => {
 
   // 表单样式
   const formItemLayout = {
-    labelCol: { span: 4, offset: 4 },
-    wrapperCol: { span: 8 },
+    labelCol: { span: 4, offset: 5 },
+    wrapperCol: { span: 6 },
   };
 
   const formTailLayout = {
     labelCol: { span: 4 },
-    wrapperCol: { span: 8, offset: 8 },
+    wrapperCol: { span: 6, offset: 9 },
   };
   return (
-    <div>
+    <PwdWraper>
       <Form
         layout="horizontal"
         onFinish={onFinish}
@@ -67,7 +68,7 @@ const PasswordItem = memo(() => {
           </div>
         </Form.Item>
       </Form>
-    </div>
+    </PwdWraper>
   );
 });
 

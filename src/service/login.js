@@ -64,3 +64,20 @@ export function updatePassword(updateInfo) {
     data: updateInfo,
   });
 }
+
+// 获得验证码
+export function getCaptcha() {
+  return request({
+    url: `/fooducenter/captcha/getCaptcha`,
+    method: "get",
+  });
+}
+
+// 验证验证码
+export function verify(captchaVo) {
+  return request({
+    url: `/fooducenter/captcha/verify`,
+    method: "post",
+    data: captchaVo,
+  });
+}

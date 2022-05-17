@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const FDUserTabWraper = styled.div`
   /* width: 100%; */
-  width: 120px;
+  width: 130px;
   height: 100%;
-  background-color: pink;
+  background-color: #fff;
   font-size: 20px;
   display: inline-block;
-  position: relative;
-  left: 15%;
+
+  /* position: relative;
+  left: 15%; */
 
   .nav-tab {
     display: flex;
@@ -18,15 +19,16 @@ export const FDUserTabWraper = styled.div`
     .navTitle {
       margin-bottom: 5px;
       cursor: pointer;
+      height: 32px;
     }
 
     .activeTitle {
-      color: #ff5e42;
+      color: #e4393c;
     }
 
     .navTitle {
       :hover {
-        color: #ff7742;
+        color: #e4393c;
       }
     }
   }

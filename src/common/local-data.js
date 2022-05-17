@@ -1,52 +1,8 @@
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
+import { createFromIconfontCN } from "@ant-design/icons/lib";
 
-function getItem(label, key, icon, children, type) {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    type,
-  };
-}
-
-export const menus = [
-  getItem("菜品首页", "/home", <MailOutlined />, []),
-  getItem("开始点菜", "/food", <AppstoreOutlined />, [
-    getItem("开始点菜", "5"),
-    getItem("开始点菜", "6"),
-    getItem("开始点菜", "7"),
-  ]),
-  getItem("订单查询", "/order", <SettingOutlined />, [
-    getItem("订单查询", "9"),
-    getItem("订单查询", "10"),
-    getItem("订单查询", "11"),
-    getItem("订单查询", "12"),
-  ]),
-];
-
-export const headerLinks = [
-  {
-    title: "首页",
-    link: "/home",
-  },
-  {
-    title: "进行点餐",
-    link: "/food",
-  },
-  {
-    title: "订单管理",
-    link: "/order",
-  },
-  {
-    title: "个人中心",
-    link: "/location",
-  },
-];
+export const MyIcon = createFromIconfontCN({
+  scriptUrl: "//at.alicdn.com/t/font_3351915_tm28a4p4v6.js", // 在 iconfont.cn 上生成
+});
 
 export const userTabs = [
   {
@@ -55,15 +11,15 @@ export const userTabs = [
   },
   {
     title: "修改密码",
-    link: "/password",
+    link: "/user/password",
   },
   {
     title: "修改个人信息",
-    link: "/user/info",
+    link: "/user/edit",
   },
   {
     title: "我的地址",
-    link: "/location",
+    link: "/user/location",
   },
   {
     title: "我的优惠信息",
@@ -71,125 +27,36 @@ export const userTabs = [
   },
 ];
 
-// export const tabs = [
-//   {
-//     key: "/home",
-//     title: "首页",
-//     icon: <AppOutline />,
-//   },
-//   {
-//     key: "/food",
-//     title: "点餐",
-//     icon: <UnorderedListOutline />,
-//   },
-//   {
-//     key: "/order",
-//     title: "订单",
-//     icon: <MessageOutline />,
-//   },
-//   {
-//     key: "/user",
-//     title: "个人中心",
-//     icon: <UserOutline />,
-//   },
-// ];
+export const footerLinks = [
+  {
+    title: "服务条款",
+    link: "https://st.music.163.com/official-terms/service",
+  },
+  {
+    title: "隐私政策",
+    link: "https://st.music.163.com/official-terms/privacy",
+  },
+  {
+    title: "版权投诉指引",
+    link: "https://music.163.com/st/staticdeal/complaints.html",
+  },
+  {
+    title: "意见反馈",
+    link: "#",
+  },
+];
 
-// export const myAssets = [
-//   {
-//     key: "/home",
-//     title: "余额",
-//     icon: <BillOutline />,
-//   },
-//   {
-//     key: "/home",
-//     title: "红包",
-//     icon: <CollectMoneyOutline />,
-//   },
-//   {
-//     key: "/home",
-//     title: "券包",
-//     icon: <CouponOutline />,
-//   },
-//   {
-//     key: "/home",
-//     title: "卡包",
-//     icon: <BankcardOutline />,
-//   },
-// ];
-
-// export const myOrders = [
-//   {
-//     key: "/home",
-//     title: "待付款",
-//     icon: <BankcardOutline />,
-//   },
-//   {
-//     key: "/food",
-//     title: "点餐",
-//     icon: <UnorderedListOutline />,
-//   },
-//   {
-//     key: "/order",
-//     title: "订单",
-//     icon: <MessageOutline />,
-//   },
-//   {
-//     key: "/user",
-//     title: "个人中心",
-//     icon: <UserOutline />,
-//   },
-// ];
-
-// export const recommendUtils = [
-//   {
-//     key: "/home",
-//     title: "我的收藏",
-//     icon: <HeartOutline />,
-//   },
-//   {
-//     key: "/location",
-//     title: "我的地址",
-//     icon: <LocationOutline />,
-//   },
-//   {
-//     key: "/home",
-//     title: "设置",
-//     icon: <SetOutline />,
-//   },
-//   {
-//     key: "/home",
-//     title: "意见反馈",
-//     icon: <EditSOutline />,
-//   },
-// ];
-
-export const foodTabs = [
+export const footerImages = [
   {
-    key: "key1",
-    title: "店铺招牌",
+    link: "https://music.163.com/st/userbasic#/auth",
   },
   {
-    key: "key2",
-    title: "川菜",
+    link: "https://music.163.com/recruit",
   },
   {
-    key: "key3",
-    title: "海鲜",
+    link: "https://music.163.com/web/reward",
   },
   {
-    key: "key4",
-    title: "凉菜",
-  },
-  {
-    key: "key5",
-    title: "烧烤",
-  },
-  {
-    key: "key6",
-    title: "酒水",
-  },
-  {
-    key: "key7",
-    title: "甜点",
+    link: "https://music.163.com/uservideo#/plan",
   },
 ];

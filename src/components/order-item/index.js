@@ -72,10 +72,10 @@ const FDOrderItem = memo((props) => {
           <Image src={cover} width={80} height={60} />
           <div className="foodTitle">{title}</div>
         </div>
-
-        <div className="price">￥{price}</div>
+        <div className="price">￥{ratePrice === null ? price : ratePrice}</div>
+        {/* <div className="price">￥{price}</div> */}
         <div className="count">{buyNum}</div>
-        {(status === 2 && (
+        {(status === 3 && (
           <span className="comment" onClick={addComment.bind(null, item)}>
             评论
           </span>
@@ -117,11 +117,17 @@ const FDOrderItem = memo((props) => {
       case 1:
         return (
           <>
-            <p>已支付，待收货</p>
-            <span onClick={() => handleRecive()}>确认收货</span>
+            <p>已支付，待发货</p>
           </>
         );
       case 2:
+        return (
+          <>
+            <p>已发货，待收货</p>
+            <span onClick={() => handleRecive()}>确认收货</span>
+          </>
+        );
+      case 3:
         return "订单完成";
       default:
         return "订单状态";
@@ -142,7 +148,11 @@ const FDOrderItem = memo((props) => {
       <Content>
         <div className="foodArea">
           {foodList.map((foodInfo) => {
-            return <div className="contentLeft">{showfoodItem(foodInfo)}</div>;
+            return (
+              <div className="contentLeft">
+                {showfoodItem(foodInfo)}
+              </div>
+            );
           })}
         </div>
 

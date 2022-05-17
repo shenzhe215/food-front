@@ -1,25 +1,24 @@
 import styled from "styled-components";
 
 export const FDFoodInfoWraper = styled.div`
-  /* background-color: #f7f7f7; */
   width: 100%;
   height: 100%;
 
   .food {
     position: relative;
-    /* left: calc((100% - 720px) / 2); */
-    left: 20%;
-    /* right: 20%; */
+    padding: 20px 20%;
+
+    min-height: 824px;
+    background-color: #fff;
   }
 
   .foodContent {
     display: flex;
     flex-direction: row;
-    /* border: 1px solid black; */
+    
     .foodInfo {
       display: flex;
       flex-direction: column;
-      /* margin-left: 10%; */
       margin-left: 50px;
       width: calc((60% - 450px));
       justify-content: space-between;
@@ -35,10 +34,14 @@ export const FDFoodInfoWraper = styled.div`
         display: flex;
         flex-direction: row;
         justify-content: space-between;
+        width: 300px;
+        h1 {
+          width: 100%;
+        }
       }
 
       .secondLine {
-        background-color: #d4edf4;
+        background-color: #f4f4f4;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -88,7 +91,7 @@ export const FDFoodInfoWraper = styled.div`
     font-size: 20px;
     border-bottom: 1px solid #dadada;
     /* width: 720px; */
-    width: 60%;
+    width: 100%;
     .clicked {
       color: red;
     }
@@ -104,13 +107,14 @@ export const FDFoodInfoWraper = styled.div`
 
   .description {
     margin-top: 20px;
-    font-size: 15px;
+    font-size: 18px;
     /* width: 720px; */
-    width: 60%;
+    width: 100%;
   }
 `;
 
 export const CommentArea = styled.div`
   margin-right: 20%;
-  width: 60%;
+  width: 100%;
+  font-size: 18px;
 `;

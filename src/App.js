@@ -1,13 +1,11 @@
 import React, { memo, Suspense } from "react";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import { Provider } from "react-redux";
-
 import store from "./store";
 
 const FDLogin = React.lazy(() => import("./pages/login/login"));
 const FDRegister = React.lazy(() => import("./pages/login/register"));
 const DefaultLayout = React.lazy(() => import("./layout"));
-
 
 const App = memo(() => {
   return (

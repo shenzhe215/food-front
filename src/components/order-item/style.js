@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-export const OrderItemWraper = styled.div``;
+export const OrderItemWraper = styled.div`
+  border: 1px solid #bfbfbf;
+  margin-bottom: 10px;
+`;
 
 export const Header = styled.div`
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+  background-color: #f5f5f5;
   display: flex;
   justify-content: space-between;
-
+  border-bottom: 1px solid #bfbfbf;
   .headerLeft {
     span {
       padding-left: 20px;
@@ -34,7 +38,7 @@ export const Content = styled.div`
   display: flex;
   width: 100%;
   text-align: center;
-  border: 1px solid #bfbfbf;
+  /* border-right: 1px solid #bfbfbf; */
 
   a:hover {
     text-decoration: none;

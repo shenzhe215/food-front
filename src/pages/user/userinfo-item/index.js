@@ -1,10 +1,10 @@
 import React, { memo, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { shallowEqual, useSelector } from "react-redux";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { Avatar } from "antd";
 import { ContentArea } from "./style";
-
-const FDUser = memo(() => {
+import { getLatestInfoAction } from "../../login/store";
+const FDUserinfoItem = memo(() => {
   const { isLogin, userInfo } = useSelector(
     (state) => ({
       isLogin: state.getIn(["loginState", "isLogin"]),
@@ -13,12 +13,14 @@ const FDUser = memo(() => {
     shallowEqual
   );
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // hooks
   useEffect(() => {
     if (!isLogin) {
       navigate("/login");
     }
+    dispatch(getLatestInfoAction());
   }, []);
 
   return (
@@ -39,10 +41,10 @@ const FDUser = memo(() => {
       </div>
       <div className="row">
         <label>用户积分：</label>
-        <p>{userInfo.credit}</p>
+        <p>{userInfo.credit ? userInfo.credit : 0}</p>
       </div>
     </ContentArea>
   );
 });
 
-export default FDUser;
+export default FDUserinfoItem;

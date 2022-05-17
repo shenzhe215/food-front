@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { FDTitle } from "@/components";
 import { PayWraper, PayUp, PayContent } from "./style";
-import { Button, message, Steps, Modal } from "antd";
+import { Button, message, Steps, Modal, Tag, Result } from "antd";
 import { getUrl, getOrderInfo, getIpAddr } from "@/service/order";
 import {
   changeFoodOrderCoutnAction,
@@ -30,10 +30,10 @@ const FDPay = memo(() => {
   const [visiable, setVisiable] = useState(false);
   const [id, setId] = useState("");
   const [orderInfo, setOrderInfo] = useState({});
-
-  const [socketUrl, setSocketUrl] = useState(
-    "ws://192.168.43.15:8004/ws/" + params.id
-  );
+  const [socketUrl, setSocketUrl] = useState({
+    url: "",
+  });
+  // "ws://192.104.1.15:8004/ws/" + params.id
   const [messageHistory, setMessageHistory] = useState([]);
 
   const fetchIpAddr = () => {
@@ -41,8 +41,8 @@ const FDPay = memo(() => {
       if (res.code === 20000) {
         const ip = res.data.ip;
         console.log(ip);
-        setSocketUrl("ws://" + ip + ":8004/ws/" + params.id);
-        console.log("111");
+        socketUrl.url = "ws://" + ip + ":8004/ws/" + params.id;
+        setSocketUrl(socketUrl);
       } else {
         message.error("获取ip失败", 1);
       }
@@ -52,7 +52,7 @@ const FDPay = memo(() => {
   const getSocketUrl = useCallback(() => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(socketUrl);
+        resolve(socketUrl.url);
       }, 2000);
     });
   }, []);
@@ -82,8 +82,6 @@ const FDPay = memo(() => {
     });
   }, []);
 
-  console.log("222");
-
   const { lastMessage, getWebSocket } = useWebSocket(getSocketUrl, {
     onOpen: () => {
       console.log("opened");
@@ -96,9 +94,7 @@ const FDPay = memo(() => {
         console.log("连接成功");
       }
       if (msg.data === "支付成功") {
-        message.success("支付成功", 1);
         clearOrderState();
-        navigate("/order");
       }
     },
     shouldReconnect: false,
@@ -116,85 +112,93 @@ const FDPay = memo(() => {
     dispatch(changeOrderListAction([]));
     dispatch(changeOrderMoneyAction(0));
     dispatch(changeOrderCoutnAction(0));
+    navigate(`/pay/success/${id}`);
   });
 
   return (
     <PayWraper>
       <FDTitle title={"支付订单"}></FDTitle>
-      <div className="step">
-        <Steps current={1} labelPlacement="vertical">
-          <Step title="1.确认订单信息" />
-          <Step title="2.付款" />
-          <Step title="3.确认收货" />
-        </Steps>
-      </div>
-      <PayUp>
-        <p>支付订单</p>
-        <span>
-          <Button
-            type="default"
-            onClick={() => {
-              navigate("/order");
-            }}
-          >
-            返回
-          </Button>
-        </span>
-      </PayUp>
-      <PayContent>
-        <div className="contentUp">
-          <h1>提交订单成功，请完成支付</h1>
-          <p>
-            请在<span>2小时</span>内完成支付
-          </p>
+      <div className="pay-body">
+        <div className="step">
+          <Steps current={1} labelPlacement="vertical">
+            <Step title="1.确认订单信息" />
+            <Step title="2.付款" />
+            <Step title="3.确认收货" />
+          </Steps>
         </div>
-        <div className="payNum">
-          订单金额:{" "}
+        <PayUp>
+          <p>支付订单</p>
           <span>
-            {(orderInfo.rateFee > 0 && orderInfo.rateFee) || orderInfo.totalFee}
-            ￥
-          </span>
-        </div>
-        <p className="border">支付方式</p>
-        <div className="payWay">
-          <div className="payItem">
-            <div className="itemTitle alipay"></div>
-          </div>
-          <div className="payItem">
-            <div className="itemTitle wechat"></div>
-          </div>
-          <div className="payItem">
-            <div
-              className="itemTitle monitor"
+            <Button
+              type="default"
               onClick={() => {
-                setVisiable(!visiable);
+                navigate("/order");
               }}
             >
-              模拟支付
+              返回
+            </Button>
+          </span>
+        </PayUp>
+        <PayContent>
+          <div className="contentUp">
+            <h1>提交订单成功，请完成支付</h1>
+            <p>
+              请在<span>2小时</span>内完成支付
+            </p>
+          </div>
+          <div className="payNum">
+            订单金额:{" "}
+            <span>
+              {(orderInfo.rateFee > 0 && orderInfo.rateFee) ||
+                orderInfo.totalFee}
+              ￥
+            </span>
+          </div>
+          <p className="border">支付方式</p>
+          <div className="payWay">
+            <div className="payItem">
+              <div className="itemTitle alipay"></div>
+            </div>
+            <div className="payItem">
+              <div className="itemTitle wechat"></div>
+            </div>
+            <div className="payItem">
+              <div
+                className="itemTitle monitor"
+                onClick={() => {
+                  setVisiable(!visiable);
+                }}
+              >
+                模拟支付
+              </div>
             </div>
           </div>
-        </div>
-      </PayContent>
+        </PayContent>
+      </div>
       <Modal
         visible={visiable}
         onCancel={() => {
           setVisiable(false);
         }}
-        title={"请扫码"}
+        title={"请扫码支付"}
+        width={250}
         footer={[
-          <Button
-            onClick={() => {
-              setVisiable(false);
-            }}
-          >
-            取消
-          </Button>,
+          <div style={{ textAlign: "center" }} key="pay">
+            <p>请使用手机微信扫一扫</p>
+            <p>扫描二维码完成支付</p>
+          </div>,
         ]}
       >
-        <div className="itemImg">
+        <div style={{ textAlign: "center" }}>
           <img src={"data:image/jepg;base64," + url} width={200} />
         </div>
-        {/* </div> */}
+        <div style={{ textAlign: "center" }}>
+          <span>订单金额：</span>
+          <Tag style={{ color: "red", marginTop: "10px" }}>
+            {(orderInfo.rateFee > 0 && orderInfo.rateFee) || orderInfo.totalFee}
+            ￥
+          </Tag>
+        </div>
       </Modal>
     </PayWraper>
   );

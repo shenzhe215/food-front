@@ -4,11 +4,15 @@ export const FDSubmitOrderWraper = styled.div`
   width: 100%;
   height: 100%;
 
-  background-color: #f0f0f0;
+  .order-body {
+    background-color: #fff;
+    padding: 0 15px;
+    min-height: 820px;
+  }
 
   .step {
-    width: 70%;
-    margin-left: 15%;
+    padding: 10px 15%;
+    background-color: #fff;
   }
 
   .tablePrice {
@@ -55,6 +59,7 @@ export const FDSubmitOrderWraper = styled.div`
     font-size: 15px;
     font-weight: bold;
     border-bottom: 1px solid #dddddd;
+    margin-bottom: 15px;
   }
 
   .prices,

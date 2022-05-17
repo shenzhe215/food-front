@@ -29,9 +29,9 @@ const Coupon = memo((props) => {
     }
     getCoupon(id).then((res) => {
       if (res.code === 20000) {
-        message.success("领取成功");
+        message.success("领取成功", 1);
       } else {
-        message.info(res.message);
+        message.info(res.message, 1);
       }
     });
   };
