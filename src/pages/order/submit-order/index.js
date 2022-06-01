@@ -27,12 +27,19 @@ const FDFoodSubmitOrder = memo(() => {
     couponList,
   } = useSelector(
     (state) => ({
-      foodList: state.getIn(["foodState", "foodList"]),
-      orderList: state.getIn(["foodState", "orderList"]),
-      orderMoney: state.getIn(["foodState", "orderMoney"]),
-      locationList: state.getIn(["userState", "locationList"]),
-      foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
-      couponList: state.getIn(["userState", "couponList"]),
+      // foodList: state.getIn(["foodState", "foodList"]),
+      // orderList: state.getIn(["foodState", "orderList"]),
+      // orderMoney: state.getIn(["foodState", "orderMoney"]),
+      // locationList: state.getIn(["userState", "locationList"]),
+      // foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
+      // couponList: state.getIn(["userState", "couponList"]),
+
+      foodList: state.foodState.get("foodList"),
+      orderList: state.foodState.get("orderList"),
+      orderMoney: state.foodState.get("orderMoney"),
+      locationList: state.userState.get("locationList"),
+      foodOrderCount: state.foodState.get("foodOrderCount"),
+      couponList: state.userState.get("couponList"),
     }),
     shallowEqual
   );
@@ -161,7 +168,7 @@ const FDFoodSubmitOrder = memo(() => {
         </div>
         <div className="location">
           <div className="littleTitle">
-            <span>确认取餐信息</span>
+            <span>确认取餐地址</span>
             <span onClick={handleLocation}>管理取餐地址</span>
           </div>
           <div className="orderLocation">

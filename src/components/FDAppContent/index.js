@@ -11,12 +11,12 @@ function RouteElement() {
   const element = useRoutes(routes);
   // const meta = useRoutes(routes);
   const { props } = useRoutes(routes);
-  window.onunload = () => {
-    localStorage.clear();
-  };
-  if (!localStorage.getItem("login")) {
-    window.location.href = "/#/login";
-  }
+  // window.onunload = () => {
+  //   localStorage.clear();
+  // };
+  // if (!localStorage.getItem("login")) {
+  //   window.location.href = "/#/login";
+  // }
   return element;
 }
 

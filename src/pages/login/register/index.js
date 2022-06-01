@@ -42,6 +42,10 @@ const FDRegister = memo(() => {
   // handle function
   const handleSendCode = () => {
     // 60秒延迟定时器
+    if (phone === null) {
+      message.warn("手机号不能为空", 1);
+      return;
+    }
     if (!isSendSatte) {
       let i = 0;
       const timer = setInterval(() => {
@@ -70,7 +74,7 @@ const FDRegister = memo(() => {
   };
 
   const formTailLayout = {
-    wrapperCol: { span: 16, offset:8 },
+    wrapperCol: { span: 16, offset: 8 },
   };
   return (
     <FDRegisterWraper>

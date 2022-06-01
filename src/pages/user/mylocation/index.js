@@ -32,9 +32,13 @@ const FDUserLocation = memo(() => {
 
   const { isLogin, locationList, curLocation } = useSelector(
     (state) => ({
-      locationList: state.getIn(["userState", "locationList"]),
-      isLogin: state.getIn(["loginState", "isLogin"]),
-      curLocation: state.getIn(["userState", "curLocation"]),
+      // locationList: state.getIn(["userState", "locationList"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      // curLocation: state.getIn(["userState", "curLocation"]),
+
+      locationList: state.userState.get("locationList"),
+      isLogin: state.loginState.get("isLogin"),
+      curLocation: state.userState.get("curLocation"),
     }),
     shallowEqual
   );
@@ -52,7 +56,7 @@ const FDUserLocation = memo(() => {
       navigate("/login");
     }
     dispatch(getLocationAction());
-  }, [locationList]);
+  }, []);
 
   // other hooks
   const handleClick = () => {
@@ -89,6 +93,7 @@ const FDUserLocation = memo(() => {
         message.error(res.data.message, 1);
       }
     });
+    dispatch(getLocationAction());
   };
 
   // 表单提交
@@ -131,7 +136,9 @@ const FDUserLocation = memo(() => {
         message.error(res.data.message);
       }
     });
+    dispatch(getLocationAction());
   };
+  
   const columns = [
     {
       title: "收货人",

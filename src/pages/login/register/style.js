@@ -59,4 +59,8 @@ export const FDInputWraper = styled.div`
     justify-content: space-between;
     padding-right: 3px;
   }
+
+  .ant-input-group-addon {
+    width: 93px;
+  }
 `;

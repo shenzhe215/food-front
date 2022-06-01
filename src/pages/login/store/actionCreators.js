@@ -43,9 +43,9 @@ export const getLoginProfileInfo = (values) => {
   return (dispatch, getState) => {
     submitLoginUser(values).then((res) => {
       if (res.code !== 20000) {
-        message.error("账号或密码错误");
+        message.error("账号或密码错误", 2);
       } else {
-        message.success("登录成功");
+        message.success("登录成功", 1);
         // 登录成功
         localStorage.setItem("login", true);
         cookie.set("food_token", res.data.token, { domain: "localhost" });

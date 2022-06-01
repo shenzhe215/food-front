@@ -9,7 +9,8 @@ const FDOperationBox = memo((props) => {
   // state
   const { foodOrderCount } = useSelector(
     (state) => ({
-      foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
+      // foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
+      foodOrderCount: state.foodState.get("foodOrderCount"),
     }),
     shallowEqual
   );

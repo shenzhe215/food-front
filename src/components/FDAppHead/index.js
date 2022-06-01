@@ -16,8 +16,10 @@ const FDAppHeader = memo(() => {
   const dispatch = useDispatch();
   const { isLogin, userInfo } = useSelector(
     (state) => ({
-      isLogin: state.getIn(["loginState", "isLogin"]),
-      userInfo: state.getIn(["loginState", "profile"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      // userInfo: state.getIn(["loginState", "profile"]),
+      isLogin: state.loginState.get("isLogin"),
+      userInfo: state.loginState.get("profile"),
     }),
     shallowEqual
   );
@@ -46,7 +48,7 @@ const FDAppHeader = memo(() => {
     <HeaderWrapper>
       <div className="content wrap-v1">
         <div className="appTitle">
-          <MyIcon type="icon-xiangcai" className="title-icon"/>
+          <MyIcon type="icon-xiangcai" className="title-icon" />
           湘情土菜馆
         </div>
         <HeaderLeft>
@@ -55,7 +57,7 @@ const FDAppHeader = memo(() => {
               <NavLink to={"/home"}>{"首页"}</NavLink>
             </div>
             <div className="select-item">
-              <NavLink to={"/food"}>{"进行点餐"}</NavLink>
+              <NavLink to={"/food"}>{"客户点餐"}</NavLink>
             </div>
             <div className="select-item order">
               {/* <div className="downMenu loginMenu3">

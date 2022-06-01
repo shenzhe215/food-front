@@ -21,9 +21,13 @@ const FDOrder = memo(() => {
   const navigate = useNavigate();
   const { orderList, total, isLogin } = useSelector(
     (state) => ({
-      orderList: state.getIn(["orderState", "orderList"]),
-      total: state.getIn(["orderState", "total"]),
-      isLogin: state.getIn(["loginState", "isLogin"]),
+      // orderList: state.getIn(["orderState", "orderList"]),
+      // total: state.getIn(["orderState", "total"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      
+      orderList: state.orderState.get("orderList"),
+      total: state.orderState.get("total"),
+      isLogin: state.loginState.get("isLogin"),
     }),
     shallowEqual
   );

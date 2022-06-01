@@ -17,6 +17,7 @@ const FDCouponPage = memo(() => {
     });
   };
 
+  
   // hooks
   useEffect(() => {
     fetchCouponList();

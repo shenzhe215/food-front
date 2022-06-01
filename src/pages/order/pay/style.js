@@ -95,6 +95,7 @@ export const PayContent = styled.div`
 
       .alipay {
         background-position: -210px 130px;
+        cursor: pointer;
       }
 
       .wechat {

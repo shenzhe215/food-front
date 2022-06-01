@@ -80,3 +80,11 @@ export function getIpAddr() {
     method: "get",
   });
 }
+
+// 支付
+export function alipay(orderId) {
+  return request({
+    url: `/orderservice/alipay/trade/page/pay/${orderId}`,
+    method: "post",
+  });
+}

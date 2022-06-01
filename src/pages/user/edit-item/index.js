@@ -26,8 +26,11 @@ const EditItem = memo((props) => {
 
   const { isLogin, userInfo } = useSelector(
     (state) => ({
-      isLogin: state.getIn(["loginState", "isLogin"]),
-      userInfo: state.getIn(["loginState", "profile"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      // userInfo: state.getIn(["loginState", "profile"]),
+
+      isLogin: state.loginState.get("isLogin"),
+      userInfo: state.loginState.get("profile"),
     }),
     shallowEqual
   );

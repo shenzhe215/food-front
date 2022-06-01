@@ -18,7 +18,8 @@ const FDFoodInfo = memo(() => {
   const { foodOrderCount } = useSelector(
     (state) => ({
       // curFood: state.getIn(["foodState", "curFood"]),
-      foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
+      // foodOrderCount: state.getIn(["foodState", "foodOrderCount"]),
+      foodOrderCount: state.foodState.get("foodOrderCount"),
     }),
     shallowEqual
   );

@@ -85,7 +85,7 @@ const routes = [
     },
   },
   {
-    path: "/pay/success/:id",
+    path: "/pay/success",
     element: <PayInfo />,
   },
   {

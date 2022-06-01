@@ -12,7 +12,8 @@ const Coupon = memo((props) => {
     couponInfo;
   const { isLogin } = useSelector(
     (state) => ({
-      isLogin: state.getIn(["loginState", "isLogin"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      isLogin: state.loginState.get("isLogin"),
     }),
     shallowEqual
   );

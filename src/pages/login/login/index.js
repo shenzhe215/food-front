@@ -14,7 +14,8 @@ const FDLogin = memo(() => {
   const dispatch = useDispatch();
   const { isLogin } = useSelector(
     (state) => ({
-      isLogin: state.getIn(["loginState", "isLogin"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      isLogin: state.loginState.get("isLogin"),
     }),
     shallowEqual
   );
@@ -229,7 +230,8 @@ const FDLogin = memo(() => {
             </Form.Item>
             <Form.Item {...formTailLayout}>
               <div className="registerRow">
-                <span>找回密码</span>
+                {/* <span>找回密码</span> */}
+                <span></span>
                 <a onClick={handleRegister}>快速注册</a>
               </div>
             </Form.Item>

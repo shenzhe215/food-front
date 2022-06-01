@@ -1,18 +1,31 @@
-import React, { memo, useState, useEffect } from "react";
+import React, { memo, useState, useCallback, useEffect } from "react";
 import { Result } from "antd";
+import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { PaySuccessWraper } from "./style";
+import {
+  changeFoodOrderCoutnAction,
+  changeOrderListAction,
+  changeOrderMoneyAction,
+  changeOrderCoutnAction,
+} from "../../../food/store/actionCreators";
 const PayInfo = memo(() => {
   // states
   const navigate = useNavigate();
-  const [id, setId] = useState();
-  const params = useParams();
-
+  const dispatch = useDispatch();
   // hooks
   useEffect(() => {
-    const { id } = params;
-    setId(id);
+    clearOrderState();
   }, []);
+
+  // 清空redux订单状态
+  const clearOrderState = useCallback(() => {
+    // 清空订单信息
+    dispatch(changeFoodOrderCoutnAction({}));
+    dispatch(changeOrderListAction([]));
+    dispatch(changeOrderMoneyAction(0));
+    dispatch(changeOrderCoutnAction(0));
+  });
 
   setTimeout(() => {
     navigate("/order");
@@ -23,7 +36,6 @@ const PayInfo = memo(() => {
       <Result
         status="success"
         title="订单支付成功,页面跳转中……"
-        subTitle={"订单号: " + id}
       />
     </PaySuccessWraper>
   );

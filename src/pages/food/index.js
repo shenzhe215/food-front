@@ -25,12 +25,18 @@ const FDFood = memo(() => {
   const { isLogin, typeList, foodList, foodCount, orderList, total } =
     useSelector(
       (state) => ({
-        typeList: state.getIn(["foodState", "typeList"]),
-        foodList: state.getIn(["foodState", "foodList"]),
-        orderList: state.getIn(["foodState", "orderList"]),
-        isLogin: state.getIn(["loginState", "isLogin"]),
-        foodCount: state.getIn(["foodState", "foodCount"]),
-        total: state.getIn(["foodState", "total"]),
+        // typeList: state.getIn(["foodState", "typeList"]),
+        // foodList: state.getIn(["foodState", "foodList"]),
+        // orderList: state.getIn(["foodState", "orderList"]),
+        // isLogin: state.getIn(["loginState", "isLogin"]),
+        // foodCount: state.getIn(["foodState", "foodCount"]),
+        // total: state.getIn(["foodState", "total"]),
+        typeList: state.foodState.get("typeList"),
+        foodList: state.foodState.get("foodList"),
+        orderList: state.foodState.get("orderList"),
+        isLogin: state.loginState.get("isLogin"),
+        foodCount: state.foodState.get("foodCount"),
+        total: state.foodState.get("total"),
       }),
       shallowEqual
     );

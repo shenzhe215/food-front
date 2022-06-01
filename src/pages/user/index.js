@@ -16,8 +16,11 @@ import FDUserLocation from "./mylocation";
 const FDUser = memo(() => {
   const { isLogin, userInfo } = useSelector(
     (state) => ({
-      isLogin: state.getIn(["loginState", "isLogin"]),
-      userInfo: state.getIn(["loginState", "profile"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      // userInfo: state.getIn(["loginState", "profile"]),
+
+      isLogin: state.loginState.get("isLogin"),
+      userInfo: state.loginState.get("profile"),
     }),
     shallowEqual
   );
@@ -55,7 +58,6 @@ const FDUser = memo(() => {
   };
   return (
     <FDUserWraper>
-      {/* <FDTitle title="个人信息" /> */}
       <div className="fd-content">
         <div className="user-tab">
           <FDUserTab />

@@ -35,7 +35,7 @@ export const CouponWraper = styled.div`
     display: flex;
     flex-wrap: wrap;
     padding: 0px 20px;
-    justify-content: space-between;
+    justify-content: left;
 
     > div {
       margin-right: calc((100% - 1200px) / 4);

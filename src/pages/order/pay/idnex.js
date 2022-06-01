@@ -5,7 +5,7 @@ import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { FDTitle } from "@/components";
 import { PayWraper, PayUp, PayContent } from "./style";
 import { Button, message, Steps, Modal, Tag, Result } from "antd";
-import { getUrl, getOrderInfo, getIpAddr } from "@/service/order";
+import { getUrl, getOrderInfo, getIpAddr, alipay } from "@/service/order";
 import {
   changeFoodOrderCoutnAction,
   changeOrderListAction,
@@ -17,8 +17,10 @@ const FDPay = memo(() => {
   // state
   const { orderNo, orderMoney } = useSelector(
     (state) => ({
-      orderNo: state.getIn(["orderState", "orderNo"]),
-      orderMoney: state.getIn(["foodState", "orderMoney"]),
+      // orderNo: state.getIn(["orderState", "orderNo"]),
+      // orderMoney: state.getIn(["foodState", "orderMoney"]),
+      orderNo: state.orderState.get("orderNo"),
+      orderMoney: state.foodState.get("orderMoney"),
     }),
     shallowEqual
   );
@@ -57,6 +59,13 @@ const FDPay = memo(() => {
     });
   }, []);
 
+  const useAliPay = () => {
+    alipay(params.id).then((res) => {
+      console.log(res);
+      // 将支付宝返回的表单字符串写在浏览器中，表单会自动出发submit提交
+      document.write(res.data.formStr);
+    });
+  };
   // hooks
   useEffect(() => {
     const { id } = params;
@@ -112,7 +121,7 @@ const FDPay = memo(() => {
     dispatch(changeOrderListAction([]));
     dispatch(changeOrderMoneyAction(0));
     dispatch(changeOrderCoutnAction(0));
-    navigate(`/pay/success/${id}`);
+    navigate(`/pay/success`);
   });
 
   return (
@@ -157,7 +166,7 @@ const FDPay = memo(() => {
           <p className="border">支付方式</p>
           <div className="payWay">
             <div className="payItem">
-              <div className="itemTitle alipay"></div>
+              <div className="itemTitle alipay" onClick={useAliPay}></div>
             </div>
             <div className="payItem">
               <div className="itemTitle wechat"></div>

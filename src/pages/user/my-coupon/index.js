@@ -9,7 +9,9 @@ const FDMyCoupon = memo(() => {
   // state
   const { couponList } = useSelector(
     (state) => ({
-      couponList: state.getIn(["userState", "couponList"]),
+      // couponList: state.getIn(["userState", "couponList"]),
+
+      couponList: state.userState.get("couponList"),
     }),
     shallowEqual
   );

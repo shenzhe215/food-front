@@ -117,7 +117,8 @@ export const getFoodList = (typeId) => {
 // -------------修改订单钱数信息-------------
 export const changeOrderMoney = (foodInfo, money, isAdd) => {
   return (dispatch, getState) => {
-    const curMoney = getState().getIn(["foodState", "orderMoney"]);
+    // const curMoney = getState().getIn(["foodState", "orderMoney"]);
+    const curMoney = getState().foodState.get("orderMoney");
     const { id } = foodInfo;
     if (isAdd) {
       const orderMoney = curMoney + money;
@@ -135,8 +136,11 @@ export const changeOrderMoney = (foodInfo, money, isAdd) => {
 export const changeOrderCount = (foodInfo, isAdd) => {
   return (dispatch, getState) => {
     const { id } = foodInfo;
-    const curCount = getState().getIn(["foodState", "foodCount"]);
-    const newFoodOrderCount = getState().getIn(["foodState", "foodOrderCount"]);
+    // const curCount = getState().getIn(["foodState", "foodCount"]);
+    // const newFoodOrderCount = getState().getIn(["foodState", "foodOrderCount"]);
+
+    const curCount = getState().foodState.get("foodCount");
+    const newFoodOrderCount = getState().foodState.get("foodOrderCount");
     const foodOrderCount = JSON.parse(JSON.stringify(newFoodOrderCount));
     if (isAdd) {
       const orderCount = curCount + 1;
@@ -167,7 +171,9 @@ export const changeOrderCount = (foodInfo, isAdd) => {
 // -------------修改订单列表信息-------------
 export const changeOrderList = (foodInfo, addOrDelete) => {
   return (dispatch, getState) => {
-    const orderList = getState().getIn(["foodState", "orderList"]);
+    // const orderList = getState().getIn(["foodState", "orderList"]);
+
+    const orderList = getState().foodState.get("orderList");
     const newOrderList = JSON.parse(JSON.stringify(orderList));
     if (addOrDelete) {
       newOrderList.push(foodInfo);

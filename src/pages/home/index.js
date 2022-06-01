@@ -19,7 +19,8 @@ const FDHome = memo(() => {
   const { isLogin } = useSelector(
     (state) => ({
       // couponList: state.getIn(["homeState", "couponList"]),
-      isLogin: state.getIn(["loginState", "isLogin"]),
+      // isLogin: state.getIn(["loginState", "isLogin"]),
+      isLogin: state.loginState.get("isLogin"),
     }),
     shallowEqual
   );
