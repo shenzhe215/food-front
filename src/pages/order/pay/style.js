@@ -84,22 +84,22 @@ export const PayContent = styled.div`
       display: flex;
       flex-direction: column;
       padding: 0px 10px;
-
-      .itemTitle {
+      .itemTitle,
+      .chosen {
         width: 130px;
         height: 50px;
         border: 1px solid #6ba7ea;
         border-radius: 5px;
+        cursor: pointer;
         background-image: url(${require("@/assets/img/all.jpg")});
       }
 
       .alipay {
-        background-position: -210px 130px;
-        cursor: pointer;
+        background-position: -215px 127px;
       }
 
       .wechat {
-        background-position: -210px 190px;
+        background-position: -210px 187px;
       }
 
       .monitor {
@@ -112,6 +112,22 @@ export const PayContent = styled.div`
           cursor: pointer;
         }
       }
+
+      .chosen {
+        border: 3px solid #1f95ff;
+      }
+    }
+  }
+
+  .sure-pay {
+    text-align: right;
+    margin-top: 20px;
+    margin-right: 9px;
+
+    .pay-btn {
+      width: 128px;
+      height: 40px;
+      font-size: 20px;
     }
   }
 `;

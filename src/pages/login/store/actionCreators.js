@@ -84,8 +84,6 @@ export const getLatestInfoAction = () => {
       });
 
       // 更改登录状态
-      // console.log(cookie.get("food_ucenter"));
-      // console.log(res);
       dispatch(changeUserProfileAction(userInfo));
     });
   };
@@ -104,9 +102,6 @@ export const logOutAction = () => {
     // 更改登录状态
     // clearLoginState();
 
-    // let newLoginInfo = Object.assign(getLoginInfo("loginInfo"), loginInfo);
-    // setLoginInfo("loginInfo", newLoginInfo);
-    // debugger
     // 更改登录状态
     dispatch(changeUserLoginStateAction(false));
     dispatch(changeUserLoginTokenAction(""));
@@ -115,6 +110,6 @@ export const logOutAction = () => {
     dispatch(changeUserProfileAction(newUserProfile));
 
     dispatch(logoutAction());
-    // window.location.href = "/#/login";
+    window.location.href = "/#/login";
   };
 };

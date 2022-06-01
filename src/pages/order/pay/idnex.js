@@ -31,6 +31,7 @@ const FDPay = memo(() => {
   const [url, setUrl] = useState("");
   const [visiable, setVisiable] = useState(false);
   const [id, setId] = useState("");
+  const [payType, setPayType] = useState(-1);
   const [orderInfo, setOrderInfo] = useState({});
   const [socketUrl, setSocketUrl] = useState({
     url: "",
@@ -59,13 +60,28 @@ const FDPay = memo(() => {
     });
   }, []);
 
-  const useAliPay = () => {
+  const chooseAliPay = () => {
     alipay(params.id).then((res) => {
       console.log(res);
       // 将支付宝返回的表单字符串写在浏览器中，表单会自动出发submit提交
       document.write(res.data.formStr);
     });
   };
+
+  const goPay = () => {
+    switch (payType) {
+      case 1:
+        chooseAliPay();
+        break;
+      case 2:
+        message.info("暂不支持微信支付，推荐使用支付宝", 1);
+        break;
+      case 3:
+        setVisiable(!visiable);
+        break;
+    }
+  };
+
   // hooks
   useEffect(() => {
     const { id } = params;
@@ -166,21 +182,34 @@ const FDPay = memo(() => {
           <p className="border">支付方式</p>
           <div className="payWay">
             <div className="payItem">
-              <div className="itemTitle alipay" onClick={useAliPay}></div>
-            </div>
-            <div className="payItem">
-              <div className="itemTitle wechat"></div>
+              <div
+                className={payType === 1 ? "chosen alipay" : "itemTitle alipay"}
+                onClick={() => setPayType(1)}
+              ></div>
             </div>
             <div className="payItem">
               <div
-                className="itemTitle monitor"
+                className={payType === 2 ? "chosen wechat" : "itemTitle wechat"}
+                onClick={() => setPayType(2)}
+              ></div>
+            </div>
+            <div className="payItem">
+              <div
+                className={
+                  payType === 3 ? "chosen monitor" : "itemTitle monitor"
+                }
                 onClick={() => {
-                  setVisiable(!visiable);
+                  setPayType(3);
                 }}
               >
                 模拟支付
               </div>
             </div>
+          </div>
+          <div className="sure-pay">
+            <Button type="primary" className="pay-btn" onClick={() => goPay()}>
+              确认支付
+            </Button>
           </div>
         </PayContent>
       </div>

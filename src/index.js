@@ -21,25 +21,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </Provider>
   </ConfigProvider>
 );
-
-// ReactDOM.render(
-//   <Provider store={store}>
-//     <PersistGate loading={null} persistor={persistor}>
-//       <App />
-//     </PersistGate>
-//   </Provider>,
-//   document.getElementById("root")
-// );
-
-// ReactDOM.render(
-//   <ConfigProvider locale={zhCN}>
-//     <Provider store={store}>
-//       debugger
-//       <PersistGate loading={null} persistor={persistor}>
-//         debugger
-//         <App />
-//       </PersistGate>
-//     </Provider>
-//   </ConfigProvider>,
-//   document.getElementById("root")
-// );
