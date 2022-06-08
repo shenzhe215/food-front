@@ -33,32 +33,32 @@ const FDPay = memo(() => {
   const [id, setId] = useState("");
   const [payType, setPayType] = useState(-1);
   const [orderInfo, setOrderInfo] = useState({});
-  const [socketUrl, setSocketUrl] = useState({
-    url: "",
-  });
+  // const [socketUrl, setSocketUrl] = useState({
+  //   url: "",
+  // });
   // "ws://192.104.1.15:8004/ws/" + params.id
-  const [messageHistory, setMessageHistory] = useState([]);
+  // const [messageHistory, setMessageHistory] = useState([]);
 
-  const fetchIpAddr = () => {
-    getIpAddr().then((res) => {
-      if (res.code === 20000) {
-        const ip = res.data.ip;
-        console.log(ip);
-        socketUrl.url = "ws://" + ip + ":8004/ws/" + params.id;
-        setSocketUrl(socketUrl);
-      } else {
-        message.error("获取ip失败", 1);
-      }
-    });
-  };
+  // const fetchIpAddr = () => {
+  //   getIpAddr().then((res) => {
+  //     if (res.code === 20000) {
+  //       const ip = res.data.ip;
+  //       console.log(ip);
+  //       socketUrl.url = "ws://" + ip + ":8004/ws/" + params.id;
+  //       setSocketUrl(socketUrl);
+  //     } else {
+  //       message.error("获取ip失败", 1);
+  //     }
+  //   });
+  // };
 
-  const getSocketUrl = useCallback(() => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(socketUrl.url);
-      }, 2000);
-    });
-  }, []);
+  // const getSocketUrl = useCallback(() => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve(socketUrl.url);
+  //     }, 2000);
+  //   });
+  // }, []);
 
   const chooseAliPay = () => {
     alipay(params.id).then((res) => {
@@ -76,9 +76,9 @@ const FDPay = memo(() => {
       case 2:
         message.info("暂不支持微信支付，推荐使用支付宝", 1);
         break;
-      case 3:
-        setVisiable(!visiable);
-        break;
+      // case 3:
+      //   setVisiable(!visiable);
+      //   break;
     }
   };
 
@@ -87,43 +87,43 @@ const FDPay = memo(() => {
     const { id } = params;
     setId(id);
     // 获取ip信息
-    fetchIpAddr();
+    // fetchIpAddr();
     // 获取订单信息
     getOrderInfo(id).then((res) => {
       if (res.code === 20000) {
         setOrderInfo(res.data.item);
 
         // 获取支付二维码
-        getUrl(id).then((res) => {
-          if (res.code === 20000) {
-            setUrl(res.data.url);
-          } else {
-            message.error(res.message, 1);
-          }
-        });
+        // getUrl(id).then((res) => {
+        //   if (res.code === 20000) {
+        //     setUrl(res.data.url);
+        //   } else {
+        //     message.error(res.message, 1);
+        //   }
+        // });
       } else {
         message.error(res.message, 1);
       }
     });
   }, []);
 
-  const { lastMessage, getWebSocket } = useWebSocket(getSocketUrl, {
-    onOpen: () => {
-      console.log("opened");
-    },
-    onClose: () => {
-      console.log("closed");
-    },
-    onMessage: (msg) => {
-      if (msg.data === "连接成功") {
-        console.log("连接成功");
-      }
-      if (msg.data === "支付成功") {
-        clearOrderState();
-      }
-    },
-    shouldReconnect: false,
-  });
+  // const { lastMessage, getWebSocket } = useWebSocket(getSocketUrl, {
+  //   onOpen: () => {
+  //     console.log("opened");
+  //   },
+  //   onClose: () => {
+  //     console.log("closed");
+  //   },
+  //   onMessage: (msg) => {
+  //     if (msg.data === "连接成功") {
+  //       console.log("连接成功");
+  //     }
+  //     if (msg.data === "支付成功") {
+  //       clearOrderState();
+  //     }
+  //   },
+  //   shouldReconnect: false,
+  // });
 
   // other hooks
   const payOrder = () => {
@@ -193,7 +193,7 @@ const FDPay = memo(() => {
                 onClick={() => setPayType(2)}
               ></div>
             </div>
-            <div className="payItem">
+            {/* <div className="payItem">
               <div
                 className={
                   payType === 3 ? "chosen monitor" : "itemTitle monitor"
@@ -204,7 +204,7 @@ const FDPay = memo(() => {
               >
                 模拟支付
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="sure-pay">
             <Button type="primary" className="pay-btn" onClick={() => goPay()}>
@@ -213,7 +213,7 @@ const FDPay = memo(() => {
           </div>
         </PayContent>
       </div>
-      <Modal
+      {/* <Modal
         visible={visiable}
         onCancel={() => {
           setVisiable(false);
@@ -237,7 +237,7 @@ const FDPay = memo(() => {
             ￥
           </Tag>
         </div>
-      </Modal>
+      </Modal> */}
     </PayWraper>
   );
 });
